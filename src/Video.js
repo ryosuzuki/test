@@ -33,23 +33,29 @@ class Video extends Component {
     let begin = Date.now()
     console.log(this.cap)
     try {
-      let src = new cv.Mat(720, 1280, cv.CV_8UC4)
-      let dst = new cv.Mat(720, 1280, cv.CV_8UC4)
-      this.cap.read(src)
+      let srcMat = new cv.Mat(720, 1280, cv.CV_8UC4)
+      let dstMat = new cv.Mat(720, 1280, cv.CV_8UC4)
+      this.cap.read(srcMat)
 
-      let gray = new cv.Mat(720, 1280, cv.CV_8UC4)
-      cv.cvtColor(src, gray, cv.COLOR_RGBA2GRAY)
+      let grayMat = new cv.Mat(720, 1280, cv.CV_8UC4)
+      cv.cvtColor(srcMat, grayMat, cv.COLOR_RGBA2GRAY)
 
-      let outputCanvas = document.getElementById("canvasOutput");
-      console.log(gray)
-      
-      cv.imshow(outputCanvas, gray)
+      let edgesMat = new cv.Mat(720, 1280, cv.CV_8UC4)
+      cv.Canny(grayMat, edgesMat, 50, 200, 3, false)
+
+      let kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3))
+      cv.dilate(edgesMat, edgesMat, kernel)
+      cv.erode(edgesMat, edgesMat, kernel)
+
+      let outputCanvas = document.getElementById("canvasOutput")
+      cv.imshow(outputCanvas, edgesMat)
+
       let delay = 1000 / FPS - (Date.now() - begin)
       setTimeout(this.processing.bind(this), delay)
     } catch (err) {
-      console.error(err);
+      console.error(err)
       let delay = 1000 / FPS - (Date.now() - begin)
-      setTimeout(this.processing.bind(this), delay)      
+      setTimeout(this.processing.bind(this), delay)
     }
   }
 
