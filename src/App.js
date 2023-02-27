@@ -12,6 +12,22 @@ class App extends Component {
   }
 
   componentDidMount() {
+    const inputVideo = document.getElementById('input_video')
+    console.log(inputVideo)
+
+    navigator.mediaDevices
+    .getUserMedia({
+      video: true, audio: false,
+    })
+    .then(async function (stream) {
+      inputVideo.srcObject = stream;
+      inputVideo.play();
+      // schedule the first one.
+      // setTimeout(processVideo, 0);
+    })
+    .catch(function (err) {
+      console.log("An error occurred! " + err);
+    })
 
   }
 

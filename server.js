@@ -4,8 +4,18 @@ const http = require('http')
 const https = require('https')
 const fs = require('fs')
 const path = require('path')
+const cors = require('cors')
 const app = express()
 const server = http.Server(app)
+app.use(cors())
+const io = socketio(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST']
+  }
+})
+
+app.use(express.static('./'))
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/public/index.html'))
@@ -14,8 +24,8 @@ app.get('/', (req, res) => {
 // const Toio = require('./toio')
 // const toio = new Toio()
 
-server.listen(3000, () => {
-  console.log('listening 3000')
+server.listen(4000, () => {
+  console.log('listening 4000')
 
 //   toio.io = io
 //   toio.init()
