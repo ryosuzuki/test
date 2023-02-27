@@ -12,3 +12,10 @@
   left: 0;
   z-index: 1000;
 }
+
+#canvasOutput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+}
