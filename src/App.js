@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-// import Canvas from './Canvas'
+import Video from './Video'
 import { io } from 'socket.io-client'
 
 class App extends Component {
@@ -12,23 +12,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const inputVideo = document.getElementById('input_video')
-    console.log(inputVideo)
-
-    navigator.mediaDevices
-    .getUserMedia({
-      video: true, audio: false,
-    })
-    .then(async function (stream) {
-      inputVideo.srcObject = stream;
-      inputVideo.play();
-      // schedule the first one.
-      // setTimeout(processVideo, 0);
-    })
-    .catch(function (err) {
-      console.log("An error occurred! " + err);
-    })
-
   }
 
   init() {
@@ -104,6 +87,7 @@ class App extends Component {
     return (
       <>
         <a-plane class="cantap" position="0 0 0" rotation="-90 0 0" width="10" height="10" color="#ccc"></a-plane>
+        <Video />
       </>
     )
   }
