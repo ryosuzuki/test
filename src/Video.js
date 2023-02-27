@@ -27,28 +27,68 @@ class Video extends Component {
     })
   }
 
-  processing() {
+  /*
+  startLoop() {
     console.log('hello')
     const FPS = 10
     let begin = Date.now()
     console.log(this.cap)
     try {
+
+      let delay = 1000 / FPS - (Date.now() - begin)
+      console.log(delay)
+      setTimeout(this.processing.bind(this), delay)
+    } catch (err) {
+      console.error(err)
+      let delay = 1000 / FPS - (Date.now() - begin)
+      console.log(delay)
+      setTimeout(this.processing.bind(this), delay)
+    }
+  }
+  */
+
+  processing() {
+    const FPS = 1
+    let begin = Date.now()
+    try {
       let srcMat = new cv.Mat(720, 1280, cv.CV_8UC4)
-      let dstMat = new cv.Mat(720, 1280, cv.CV_8UC4)
       this.cap.read(srcMat)
 
-      let grayMat = new cv.Mat(720, 1280, cv.CV_8UC4)
-      cv.cvtColor(srcMat, grayMat, cv.COLOR_RGBA2GRAY)
+      let tempMat = new cv.Mat(720, 1280, cv.CV_8UC4)
+      cv.cvtColor(srcMat, tempMat, cv.COLOR_RGBA2GRAY)
+      cv.GaussianBlur(tempMat, tempMat, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT)
+      cv.adaptiveThreshold(tempMat, tempMat, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY_INV, 11, 2)
+      let contours = new cv.MatVector()
+      let hierarchy = new cv.Mat()
+      cv.findContours(tempMat, contours, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
 
-      let edgesMat = new cv.Mat(720, 1280, cv.CV_8UC4)
-      cv.Canny(grayMat, edgesMat, 50, 200, 3, false)
+      let maxArea = 0
+      let maxContour = null
 
-      let kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3))
-      cv.dilate(edgesMat, edgesMat, kernel)
-      cv.erode(edgesMat, edgesMat, kernel)
+      for (let i = 0; i < contours.size(); i++) {
+        let contour = contours.get(i)
+        let area = cv.contourArea(contour)
+
+        if (area > maxArea) {
+          maxArea = area
+          maxContour = contour
+        }
+      }
+
+      let epsilon = 0.1 * cv.arcLength(maxContour, true)
+      let approx = new cv.Mat()
+      cv.approxPolyDP(maxContour, approx, epsilon, true)
+
+      console.log(approx.rows)
+      if (approx.rows === 4) {
+        let approxVec = new cv.MatVector();
+        approxVec.push_back(approx);
+        cv.polylines(srcMat, approxVec, true, new cv.Scalar(255, 0, 0, 255), 2, cv.LINE_AA, 0);
+        // cv.polylines(srcMat, [approx], true, new cv.Scalar(255, 0, 0, 255), 2, cv.LINE_AA, 0)
+      }
 
       let outputCanvas = document.getElementById("canvasOutput")
-      cv.imshow(outputCanvas, edgesMat)
+      cv.imshow(outputCanvas, srcMat)
 
       let delay = 1000 / FPS - (Date.now() - begin)
       setTimeout(this.processing.bind(this), delay)
@@ -57,6 +97,25 @@ class Video extends Component {
       let delay = 1000 / FPS - (Date.now() - begin)
       setTimeout(this.processing.bind(this), delay)
     }
+  }
+
+  processing2() {
+    let srcMat = new cv.Mat(720, 1280, cv.CV_8UC4)
+    let dstMat = new cv.Mat(720, 1280, cv.CV_8UC4)
+    this.cap.read(srcMat)
+
+    let grayMat = new cv.Mat(720, 1280, cv.CV_8UC4)
+    cv.cvtColor(srcMat, grayMat, cv.COLOR_RGBA2GRAY)
+
+    let edgesMat = new cv.Mat(720, 1280, cv.CV_8UC4)
+    cv.Canny(grayMat, edgesMat, 50, 200, 3, false)
+
+    let kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3))
+    cv.dilate(edgesMat, edgesMat, kernel)
+    cv.erode(edgesMat, edgesMat, kernel)
+
+    let outputCanvas = document.getElementById("canvasOutput")
+    cv.imshow(outputCanvas, edgesMat)
   }
 
   render() {
