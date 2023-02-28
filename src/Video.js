@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+window.sample = require('./sample.json')
+
 class Video extends Component {
   constructor(props) {
     super(props)
@@ -17,8 +19,6 @@ class Video extends Component {
     .then(async function (stream) {
       inputVideo.srcObject = stream
       inputVideo.play()
-      // schedule the first one.
-      // setTimeout(processVideo, 0)
       temp.cap = new cv.VideoCapture(inputVideo)
       temp.processing()
     })
@@ -26,26 +26,6 @@ class Video extends Component {
       console.log("An error occurred! " + err)
     })
   }
-
-  /*
-  startLoop() {
-    console.log('hello')
-    const FPS = 10
-    let begin = Date.now()
-    console.log(this.cap)
-    try {
-
-      let delay = 1000 / FPS - (Date.now() - begin)
-      console.log(delay)
-      setTimeout(this.processing.bind(this), delay)
-    } catch (err) {
-      console.error(err)
-      let delay = 1000 / FPS - (Date.now() - begin)
-      console.log(delay)
-      setTimeout(this.processing.bind(this), delay)
-    }
-  }
-  */
 
   processing() {
     const FPS = 1
@@ -61,41 +41,55 @@ class Video extends Component {
       let contours = new cv.MatVector()
       let hierarchy = new cv.Mat()
       cv.findContours(tempMat, contours, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
-
-      let maxArea = 0
-      let maxContour = null
-
       let approx = this.getApprox(contours, tempMat.cols, tempMat.rows)
 
-      // for (let i = 0; i < contours.size(); i++) {
-      //   let contour = contours.get(i)
-      //   let area = cv.contourArea(contour)
-
-      //   if (area > maxArea) {
-      //     maxArea = area
-      //     maxContour = contour
-      //   }
-      // }
-
-      // let epsilon = 0.1 * cv.arcLength(maxContour, true)
-      // let approx = new cv.Mat()
-      // cv.approxPolyDP(maxContour, approx, epsilon, true)
-
       console.log(approx.rows)
-      if (approx.rows === 4) {
-        let approxVec = new cv.MatVector()
-        approxVec.push_back(approx)
-        cv.polylines(srcMat, approxVec, true, new cv.Scalar(255, 0, 0, 255), 2, cv.LINE_AA, 0)
+      let approxVec = new cv.MatVector()
+      approxVec.push_back(approx)
+      cv.polylines(srcMat, approxVec, true, new cv.Scalar(255, 0, 0, 255), 2, cv.LINE_AA, 0)
 
-        let [srcPoints, dstPoints, dSize] = this.rectify(approx)
-        console.log(dSize)
-        let M = cv.getPerspectiveTransform(srcPoints, dstPoints)
-        let dstMat = new cv.Mat(850, 1100, cv.CV_8UC4)
-        cv.warpPerspective(srcMat, dstMat, M, dSize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar())
-        let outputCanvas2 = document.getElementById("canvasOutput2")
-        cv.imshow(outputCanvas2, dstMat)
+      let [points, srcPoints, dstPoints, dSize] = this.rectify(approx)
+      let M = cv.getPerspectiveTransform(srcPoints, dstPoints)
+      let dstMat = new cv.Mat(850, 1100, cv.CV_8UC4)
+      cv.warpPerspective(srcMat, dstMat, M, dSize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar())
+      let outputCanvas2 = document.getElementById("canvasOutput2")
+      cv.imshow(outputCanvas2, dstMat)
+
+      const canvas = document.getElementById('canvasOutput3');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      let homography = cv.findHomography(srcPoints, dstPoints)
+      let invHomography = new cv.Mat()
+      cv.invert(homography, invHomography)
+
+      let w = dSize.width  / 1660
+      let h = dSize.height / 2149
+
+      let labels = window.sample.textAnnotations
+      for (let i = 0 ; i < labels.length; i++) {
+        let label = labels[i]
+        let vertices = label.boundingPoly.vertices
+        let matData = []
+        for (let j = 0; j < vertices.length; j++) {
+          let vertex = vertices[j]
+          matData.push(vertex.x * w)
+          matData.push(vertex.y * h)
+        }
+        // console.log(matData)
+        let srcCorners = new cv.Mat(4, 1, cv.CV_32FC2)
+        srcCorners.data32F.set(matData)
+        let dstCoordinates = new cv.Mat()
+        cv.perspectiveTransform(srcCorners, dstCoordinates, invHomography)
+
+        let array = [dstCoordinates.data32F[0], dstCoordinates.data32F[1], dstCoordinates.data32F[2], dstCoordinates.data32F[3], dstCoordinates.data32F[4], dstCoordinates.data32F[5], dstCoordinates.data32F[6], dstCoordinates.data32F[7]]
+        window.array = array
+        let randomColor = Math.floor(Math.random()*16777215).toString(16);
+        randomColor = 'ff00ff'
+        if (i > 1) {
+          this.drawRect(array, `#${randomColor}`)
+        }
       }
-
       let outputCanvas = document.getElementById("canvasOutput")
       cv.imshow(outputCanvas, srcMat)
 
@@ -108,22 +102,22 @@ class Video extends Component {
     }
   }
 
+  drawRect(points, color='green') {
+    const canvas = document.getElementById('canvasOutput3');
+    const ctx = canvas.getContext('2d');
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(points[0], points[1])
+    ctx.lineTo(points[2], points[3])
+    ctx.lineTo(points[4], points[5])
+    ctx.lineTo(points[6], points[7])
+    ctx.closePath()
+    ctx.fill();
+    ctx.stroke();
+  }
 
   getApprox(contours, width, height) {
-    // for (let i = 0; i < contours.size(); i++) {
-    //   let contour = contours.get(i)
-    //   let area = cv.contourArea(contour)
-
-    //   if (area > maxArea) {
-    //     maxArea = area
-    //     maxContour = contour
-    //   }
-    // }
-
-    // let epsilon = 0.1 * cv.arcLength(maxContour, true)
-    // let approx = new cv.Mat()
-    // cv.approxPolyDP(maxContour, approx, epsilon, true)
-
     const sorted = new Array();
     for (let i = 0; i < contours.size(); i++) {
       const arcLength = cv.arcLength(contours.get(i), true);
@@ -184,9 +178,8 @@ class Video extends Component {
     const dstPoints = cv.matFromArray(4, 1, cv.CV_32FC2, dst)
     const dSize = new cv.Size(width, height)
 
-    return [srcPoints, dstPoints, dSize]
+    return [src, srcPoints, dstPoints, dSize]
   }
-
 
   processing2() {
     let srcMat = new cv.Mat(720, 1280, cv.CV_8UC4)
