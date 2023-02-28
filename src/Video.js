@@ -85,6 +85,17 @@ class Video extends Component {
         approxVec.push_back(approx);
         cv.polylines(srcMat, approxVec, true, new cv.Scalar(255, 0, 0, 255), 2, cv.LINE_AA, 0);
         // cv.polylines(srcMat, [approx], true, new cv.Scalar(255, 0, 0, 255), 2, cv.LINE_AA, 0)
+
+        // let warped = cv.warpImage(srcMat, approxVec.get(0))
+        // let sortedApproxVec = sortPointsClockwise(approxVec)
+        const roiMat = new cv.Mat(4, 1, cv.CV_32FC2)
+        roiMat.data32F = approxVec.get(0).flat()
+        let dstPoints = [0, 0, 800, 0, 800, 800, 0, 800]
+        let M = cv.getPerspectiveTransform(roiMat, dstPoints)
+        // let dstMat = new cv.Mat(800, 800, cv.CV_8UC4)
+        // cv.warpPerspective(srcMat, dstMat, M, dstMat.size(), cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar())
+        // let outputCanvas2 = document.getElementById("canvasOutput2")
+        // cv.imshow(outputCanvas2, dstMat)
       }
 
       let outputCanvas = document.getElementById("canvasOutput")
