@@ -3,38 +3,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/16/Stats.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image-aframe.prod.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.0/dist/mindar.prod.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/dist/mindar.prod.js"></script> -->
     <script src="http://localhost:4000/public/opencv.js"></script>
+    <!-- <script src="https://unpkg.com/aframe-htmlembed-component@1.0.0/dist/build.js"></script> -->
   </head>
-
   <body>
-    <div class="example-container">
-      <a-scene mindar-image="imageTargetSrc: http://localhost:4000/public/targets.mind; showStats: true;" embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-        <a-entity id="root"></a-entity>
-        <a-assets>
-          <img id="card" src="http://localhost:4000/public/viz.png" />
-          <img id="card-2" src="http://localhost:4000/public/annotation-1.png" />
-          <img id="card-3" src="http://localhost:4000/public/annotation-2.png" />
-        </a-assets>
-
-        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
-        <a-entity mindar-image-target="targetIndex: 0">
-          <a-plane src="#card" position="0 1 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-          <a-plane src="#card-2" position="-0.8 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-          <a-plane src="#card-3" position="0.8 -0.5 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-        </a-entity>
-      </a-scene>
-    </div>
-    <div id="opencv">
-      <canvas id="canvasOutput"></canvas>
-      <canvas id="canvasOutput2" width="850" height="1100"></canvas>
-      <!-- <canvas id="canvasOutput3" width="1280" height="720"></canvas> -->
-    </div>
-    <div id="buttons">
-      <button id="summary">Summary</button>
-    </div>
+    <div id="root"></div>
   </body>
 </html>

@@ -1,0 +1,26 @@
+{
+  "role": "assistant",
+  "id": "cmpl-6p2EtudrwowlW2hL6f1u6oegmkMJK",
+  "parentMessageId": "7809e72b-1927-4e66-8652-e34c2ae719bd",
+  "conversationId": "2a933521-0c6a-4b0a-9164-75ef6d9f470b",
+  "text": "{ \"date\": \"2023-02-28\", \"data\": [{ \"type\": \"Dynamic Graphs\" }, { \"type\": \"Exemplify Equation\" }, { \"type\": \"Segmented Color Change\" }, { \"type\": \"Physics Simulation\" }, { \"type\": \"Supporting Lines\" }, { \"type\": \"Dynamic Value Slider\" }] }",
+  "detail": {
+    "id": "cmpl-6p2EtudrwowlW2hL6f1u6oegmkMJK",
+    "object": "text_completion",
+    "created": 1677621355,
+    "model": "text-davinci-003",
+    "choices": [
+      {
+        "text": "{ \"date\": \"2023-02-28\", \"data\": [{ \"type\": \"Dynamic Graphs\" }, { \"type\": \"Exemplify Equation\" }, { \"type\": \"Segmented Color Change\" }, { \"type\": \"Physics Simulation\" }, { \"type\": \"Supporting Lines\" }, { \"type\": \"Dynamic Value Slider\" }] }",
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1065,
+      "completion_tokens": 82,
+      "total_tokens": 1147
+    }
+  }
+}

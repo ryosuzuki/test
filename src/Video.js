@@ -48,7 +48,6 @@ class Video extends Component {
     cv.imshow(outputCanvas2, dstMat)
 
     let approxVec = new cv.MatVector();
-    console.log(approxVec)
     approxVec.push_back(approx);
     cv.polylines(tempMat, approxVec, true, new cv.Scalar(255, 0, 0, 255), 2, cv.LINE_AA, 0);
 
@@ -225,7 +224,11 @@ class Video extends Component {
   render() {
     return (
       <>
-        <p>Hello World</p>
+        <div id="opencv">
+          <canvas id="canvasOutput"></canvas>
+          <canvas id="canvasOutput2" width="850" height="1100"></canvas>
+          <canvas id="canvasOutput3" width="1280" height="720"></canvas>
+        </div>
       </>
     )
   }
