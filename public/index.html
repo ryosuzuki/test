@@ -6,6 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/16/Stats.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image-aframe.prod.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.0/dist/mindar.prod.js"></script>
+    <script src="http://localhost:4000/public/opencv.js"></script>
 
     <style>
       body {
@@ -23,6 +24,7 @@
   <body>
     <div class="example-container">
       <a-scene mindar-image="imageTargetSrc: http://localhost:4000/public/targets.mind; showStats: true;" embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+        <a-entity id="root"></a-entity>
         <a-assets>
           <img id="card" src="http://localhost:4000/public/viz.png" />
           <img id="card-2" src="http://localhost:4000/public/annotation-1.png" />
@@ -38,5 +40,10 @@
         </a-entity>
       </a-scene>
     </div>
+    <div id="opencv">
+      <canvas id="canvasOutput"></canvas>
+      <canvas id="canvasOutput2" width="850" height="1100"></canvas>
+      <!-- <canvas id="canvasOutput3" width="1280" height="720"></canvas> -->
+    </div>    
   </body>
 </html>

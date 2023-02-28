@@ -8,7 +8,21 @@ class Video extends Component {
   }
 
   componentDidMount() {
-    const inputVideo = document.getElementById('input_video')
+    window.sample = sample 
+    window.Video = this
+    const sceneEl = document.querySelector('a-scene')
+    const intervalId = setInterval(() => {
+      this.inputVideo = sceneEl.systems['mindar-image-system'].video
+      if (this.inputVideo.readyState >= this.inputVideo.HAVE_METADATA) {
+        console.log('MindAR video is now available!')
+        this.cap = new cv.VideoCapture(this.inputVideo)
+        this.processing()
+        clearInterval(intervalId) 
+      }
+    }, 1000) // Check every 1 second
+    return
+
+    // const inputVideo = document.getElementById('input_video')
     console.log(inputVideo)
 
     window.sample = sample 
@@ -32,10 +46,12 @@ class Video extends Component {
     const FPS = 1
     let begin = Date.now()
     try {
-      let srcMat = new cv.Mat(720, 1280, cv.CV_8UC4)
+      let width = this.inputVideo.width
+      let height = this.inputVideo.height
+      let srcMat = new cv.Mat(height, width, cv.CV_8UC4)
       this.cap.read(srcMat)
 
-      let tempMat = new cv.Mat(720, 1280, cv.CV_8UC4)
+      let tempMat = new cv.Mat(height, width, cv.CV_8UC4)
       cv.cvtColor(srcMat, tempMat, cv.COLOR_RGBA2GRAY)
       cv.GaussianBlur(tempMat, tempMat, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT)
       cv.adaptiveThreshold(tempMat, tempMat, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY_INV, 11, 2)
@@ -56,9 +72,9 @@ class Video extends Component {
       let outputCanvas2 = document.getElementById("canvasOutput2")
       cv.imshow(outputCanvas2, dstMat)
 
-      const canvas = document.getElementById('canvasOutput3');
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // const canvas = document.getElementById('canvasOutput3');
+      // const ctx = canvas.getContext('2d');
+      // ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       let homography = cv.findHomography(srcPoints, dstPoints)
       let invHomography = new cv.Mat()
@@ -88,10 +104,15 @@ class Video extends Component {
         let randomColor = Math.floor(Math.random()*16777215).toString(16);
         randomColor = 'ff00ff'
         if (i > 1) {
-          this.drawRect(array, `#${randomColor}`)
+          // this.drawRect(array, `#${randomColor}`)
         }
       }
       let outputCanvas = document.getElementById("canvasOutput")
+      outputCanvas.width = this.inputVideo.width
+      outputCanvas.height = this.inputVideo.height
+      for (const prop of Object.keys(this.inputVideo.style)) {
+        outputCanvas.style[prop] = this.inputVideo.style[prop]
+      }      
       cv.imshow(outputCanvas, srcMat)
 
       let delay = 1000 / FPS - (Date.now() - begin)
@@ -182,24 +203,6 @@ class Video extends Component {
     return [src, srcPoints, dstPoints, dSize]
   }
 
-  processing2() {
-    let srcMat = new cv.Mat(720, 1280, cv.CV_8UC4)
-    let dstMat = new cv.Mat(720, 1280, cv.CV_8UC4)
-    this.cap.read(srcMat)
-
-    let grayMat = new cv.Mat(720, 1280, cv.CV_8UC4)
-    cv.cvtColor(srcMat, grayMat, cv.COLOR_RGBA2GRAY)
-
-    let edgesMat = new cv.Mat(720, 1280, cv.CV_8UC4)
-    cv.Canny(grayMat, edgesMat, 50, 200, 3, false)
-
-    let kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3))
-    cv.dilate(edgesMat, edgesMat, kernel)
-    cv.erode(edgesMat, edgesMat, kernel)
-
-    let outputCanvas = document.getElementById("canvasOutput")
-    cv.imshow(outputCanvas, edgesMat)
-  }
 
   render() {
     return (

@@ -2,8 +2,8 @@ import express from 'express'
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 import { readFileSync } from 'fs'
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
 import cors from 'cors'
 const filename = fileURLToPath(import.meta.url)
 const directory = dirname(filename)
