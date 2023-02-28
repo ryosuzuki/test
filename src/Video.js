@@ -16,31 +16,50 @@ class Video extends Component {
       if (this.inputVideo.readyState >= this.inputVideo.HAVE_METADATA) {
         console.log('MindAR video is now available!')
         this.cap = new cv.VideoCapture(this.inputVideo)
-        this.processing()
+        this.getDocument()
         clearInterval(intervalId) 
       }
-    }, 1000) // Check every 1 second
-    return
-
-    // const inputVideo = document.getElementById('input_video')
-    console.log(inputVideo)
-
-    window.sample = sample 
-    let temp = this
-    navigator.mediaDevices
-    .getUserMedia({
-      video: true, audio: false,
-    })
-    .then(async function (stream) {
-      inputVideo.srcObject = stream
-      inputVideo.play()
-      temp.cap = new cv.VideoCapture(inputVideo)
-      temp.processing()
-    })
-    .catch(function (err) {
-      console.log("An error occurred! " + err)
-    })
+    }, 1000) // Check every 1 second until ready
   }
+
+  getDocument() {
+    let width = this.inputVideo.width
+    let height = this.inputVideo.height
+    let srcMat = new cv.Mat(height, width, cv.CV_8UC4)
+    this.cap.read(srcMat)
+    let tempMat = new cv.Mat(height, width, cv.CV_8UC4)
+    cv.cvtColor(srcMat, tempMat, cv.COLOR_RGBA2GRAY)
+    cv.GaussianBlur(tempMat, tempMat, new cv.Size(5, 5), 0, 0, cv.BORDER_DEFAULT)
+    cv.adaptiveThreshold(tempMat, tempMat, 255, cv.ADAPTIVE_THRESH_GAUSSIAN_C, cv.THRESH_BINARY_INV, 11, 2)
+    cv.Canny(tempMat, tempMat, 0, 50);
+    let kernel = cv.getStructuringElement(cv.MORPH_RECT, new cv.Size(3, 3))
+    cv.dilate(tempMat, tempMat, kernel)
+    cv.erode(tempMat, tempMat, kernel)
+
+    let contours = new cv.MatVector()
+    let hierarchy = new cv.Mat()
+    cv.findContours(tempMat, contours, hierarchy, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
+
+    let approx = this.getApprox(contours, tempMat.cols, tempMat.rows)
+    let [points, srcPoints, dstPoints, dSize] = this.rectify(approx)
+    let M = cv.getPerspectiveTransform(srcPoints, dstPoints)
+    let dstMat = new cv.Mat(850, 1100, cv.CV_8UC4)
+    cv.warpPerspective(srcMat, dstMat, M, dSize, cv.INTER_LINEAR, cv.BORDER_CONSTANT, new cv.Scalar())
+    let outputCanvas2 = document.getElementById("canvasOutput2")
+    cv.imshow(outputCanvas2, dstMat)
+
+    let approxVec = new cv.MatVector();
+    console.log(approxVec)
+    approxVec.push_back(approx);
+    cv.polylines(tempMat, approxVec, true, new cv.Scalar(255, 0, 0, 255), 2, cv.LINE_AA, 0);
+
+    let outputCanvas = document.getElementById("canvasOutput")
+    outputCanvas.width = this.inputVideo.width
+    outputCanvas.height = this.inputVideo.height
+    cv.imshow(outputCanvas, tempMat)
+
+  }
+
 
   processing() {
     const FPS = 1
@@ -112,7 +131,7 @@ class Video extends Component {
       outputCanvas.height = this.inputVideo.height
       for (const prop of Object.keys(this.inputVideo.style)) {
         outputCanvas.style[prop] = this.inputVideo.style[prop]
-      }      
+      }
       cv.imshow(outputCanvas, srcMat)
 
       let delay = 1000 / FPS - (Date.now() - begin)
