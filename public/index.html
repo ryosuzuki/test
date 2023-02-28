@@ -1,15 +1,11 @@
-<!--
- Basic example
--->
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- <script src="../../dist-dev/mindar-image.js" type="module"></script> -->
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/16/Stats.min.js"></script>
-    <!-- <script src="../../dist-dev/mindar-image-aframe.js" ></script> -->
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image-aframe.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.0/dist/mindar.prod.js"></script>
 
     <style>
       body {
@@ -31,8 +27,6 @@
           <img id="card" src="http://localhost:4000/public/viz.png" />
           <img id="card-2" src="http://localhost:4000/public/annotation-1.png" />
           <img id="card-3" src="http://localhost:4000/public/annotation-2.png" />
-
-          <!-- <a-asset-item id="avatarModel" src="https://raw.githubusercontent.com/hiukim/mind-ar-js/master/examples/image-tracking/assets/card-example/softmind/scene.gltf"></a-asset-item> -->
         </a-assets>
 
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
@@ -41,11 +35,6 @@
           <a-plane src="#card" position="0 1 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
           <a-plane src="#card-2" position="-0.8 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
           <a-plane src="#card-3" position="0.8 -0.5 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
-          <!--
-          <a-gltf-model rotation="0 0 0 " position="0 0 0.1" scale="0.005 0.005 0.005" src="#avatarModel"
-            animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
-          >
-          -->
         </a-entity>
       </a-scene>
     </div>

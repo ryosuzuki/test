@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-window.sample = require('./sample.json')
+import sample from './sample.json'
 
 class Video extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class Video extends Component {
     const inputVideo = document.getElementById('input_video')
     console.log(inputVideo)
 
+    window.sample = sample 
     let temp = this
     navigator.mediaDevices
     .getUserMedia({

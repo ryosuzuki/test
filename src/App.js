@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import Video from './Video'
+import Video from './Video.js'
 import { io } from 'socket.io-client'
 
 class App extends Component {
