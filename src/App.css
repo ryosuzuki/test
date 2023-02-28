@@ -1,17 +1,12 @@
-#matter-canvas {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: none;
-  z-index: -1;
+body {
+  margin: 0;
 }
 
-#video {
+.example-container {
+  overflow: hidden;
   position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  display: none;
+  width: 100%;
+  height: 100%;
 }
 
 #canvasOutput {
@@ -33,4 +28,11 @@
   top: 0;
   left: 0;
   z-index: 1002;
+}
+
+#buttons {
+  position: fixed;
+  z-index: 1010;
+  top: 10px;
+  right: 10px;
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import Video from './Video.js'
 import { io } from 'socket.io-client'
+import sample from './sample.json'
 
 class App extends Component {
   constructor(props) {
@@ -9,13 +10,27 @@ class App extends Component {
     window.app = this
     window.App = this
 
+    if (window.location.href.includes('localhost')) {
+      this.socket = io('http://localhost:4000')
+    }
   }
 
   componentDidMount() {
+    let button = document.querySelector('#summary')
+    button.addEventListener('click', () => {
+      const rawtext = sample.textAnnotations[0].description
+      const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
+      let q = "I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: " + text;
+      this.socket.emit('summary', q)
+    })
+
+    this.socket.on('summary', (res) => {
+      console.log(res)
+    })
+
   }
 
   init() {
-
   }
 
   mouseDown(event) {
