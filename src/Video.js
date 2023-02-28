@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import sample from './sample.json'
 
 class Video extends Component {

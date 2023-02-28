@@ -11,7 +11,7 @@ import { ChatGPTAPI } from 'chatgpt'
 const filename = fileURLToPath(import.meta.url)
 const directory = dirname(filename)
 
-const config = JSON.parse(fs.readFileSync(join(directory, 'config.json'), 'utf8'))
+const config = getJson('config.json')
 const api = new ChatGPTAPI({
   apiKey: config.apiKey,
   completionParams: {
@@ -69,11 +69,20 @@ io.on('connection', (socket) => {
 
 async function ask(msg) {
   // let res = await api.sendMessage(msg)
-  // fs.writeFileSync(join(directory, 'sample/summary.json'), JSON.stringify(msg, 'null', 2)))
-  let res = JSON.parse(fs.readFileSync(join(directory, 'sample/summary.json'), 'utf8'))
+  // saveJson('sample/summary.json', msg)
+  let res = getJson('sample/summary.json')
   console.log(res)
   return res
 }
+
+function getJson(path) {
+  return JSON.parse(fs.readFileSync(join(directory, path), 'utf8'))
+}
+
+function saveJson(path, json) {
+  fs.writeFileSync(join(directory, path), JSON.stringify(json, 'null', 2))
+}
+
 
 const cred = join(directory, 'key.json');
 const pic = join(directory, 'test.jpg');
