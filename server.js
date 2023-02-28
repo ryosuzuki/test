@@ -63,28 +63,14 @@ io.on('connection', (socket) => {
     console.log('ask summary')
     // pyshell.send(msg)
     let res = await ask(msg)
-    console.log(res.text)
     socket.emit('summary', res)
   })
 })
 
 async function ask(msg) {
   // let res = await api.sendMessage(msg)
-  let res = {
-    role: 'assistant',
-    id: 'cmpl-6p0azMarOkywSdX1Wye2bF4RwaMzK',
-    parentMessageId: '87882780-b577-418c-9f55-a61212d4c97f',
-    conversationId: 'affe478a-da19-4688-8bf3-c84c2303c7cb',
-    text: 'Reality Extract is an augmented reality authoring tool that allows users to create interactive math textbooks through a data-driven approach. It provides six animation techniques such as dynamic graphs, exemplify equations, segmented color change, physics simulation, supporting lines and dynamic value slider to augment the textbook. The system has been evaluated with 12 students, who found it to be more engaging and understandable than static textbooks.',
-    detail: {
-      id: 'cmpl-6p0azMarOkywSdX1Wye2bF4RwaMzK',
-      object: 'text_completion',
-      created: 1677615037,
-      model: 'text-davinci-003',
-      choices: [ [Object] ],
-      usage: { prompt_tokens: 1078, completion_tokens: 80, total_tokens: 1158 }
-    }
-  }
+  // fs.writeFileSync(join(directory, 'sample/summary.json'), JSON.stringify(msg, 'null', 2)))
+  let res = JSON.parse(fs.readFileSync(join(directory, 'sample/summary.json'), 'utf8'))
   console.log(res)
   return res
 }
