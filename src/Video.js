@@ -14,9 +14,30 @@ class Video extends Component {
       this.inputVideo = sceneEl.systems['mindar-image-system'].video
       if (this.inputVideo.readyState >= this.inputVideo.HAVE_METADATA) {
         console.log('MindAR video is now available!')
-        this.cap = new cv.VideoCapture(this.inputVideo)
-        this.getDocument()
         clearInterval(intervalId) 
+
+        return 
+        
+        // test to see if it works with the prepared video
+
+        this.inputVideo.pause()
+        let stream = this.inputVideo.srcObject
+        let tracks = stream.getTracks()
+        // Stop the camera feed
+        tracks.forEach(function(track) {
+          track.stop()
+        })
+
+        this.inputVideo.srcObject = null
+        this.inputVideo.src = 'http://localhost:4000/public/test-2.mp4';
+        this.inputVideo.load()
+        this.inputVideo.autoplay = true
+        this.inputVideo.muted = true
+        this.inputVideo.loop = true
+        this.inputVideo.play()
+
+        // this.cap = new cv.VideoCapture(this.inputVideo)
+        // this.getDocument()
       }
     }, 1000) // Check every 1 second until ready
   }

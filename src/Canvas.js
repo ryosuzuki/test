@@ -203,7 +203,7 @@ class Canvas extends Component {
               <Circle
                 x={ 100 }
                 y={ 100 }
-                radius={ 100 }
+                radius={ 50 }
                 strokeWidth={ App.strokeWidth }
                 stroke={ App.strokeColor }
                 fill={ App.fillColorAlpha }

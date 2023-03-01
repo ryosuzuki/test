@@ -10,6 +10,8 @@ AFRAME.registerComponent('drawing-plane', {
   tick: () => {}
 })
 
+const isCameraOn = true 
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -31,7 +33,6 @@ class App extends Component {
       mouse2D: { x: 0, y: 0 },
       mouse: { x: 0, y: 0 },
       raycaster: new THREE.Raycaster(),
-      XR8: window.XR8
     }
     this.strokeColor = '#002f2b'
     this.fillColor = '#004842'
@@ -146,25 +147,27 @@ class App extends Component {
     return (
       <>
         <Canvas />
-        <a-scene>
-          <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 1.5 -1" width="1" height="1"></a-plane>        
-        </a-scene>
-        {/*
-        <a-scene
-          mindar-image="imageTargetSrc: http://localhost:4000/public/target.mind"
-          embedded color-space="sRGB"
-          renderer="colorManagement: true, physicallyCorrectLights"
-          vr-mode-ui="enabled: false"
-          device-orientation-permission-ui="enabled: false"
-        >
-          <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-          <a-entity mindar-image-target="targetIndex: 0">
-            <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 0 0"></a-plane>
-          </a-entity>
-        </a-scene>
-        */}
+        { isCameraOn ? '' :
+          <a-scene>
+            <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 1.5 -1" width="1" height="1"></a-plane>        
+          </a-scene>          
+        }
+        { !isCameraOn ? '' :
+          <a-scene
+            mindar-image="imageTargetSrc: http://localhost:4000/public/target.mind"
+            embedded color-space="sRGB"
+            renderer="colorManagement: true, physicallyCorrectLights"
+            vr-mode-ui="enabled: false"
+            device-orientation-permission-ui="enabled: false"
+          >
+            <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+            <a-entity mindar-image-target="targetIndex: 0">
+              <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 0 0"></a-plane>
+            </a-entity>
+          </a-scene>
+        } 
         <ChatGPT />
-        {/*<Video />*/}
+        <Video />
       </>
     )
   }
