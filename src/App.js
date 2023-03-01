@@ -17,20 +17,42 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let button = document.querySelector('#summary')
-    button.addEventListener('click', () => {
-      const rawtext = sample.textAnnotations[0].description
-      const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
-      let q = "I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: " + text;
-      this.socket.emit('summary', q)
-    })
 
-    this.socket.on('summary', (res) => {
-      console.log(res)
-      let summaryEl = document.querySelector('#summary-res')
-      summaryEl.textContent = res.text
-    })
+    let types = ['summary', 'visualize']
 
+    for (let type of types) {
+      let button = document.querySelector(`#${type}`)
+      button.addEventListener('click', () => {
+        console.log(type)
+        const rawtext = sample.textAnnotations[0].description
+        const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
+        let query = "I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: " + text;
+        this.socket.emit(type, query)
+      })
+
+      this.socket.on(type, (res) => {
+        console.log(type)
+        console.log(res)
+        switch (type) {
+          case 'summary':
+            this.showSummary(res)
+            break
+          case 'visualize':
+            this.showVisualize(res)
+            break
+        }
+      })
+    }
+  }
+
+  showSummary(res) {
+    let summaryEl = document.querySelector('#summary-res')
+    summaryEl.textContent = res.text
+  }
+
+  showVisualize(res) {
+    let visualizeEl = document.querySelector('#visualize-res')
+    visualizeEl.textContent = res.text
   }
 
   init() {
@@ -116,8 +138,8 @@ class App extends Component {
             <a-entity id="transcript" className="htmlembed" htmlembed="ppu:225" position="0 0 0">
               <div id="html-canvas">
                 {/*<img src="http://localhost:4000/public/viz.png" />*/}
-                <div id="summary-res" className="ui message">
-                </div>
+                <div id="summary-res" style={{ position: 'absolute', top: 0, left: 0 }}></div>
+                <div id="visualize-res" style={{ position: 'absolute', top: 300, left: 0 }}></div>
                </div>
             </a-entity>
             {/*

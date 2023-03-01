@@ -59,18 +59,25 @@ io.on('connection', (socket) => {
     })
   })
 
-  socket.on('summary', async (msg) => {
-    console.log('ask summary')
-    // pyshell.send(msg)
-    let res = await ask(msg)
-    socket.emit('summary', res)
-  })
+  let types = [
+    'summary',
+    'visualize'
+  ]
+  socket.emit('types', types)
+
+  for (let type of types) {
+    socket.on(type, async (msg) => {
+      console.log('fejojo')
+      let res = await ask(type, msg)
+      socket.emit(type, res)
+    })
+  }
 })
 
-async function ask(msg) {
+async function ask(type, msg) {
   // let res = await api.sendMessage(msg)
   // saveJson('sample/summary.json', msg)
-  let res = getJson('sample/summary.json')
+  let res = getJson(`sample/${type}.json`)
   console.log(res)
   return res
 }
