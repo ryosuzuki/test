@@ -22,6 +22,9 @@ class App extends Component {
 
     this.size = 1024
     this.state = {
+      summary: '',
+      highlight: [],
+
       dragging: false,
       initDrawing: true,
       distance: 0,

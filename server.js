@@ -61,13 +61,13 @@ io.on('connection', (socket) => {
 
   let types = [
     'summary',
-    'visualize'
+    'visualize',
+    'highlight',
   ]
   socket.emit('types', types)
 
   for (let type of types) {
     socket.on(type, async (msg) => {
-      console.log('fejojo')
       let res = await ask(type, msg)
       socket.emit(type, res)
     })

@@ -20,7 +20,8 @@ class Highlight extends Component {
           width={ App.size }
           height={ 50 }
         >
-          { this.props.ocr.textAnnotations.map((textAnnotation) => {
+          { this.props.textAnnotations.map((textAnnotation, i) => {
+            if (i === 0) { return <></> }
             let ocrWidth = 1660
             let ocrHeight = 2149
             let ratioWidth = App.size / ocrWidth

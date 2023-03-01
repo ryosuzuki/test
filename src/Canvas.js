@@ -186,12 +186,12 @@ class Canvas extends Component {
               />
               {/* Summary */}
               <Summary 
-                text={ summary.text }
+                text={ App.state.summary }
               />
 
               {/* Highlight */}
               <Highlight 
-                ocr={ ocr }
+                textAnnotations={ App.state.highlight }
               />
 
               {/* Drawing Line */}
