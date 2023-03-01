@@ -20,11 +20,18 @@ class App extends Component {
   componentDidMount() {
     this.canvas = window.Canvas
 
-    document.querySelector('a-scene').addEventListener('loaded', function() {
+    this.sceneEl = document.querySelector('a-scene')
+    this.sceneEl.addEventListener('loaded', () => {
+      console.log('gjoefjeo')
       AFRAME.registerComponent('drawing-plane', {
-        init: () => { this.init() },
-        tick: () => { this.update() }
-      })
+        init: () => {
+          console.log('fe')
+          this.init()
+        },
+        tick: () => {
+          this.update()
+        }
+      }).bind(this)
     })
 
   }
