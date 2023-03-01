@@ -4,7 +4,6 @@ import Video from './Video.js'
 import Canvas from './Canvas.js'
 import ChatGPT from './ChatGPT.js'
 import { io } from 'socket.io-client'
-import 'aframe-htmlembed-component'
 
 class App extends Component {
   constructor(props) {
@@ -15,18 +14,19 @@ class App extends Component {
     if (window.location.href.includes('localhost')) {
       this.socket = io('http://localhost:4000')
     }
+
   }
 
   componentDidMount() {
     this.canvas = window.Canvas
-    AFRAME.registerComponent('drawing-plane', {
-      init: () => {
-        this.init()
-      },
-      tick: () => {
-        this.update()
-      }
+
+    document.querySelector('a-scene').addEventListener('loaded', function() {
+      AFRAME.registerComponent('drawing-plane', {
+        init: () => { this.init() },
+        tick: () => { this.update() }
+      })
     })
+
   }
 
   showSummary(res) {
@@ -40,6 +40,7 @@ class App extends Component {
   }
 
   init() {
+    console.log('init')
     let el = document.querySelector('#drawing-plane')
     let mesh = el.object3D.children[0]
     let konvaEl = document.querySelector('.konvajs-content canvas')
@@ -90,6 +91,7 @@ class App extends Component {
   }
 
   update() {
+    console.log('update')
     this.mesh.material.map.needsUpdate = true
     if (this.state.dragging) {
       const screenPositionX = this.state.mouse2D.x / window.innerWidth * 2 - 1
@@ -122,26 +124,21 @@ class App extends Component {
   render() {
     return (
       <>
-        <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 0 0"></a-plane>
-        {/*
-        <a-entity id="transcript" className="htmlembed" htmlembed="ppu:225" position="0 0 0">
-          <div id="html-canvas">
-            <img src="http://localhost:4000/public/viz.png" />
-            <div id="summary-res" style={{ position: 'absolute', top: 0, left: 0 }}></div>
-            <div id="visualize-res" style={{ position: 'absolute', top: 300, left: 0 }}></div>
-           </div>
-        </a-entity>
-        */}
-        {/*
-        <a-entity htmlembed="src: https://google.com"></a-entity>
-        <a-image src="http://localhost:4000/public/viz.png" position="0 1 0" height="0.552" width="1" rotation="0 0 0"></a-image>
-        <a-image src="http://localhost:4000/public/annotation-1.png" position="-0.8 0 0" height="0.552" width="1" rotation="0 0 0"></a-image>
-        <a-image src="http://localhost:4000/public/annotation-2.png" position="0.8 -0.5 0" height="0.552" width="1"></a-image>
-        <a-plane position="0 0 0" width="1" height="0.5" color="#ccc"></a-plane>
-        */}
+        <a-scene
+          mindar-image="imageTargetSrc: http://localhost:4000/public/target.mind"
+          embedded color-space="sRGB"
+          renderer="colorManagement: true, physicallyCorrectLights"
+          vr-mode-ui="enabled: false"
+          device-orientation-permission-ui="enabled: false"
+        >
+          <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+          <a-entity mindar-image-target="targetIndex: 0">
+            <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 0 0"></a-plane>
+          </a-entity>
+        </a-scene>
         <Canvas />
         <ChatGPT />
-        <Video />
+        {/*<Video />*/}
       </>
     )
   }

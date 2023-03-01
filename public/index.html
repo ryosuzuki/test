@@ -1,26 +1,16 @@
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.0/dist/mindar-image-aframe.prod.js"></script>
-    <!-- <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/dist/mindar.prod.js"></script> -->
     <script src="http://localhost:4000/public/opencv.js"></script>
-    <!-- <script src="https://unpkg.com/aframe-htmlembed-component@1.0.0/dist/build.js"></script> -->
+    <script>
+    </script>
+
   </head>
   <body>
-    <a-scene
-      mindar-image="imageTargetSrc: http://localhost:4000/public/target.mind"
-      embedded color-space="sRGB"
-      renderer="colorManagement: true, physicallyCorrectLights"
-      vr-mode-ui="enabled: false"
-      device-orientation-permission-ui="enabled: false"
-    >
-      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-      <a-entity mindar-image-target="targetIndex: 0">
-        <a-entity id="root"></a-entity>
-      </a-entity>
-    </a-scene>
-
+    <div id="container">
+      <div id="root"></div>
+    </div>
   </body>
 </html>
