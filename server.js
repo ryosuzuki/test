@@ -77,7 +77,7 @@ io.on('connection', (socket) => {
 async function ask(type, msg) {
   // let res = await api.sendMessage(msg)
   // saveJson('sample/summary.json', msg)
-  let res = getJson(`sample/${type}.json`)
+  let res = getJson(`src/sample/${type}.json`)
   console.log(res)
   return res
 }
@@ -89,7 +89,6 @@ function getJson(path) {
 function saveJson(path, json) {
   fs.writeFileSync(join(directory, path), JSON.stringify(json, 'null', 2))
 }
-
 
 const cred = join(directory, 'key.json');
 const pic = join(directory, 'test.jpg');

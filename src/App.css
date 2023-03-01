@@ -9,6 +9,12 @@ body {
   height: 100%;
 }
 
+#drawing-plane {
+  width: 400px;
+  height: 800px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
 #html-canvas {
   width: 400px;
   height: 800px;

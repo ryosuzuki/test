@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import sample from './sample.json'
+import sample from './sample/ocr.json'
 
 class Video extends Component {
   constructor(props) {

@@ -23,7 +23,7 @@ function saveJson(path, json) {
   fs.writeFileSync(join(directory, path), JSON.stringify(json, 'null', 2))
 }
 
-const sample = getJson('src/sample.json')
+const sample = getJson('src/sample/ocr.json')
 const rawtext = sample.textAnnotations[0].description
 const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
 let prompt = "Extract the data from the following text and return it only json: "
