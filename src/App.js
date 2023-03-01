@@ -160,7 +160,7 @@ class App extends Component {
           </a-entity>
         </a-scene>
         */}
-        {/*<ChatGPT />*/}
+        <ChatGPT />
         {/*<Video />*/}
       </>
     )

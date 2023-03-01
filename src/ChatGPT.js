@@ -4,6 +4,7 @@ import sample from './sample/ocr.json'
 class ChatGPT extends Component {
   constructor(props) {
     super(props)
+    window.ChatGPT = this
     this.socket = App.socket
   }
 

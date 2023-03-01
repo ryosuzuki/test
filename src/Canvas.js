@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { Stage, Layer, Rect, Text, Line, Group, Circle, Path } from 'react-konva'
 import Konva from 'konva'
-import _ from 'lodash'
+import Summary from './Summary.js'
+import Highlight from './Highlight.js'
+
+import ocr from './sample/ocr.json'
+import summary from './sample/summary.json'
+import visualize from './sample/visualize.json'
 
 window.Konva = Konva
 let debug = false
@@ -161,6 +166,7 @@ class Canvas extends Component {
             onMouseUp={ this.stageMouseUp.bind(this) }
           >
             <Layer ref={ ref => (this.layer = ref) }>
+              {/* Canvas Background */}
               <Rect 
                 x={ 0 }
                 y={ 0 }
@@ -168,6 +174,7 @@ class Canvas extends Component {
                 height={ App.size }
                 fill={ '#eee' }
               />
+              {/* Paper Outline */}
               <Rect 
                 x={ App.size/2 }
                 y={ App.size/2 }
@@ -177,6 +184,16 @@ class Canvas extends Component {
                 offsetY={ App.size/2 }                
                 fill={ App.fillColorAlpha }
               />
+              {/* Summary */}
+              <Summary 
+                text={ summary.text }
+              />
+
+              {/* Highlight */}
+              <Highlight 
+                ocr={ ocr }
+              />
+
               {/* Drawing Line */}
               <Line
                 points={ this.state.currentPoints }
@@ -191,19 +208,6 @@ class Canvas extends Component {
                 stroke={ App.strokeColor }
                 fill={ App.fillColorAlpha }
                 visible={ true }
-                draggable
-              />
-              <Rect
-                x={ 300 }
-                y={ 300 }
-                width={ 300 }
-                height={ 300 }
-                offsetX={ 300/2 }
-                offsetY={ 300/2 }                
-                strokeWidth={ App.strokeWidth }
-                stroke={ App.strokeColor }
-                fill={ App.fillColorAlpha }
-                rotation={ 0 }
                 draggable
               />
             </Layer>
