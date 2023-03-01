@@ -161,285 +161,51 @@ class Canvas extends Component {
             onMouseUp={ this.stageMouseUp.bind(this) }
           >
             <Layer ref={ ref => (this.layer = ref) }>
+              <Rect 
+                x={ 0 }
+                y={ 0 }
+                width={ App.size }
+                height={ App.size }
+                fill={ '#eee' }
+              />
+              <Rect 
+                x={ App.size/2 }
+                y={ App.size/2 }
+                width={ App.size * 850 / 1100 }
+                height={ App.size }
+                offsetX={ App.size * 850 / 1100 /2 }
+                offsetY={ App.size/2 }                
+                fill={ App.fillColorAlpha }
+              />
               {/* Drawing Line */}
               <Line
                 points={ this.state.currentPoints }
                 stroke={ App.strokeColor }
                 strokeWidth={ App.strokeWidth }
               />
-              {/* Gravity and Static Menu */}
-              <Group
-                x={ this.state.menuPos.x }
-                y={ this.state.menuPos.y }
-                width={ 200 }
-                height={ 50 }
-              >
-                <Rect
-                  width={ 200 }
-                  height={ 50 }
-                  fill={ '#eee' }
-                />
-                <Text
-                  width={ 200 }
-                  height={ 50 }
-                  text={ 'Add Gravity' }
-                  fontSize={30}
-                  align={ 'center' }
-                  verticalAlign={ 'middle' }
-                  onClick={ this.onGravityClick.bind(this) }
-                  onTap={ this.onGravityClick.bind(this) }
-                />
-                <Rect
-                  x={ 0 }
-                  y={ 50 }
-                  width={ 200 }
-                  height={ 50 }
-                  fill={ '#eee' }
-                />
-                <Text
-                  x={ 0 }
-                  y={ 50 }
-                  width={ 200 }
-                  height={ 50 }
-                  text={ 'Static' }
-                  fontSize={30}
-                  align={ 'center' }
-                  verticalAlign={ 'middle' }
-                  onClick={ this.onStaticClick.bind(this) }
-                  onTap={ this.onStaticClick.bind(this) }
-                />
-                { this.example === 'rope' &&
-                  <>
-                    <Rect
-                      x={ 0 }
-                      y={ 100 }
-                      width={ 200 }
-                      height={ 50 }
-                      fill={ '#eee' }
-                    />
-                    <Text
-                      x={ 0 }
-                      y={ 100 }
-                      width={ 200 }
-                      height={ 50 }
-                      text={ 'Elastic' }
-                      fontSize={30}
-                      align={ 'center' }
-                      verticalAlign={ 'middle' }
-                      onClick={ this.onElasticClick.bind(this) }
-                      onTap={ this.onElasticClick.bind(this) }
-                    />
-
-
-                  </>
-                }
-
-
-              </Group>
-              {/* Transform Path */}
-              <Group>
-                { this.state.currentPaths.map((path, i) => {
-                  return (
-                    <Path
-                      key={ i }
-                      data={ path.data }
-                      stroke={ App.strokeColor }
-                      strokeWidth={ App.strokeWidth }
-                    />
-                  )
-                }) }
-              </Group>
-              { this.state.toios.map((toio, i) => {
-                  return (
-                    <Rect
-                      key={ i }
-                      id={ `cube-${i}` }
-                      name={ `cube-${i}` }
-                      x={ toio.x }
-                      y={ toio.y }
-                      rotation={ toio.angle }
-                      radius={ 40 }
-                      width={ App.toioSize }
-                      height={ App.toioSize }
-                      offsetX={ App.toioSize/2 }
-                      offsetY={ App.toioSize/2 }
-                      strokeWidth={ App.strokeWidth }
-                      stroke={ App.toioStrokeColor }
-                      fill={ App.toioFillColorAlpha }
-                      draggable
-                      onClick={ this.onShapeClick.bind(this, i) }
-                      onTap={ this.onShapeClick.bind(this, i) }
-                    />
-                  )
-              }) }
-              {/* All Sketched Shapes */}
-              { this.state.shapes.map((shape, i) => {
-                  if (shape.type === 'toio') {
-                    let width = shape.width ? shape.width : App.toioSize
-                    let height = shape.height ? shape.height : App.toioSize
-                    return (
-                      <Rect
-                        key={ i }
-                        id={ `toio-${i}` }
-                        name={ `toio-${i}` }
-                        physics={ shape.physics }
-                        x={ shape.x }
-                        y={ shape.y }
-                        rotation={ shape.angle }
-                        angleFix={ true } // For pong
-                        radius={ 40 }
-                        width={ width }
-                        height={height }
-                        offsetX={ width/2 }
-                        offsetY={ height/2 }
-                        strokeWidth={ App.strokeWidth }
-                        stroke={ App.toioStrokeColor }
-                        fill={ App.toioFillColorAlpha }
-                        // fill={ 'rgba(54, 40, 0, 0.01)' }
-                        draggable
-                        onClick={ this.onShapeClick.bind(this, i) }
-                        onTap={ this.onShapeClick.bind(this, i) }
-                      />
-                    )
-                  }
-                  if (shape.type === 'toio-circle') {
-                    return (
-                      <Circle
-                        key={ i }
-                        id={ `toio-circle-${i}` }
-                        name={ `toio-circle-${i}` }
-                        physics={ shape.physics }
-                        x={ shape.x }
-                        y={ shape.y }
-                        radius={ 40 }
-                        strokeWidth={ App.strokeWidth }
-                        stroke={ App.toioStrokeColor }
-                        fill={ App.toioFillColorAlpha }
-                        draggable
-                        onClick={ this.onShapeClick.bind(this, i) }
-                        onTap={ this.onShapeClick.bind(this, i) }
-                      />
-                    )
-                  }
-                  if (shape.type === 'rect') {
-                    return (
-                      <Rect
-                        key={ i }
-                        id={ `${shape.type}-${i}` }
-                        name={ `${shape.type}-${i}` }
-                        physics={ shape.physics }
-                        x={ shape.x }
-                        y={ shape.y }
-                        width={ shape.width }
-                        height={ shape.height }
-                        offsetX={ shape.width/2 }
-                        offsetY={ shape.height/2 }
-                        strokeWidth={ App.strokeWidth }
-                        stroke={ App.strokeColor }
-                        fill={ App.fillColorAlpha }
-                        rotation={ shape.rotation }
-                        draggable
-                        onClick={ this.onShapeClick.bind(this, i) }
-                        onTap={ this.onShapeClick.bind(this, i) }
-                      />
-                    )
-                  }
-                  if (shape.type === 'circle') {
-                    return (
-                      <Circle
-                        key={ i }
-                        id={ `${shape.type}-${i}` }
-                        name={ `${shape.type}-${i}` }
-                        physics={ shape.physics }
-                        x={ shape.x }
-                        y={ shape.y }
-                        radius={ shape.radius }
-                        strokeWidth={ App.strokeWidth }
-                        stroke={ App.strokeColor }
-                        fill={ App.fillColorAlpha }
-                        visible={ shape.visible }
-                        draggable
-                        onClick={ this.onShapeClick.bind(this, i) }
-                        onTap={ this.onShapeClick.bind(this, i) }
-                      />
-                    )
-                  }
-                  if (shape.type === 'line') {
-                    return (
-                      <Line
-                        key={ i }
-                        id={ `${shape.type}-${i}` }
-                        name={ `${shape.type}-${i}` }
-                        physics={ shape.physics }
-                        x={ shape.x }
-                        y={ shape.y }
-                        points={ shape.points }
-                        strokeWidth={ App.strokeWidth }
-                        stroke={ App.strokeColor }
-                        draggable
-                        onClick={ this.onShapeClick.bind(this, i) }
-                        onTap={ this.onShapeClick.bind(this, i) }
-                      />
-                    )
-                  }
-                  if (shape.type === 'linetwo') { // contraint between two bodies
-                    let color = shape.strokeColor ? shape.strokeColor : App.strokeColor
-                    return (
-                      <Line
-                        key={ i }
-                        id={ `${shape.type}-${i}` }
-                        name={ `${shape.type}-${i}` }
-                        physics={ shape.physics }
-                        x={ shape.x }
-                        y={ shape.y }
-                        points={ shape.points }
-                        strokeWidth={ App.strokeWidth }
-                        stroke={ color }
-                        draggable
-                        onClick={ this.onShapeClick.bind(this, i) }
-                        onTap={ this.onShapeClick.bind(this, i) }
-                      />
-                    )
-                  }
-                  if (shape.type === 'lineelastic') { // super elastoc constraint for InSitu TUI
-                    return (
-                      <Line
-                        key={ i }
-                        id={ `${shape.type}-${i}` }
-                        name={ `${shape.type}-${i}` }
-                        physics={ shape.physics }
-                        x={ shape.x }
-                        y={ shape.y }
-                        points={ shape.points }
-                        strokeWidth={ App.strokeWidth }
-                        stroke={ App.strokeColor }
-                        draggable
-                        onClick={ this.onShapeClick.bind(this, i) }
-                        onTap={ this.onShapeClick.bind(this, i) }
-                      />
-                    )
-                  }
-                  if (shape.type === 'spring') {
-                    return (
-                      <Spring
-                        key={ i }
-                        id={ `${shape.type}-${i}` }
-                        name={ `${shape.type}-${i}` }
-                        physics={ shape.physics }
-                        x={ shape.x }
-                        y={ shape.y }
-                        length={ shape.length }
-                        start={ shape.start }
-                        end={ shape.end }
-                        strokeWidth={ App.strokeWidth }
-                        stroke={ App.toioStrokeColor }
-                        draggable
-                        onClick={ this.onShapeClick.bind(this, i) }
-                        onTap={ this.onShapeClick.bind(this, i) }
-                      />
-                    )
-                  }
-              }) }
+              <Circle
+                x={ 100 }
+                y={ 100 }
+                radius={ 100 }
+                strokeWidth={ App.strokeWidth }
+                stroke={ App.strokeColor }
+                fill={ App.fillColorAlpha }
+                visible={ true }
+                draggable
+              />
+              <Rect
+                x={ 300 }
+                y={ 300 }
+                width={ 300 }
+                height={ 300 }
+                offsetX={ 300/2 }
+                offsetY={ 300/2 }                
+                strokeWidth={ App.strokeWidth }
+                stroke={ App.strokeColor }
+                fill={ App.fillColorAlpha }
+                rotation={ 0 }
+                draggable
+              />
             </Layer>
           </Stage>
         </div>

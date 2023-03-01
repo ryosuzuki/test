@@ -5,6 +5,11 @@ import Canvas from './Canvas.js'
 import ChatGPT from './ChatGPT.js'
 import { io } from 'socket.io-client'
 
+AFRAME.registerComponent('drawing-plane', {
+  init: () => {},
+  tick: () => {}
+})
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -15,6 +20,20 @@ class App extends Component {
       this.socket = io('http://localhost:4000')
     }
 
+    this.size = 1024
+    this.state = {
+      dragging: false,
+      initDrawing: true,
+      distance: 0,
+      mouse2D: { x: 0, y: 0 },
+      mouse: { x: 0, y: 0 },
+      raycaster: new THREE.Raycaster(),
+      XR8: window.XR8
+    }
+    this.strokeColor = '#002f2b'
+    this.fillColor = '#004842'
+    this.fillColorAlpha = 'rgba(0, 28, 26, 0.4)'
+    this.strokeWidth = 8    
   }
 
   componentDidMount() {
@@ -23,15 +42,9 @@ class App extends Component {
     this.sceneEl = document.querySelector('a-scene')
     this.sceneEl.addEventListener('loaded', () => {
       console.log('gjoefjeo')
-      AFRAME.registerComponent('drawing-plane', {
-        init: () => {
-          console.log('fe')
-          this.init()
-        },
-        tick: () => {
-          this.update()
-        }
-      }).bind(this)
+      this.init()
+      // AFRAME.components['drawing-plane'].Component.prototype.init = this.init.bind(this)
+      AFRAME.components['drawing-plane'].Component.prototype.tick = this.tick.bind(this)
     })
 
   }
@@ -51,15 +64,12 @@ class App extends Component {
     let el = document.querySelector('#drawing-plane')
     let mesh = el.object3D.children[0]
     let konvaEl = document.querySelector('.konvajs-content canvas')
-    konvaEl.width = konvaEl.height = this.size
+    // konvaEl.width = konvaEl.height = this.size
+    console.log(konvaEl)
     let texture = new THREE.Texture(konvaEl)
     let material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide })
     mesh.material = material
-    if (window.location.hostname !== 'localhost') {
-      // mesh.material.wireframe = true
-      mesh.material.transparent = true
-    }
-    mesh.material.transparent = true
+    // mesh.material.transparent = true
     this.mesh = mesh
     el.sceneEl.addEventListener('mousedown', this.mouseDown.bind(this))
     el.sceneEl.addEventListener('mousemove', this.mouseMove.bind(this))
@@ -97,9 +107,10 @@ class App extends Component {
     this.canvas.mouseUp()
   }
 
-  update() {
-    console.log('update')
+  tick() {
+    console.log('tick')
     this.mesh.material.map.needsUpdate = true
+    return
     if (this.state.dragging) {
       const screenPositionX = this.state.mouse2D.x / window.innerWidth * 2 - 1
       const screenPositionY = this.state.mouse2D.y / window.innerHeight * 2 - 1
@@ -131,6 +142,11 @@ class App extends Component {
   render() {
     return (
       <>
+        <Canvas />
+        <a-scene>
+          <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 1.5 -1" width="1" height="1"></a-plane>        
+        </a-scene>
+        {/*
         <a-scene
           mindar-image="imageTargetSrc: http://localhost:4000/public/target.mind"
           embedded color-space="sRGB"
@@ -143,8 +159,8 @@ class App extends Component {
             <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 0 0"></a-plane>
           </a-entity>
         </a-scene>
-        <Canvas />
-        <ChatGPT />
+        */}
+        {/*<ChatGPT />*/}
         {/*<Video />*/}
       </>
     )
