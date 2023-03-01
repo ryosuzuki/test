@@ -30,5 +30,5 @@ let prompt = "Extract the data from the following text and return it only json: 
 
 let query = prompt + text
 let res = await api.sendMessage(query)
-saveJson('test.json', res)
+saveJson('chatgpt-test.json', res)
 console.log(res.text)
