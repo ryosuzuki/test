@@ -27,3 +27,11 @@ When getting the node-canvas error for M1 Mac
 ```
 brew install pkg-config cairo pango libpng jpeg giflib librsvg
 ```
+
+Add `config.json` as follows
+```
+{
+  "apiKey": "xxx"
+}
+```
+

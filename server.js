@@ -5,7 +5,6 @@ import fs from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 import cors from 'cors'
-import { PythonShell } from 'python-shell'
 import vision from '@google-cloud/vision'
 import { ChatGPTAPI } from 'chatgpt'
 const filename = fileURLToPath(import.meta.url)
