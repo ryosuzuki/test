@@ -33,6 +33,7 @@ class Highlight extends Component {
             let height = (vertices[2].y - vertices[0].y) * ratioHeight
             return (
               <Rect
+                key={ i }
                 x={ x }
                 y={ y }
                 width={ width }

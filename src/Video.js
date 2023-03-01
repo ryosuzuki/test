@@ -19,7 +19,6 @@ class Video extends Component {
         return 
         
         // test to see if it works with the prepared video
-
         this.inputVideo.pause()
         let stream = this.inputVideo.srcObject
         let tracks = stream.getTracks()

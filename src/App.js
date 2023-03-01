@@ -10,7 +10,7 @@ AFRAME.registerComponent('drawing-plane', {
   tick: () => {}
 })
 
-const isCameraOn = true 
+const isCameraOn = false 
 
 class App extends Component {
   constructor(props) {
@@ -164,10 +164,10 @@ class App extends Component {
             <a-entity mindar-image-target="targetIndex: 0">
               <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 0 0"></a-plane>
             </a-entity>
+            <Video />
           </a-scene>
         } 
         <ChatGPT />
-        <Video />
       </>
     )
   }
