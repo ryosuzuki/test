@@ -35,7 +35,7 @@ console.log(text)
 // highlight
 // "Extract important words from the followint text with json array: " 
 
-let prompt = `can you create flashcards for this given text? give output in json and json only without any additional text. json format should be: title as name, non-nested values as it's respective pairs.don't use sentences; use short phrases everywhere: ` 
+let prompt = `can you create flashcards for this given text? give output in json and json only without any additional text. json format should be: title of flashcard and its short description as value. don't use sentences; use short phrases everywhere: ` 
 
 let query = prompt + text
 let res = await api.sendMessage(query)

@@ -1,26 +1,26 @@
 {
-    "role": "assistant",
-    "id": "cmpl-6ph8g9babYFwgCubDhTaLPEpb6MZ3",
-    "parentMessageId": "76dab6b3-90a9-47a7-8bbc-158b0917ee69",
-    "conversationId": "ce67ab23-9ae1-4b70-99b4-dcc30bb43177",
-    "text": "{\n  \"title\": \"Reality Extract\",\n  \"1\": \"Dynamic Graphs\",\n  \"2\": \"Exemplify Equation\",\n  \"3\": \"Segmented Color Change\",\n  \"4\": \"Physics Simulation\",\n  \"5\": \"Supporting Lines\",\n  \"6\": \"Dynamic Value Slider\"\n}",
-    "detail": {
-      "id": "cmpl-6ph8g9babYFwgCubDhTaLPEpb6MZ3",
-      "object": "text_completion",
-      "created": 1677778574,
-      "model": "text-davinci-003",
-      "choices": [
-        {
-          "text": "\n{\n  \"title\": \"Reality Extract\",\n  \"1\": \"Dynamic Graphs\",\n  \"2\": \"Exemplify Equation\",\n  \"3\": \"Segmented Color Change\",\n  \"4\": \"Physics Simulation\",\n  \"5\": \"Supporting Lines\",\n  \"6\": \"Dynamic Value Slider\"\n}",
-          "index": 0,
-          "logprobs": null,
-          "finish_reason": "stop"
-        }
-      ],
-      "usage": {
-        "prompt_tokens": 1103,
-        "completion_tokens": 78,
-        "total_tokens": 1181
+  "role": "assistant",
+  "id": "cmpl-6pjpOxHLLvG6xVBxs9fzBoQGqoDTn",
+  "parentMessageId": "3f825650-35e8-4904-9d4b-1ce30716dd66",
+  "conversationId": "95afbc72-6144-4fd9-a828-0869f1115660",
+  "text": "{\"Dynamic Graphs\": \"Allows user to create graphs that are driven by input variables\", \n\"Exemplify Equation\": \"Allows user to display equations and their values in an interactive way\", \n\"Segmented Color Change\": \"Allows user to change colors of elements based on input values\", \n\"Physics Simulation\": \"Allows user to simulate physical phenomena with input variables\", \n\"Supporting Lines\": \"Allows user to draw lines between elements based on input values\", \n\"Dynamic Value Slider\": \"Allows user to control input variables through sliders\"}",
+  "detail": {
+    "id": "cmpl-6pjpOxHLLvG6xVBxs9fzBoQGqoDTn",
+    "object": "text_completion",
+    "created": 1677788910,
+    "model": "text-davinci-003",
+    "choices": [
+      {
+        "text": "{\"Dynamic Graphs\": \"Allows user to create graphs that are driven by input variables\", \n\"Exemplify Equation\": \"Allows user to display equations and their values in an interactive way\", \n\"Segmented Color Change\": \"Allows user to change colors of elements based on input values\", \n\"Physics Simulation\": \"Allows user to simulate physical phenomena with input variables\", \n\"Supporting Lines\": \"Allows user to draw lines between elements based on input values\", \n\"Dynamic Value Slider\": \"Allows user to control input variables through sliders\"}",
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop"
       }
+    ],
+    "usage": {
+      "prompt_tokens": 1099,
+      "completion_tokens": 119,
+      "total_tokens": 1218
     }
   }
+}

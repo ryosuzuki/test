@@ -28,7 +28,7 @@ class App extends Component {
       hierarchy: '',
       highlight: [],
       images: [],
-      flashcards: undefined,
+      flashcards: [],
 
       showReferencePages: false,
       dragging: false,

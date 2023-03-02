@@ -1,7 +1,10 @@
+import { keyBy } from 'lodash';
 import React, { Component, useState } from 'react'
 import { Group, Text, Image, Rect, Stage, Layer } from 'react-konva'
 import useImage from 'use-image';
 
+// keeping this function because we may want 
+// to show relevant img for each card in future
 const IMG = ({ url, x, y }) => {
     const [image] = useImage(url, 'anonymous');
     return <Image image={image}
@@ -12,7 +15,7 @@ const IMG = ({ url, x, y }) => {
     />;
 };
 
-const RectangleWithText = ({ x, y, width, height, text }) => {
+const RectangleWithText = ({ x, y, width, height, heading, description }) => {
     return (
         <Group>
             <Rect
@@ -20,7 +23,7 @@ const RectangleWithText = ({ x, y, width, height, text }) => {
                 y={y}
                 width={width}
                 height={height}
-                fill="#ddd"
+                fill="#d7d3d573"
                 stroke="#555"
                 strokeWidth={1}
                 cornerRadius={10}
@@ -32,12 +35,34 @@ const RectangleWithText = ({ x, y, width, height, text }) => {
             />
             <Text
                 x={x + 10}
-                y={y + 10}
-                text={text}
+                y={y + 20}
+                fontSize={19}
+                text={heading}
+                width={190}
+                wrap={'word'}
+                fontStyle={'bold'}
+            />
+            <Text
+                x={x + 10}
+                y={y + 75}
+                fontSize={14}
+                text={description}
+                width={190}
+                wrap={'word'}
             />
         </Group>
     )
 }
+
+// Random points for card placement - Delete later if the  
+// cards are connected to relevant text inside the document
+const points = [];
+for (let i = 0; i < 10; i++) {
+    const x = Math.floor(Math.random() * 800);
+    const y = Math.floor(Math.random() * 800);
+    points.push({ x, y });
+}
+console.log(points);
 
 class Flashcards extends Component {
     constructor(props) {
@@ -49,8 +74,24 @@ class Flashcards extends Component {
     }
 
     render() {
+        const { flashcardsData } = this.props;
         return (
-            <RectangleWithText height={150} text={"hello"} width={200} x={0} y={0} />
+            <>
+                {
+                    Object.keys(flashcardsData).map((key, index) => {
+                        return (
+                            <RectangleWithText
+                                height={150}
+                                heading={key}
+                                description={flashcardsData[key]}
+                                width={200}
+                                x={points[index].x}
+                                y={points[index].y}
+                            />
+                        )
+                    })
+                }
+            </>
         )
     }
 }

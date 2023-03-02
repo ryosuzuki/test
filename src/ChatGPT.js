@@ -76,6 +76,7 @@ class ChatGPT extends Component {
             App.setState({ showReferencePages: true })
           case 'flashcards':
             let flashcardsjson = JSON.parse(res.text) 
+            console.log(flashcardsjson)
             App.setState({flashcards: flashcardsjson})
             break ;
         }
