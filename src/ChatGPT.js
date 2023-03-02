@@ -6,7 +6,7 @@ class ChatGPT extends Component {
     super(props)
     window.ChatGPT = this
     this.socket = App.socket
-    const types = ['summary', 'visualize', 'hierarchy', 'highlight', 'images']
+    const types = ['summary', 'visualize', 'hierarchy', 'highlight', 'images', 'reference_pages']
     this.state = {
       types: types
     }
@@ -63,6 +63,9 @@ class ChatGPT extends Component {
           case 'images':
             App.setState({images: res})
             break ;
+          case 'reference_pages':
+            console.log('set active - reference pages')
+            App.setState({ showReferencePages: true })
         }
       })
     }

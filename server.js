@@ -66,6 +66,7 @@ io.on('connection', (socket) => {
     'hierarchy',
     'highlight',
     'images',
+    'reference_pages',
   ]
   socket.emit('types', types)
 

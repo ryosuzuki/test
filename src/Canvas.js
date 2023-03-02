@@ -5,6 +5,7 @@ import Summary from './Summary.js'
 import Highlight from './Highlight.js'
 import Hierarchy from './Hierarchy.js'
 import Images from './Images.js'
+import ReferencePages from './ReferencePages.js'
 
 import ocr from './sample/ocr.json'
 import summary from './sample/summary.json'
@@ -70,6 +71,10 @@ class Canvas extends Component {
 
               <Images 
                 images={App.state.images}
+              />
+
+              <ReferencePages 
+                showReferencePages={App.state.showReferencePages}
               />
 
               {/* Drawing Line */}

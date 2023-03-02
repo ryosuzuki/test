@@ -28,7 +28,8 @@ class App extends Component {
       hierarchy: '',
       highlight: [],
       images: [],
-      
+
+      showReferencePages: false,
       dragging: false,
       initDrawing: true,
       distance: 0,
