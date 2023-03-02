@@ -4,6 +4,7 @@ import Konva from 'konva'
 import Summary from './Summary.js'
 import Highlight from './Highlight.js'
 import Hierarchy from './Hierarchy.js'
+import Images from './Images.js'
 
 import ocr from './sample/ocr.json'
 import summary from './sample/summary.json'
@@ -67,6 +68,9 @@ class Canvas extends Component {
                 hierarchy={App.state.hierarchy}
               />
 
+              <Images 
+                images={App.state.images}
+              />
 
               {/* Drawing Line */}
               {/* <Line

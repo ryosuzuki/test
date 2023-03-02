@@ -7,6 +7,8 @@ import { dirname, join } from 'path'
 import cors from 'cors'
 import vision from '@google-cloud/vision'
 import { ChatGPTAPI } from 'chatgpt'
+import { image_search } from 'duckduckgo-images-api'
+
 const filename = fileURLToPath(import.meta.url)
 const directory = dirname(filename)
 
@@ -63,12 +65,20 @@ io.on('connection', (socket) => {
     'visualize',
     'hierarchy',
     'highlight',
+    'images',
   ]
   socket.emit('types', types)
 
   for (let type of types) {
     socket.on(type, async (msg) => {
       let res = await ask(type, msg)
+
+      if (type == 'images') {
+        let links = await searchImages(res.text);
+        res = links;
+      }
+
+      console.log(res)
       socket.emit(type, res)
     })
   }
@@ -80,6 +90,32 @@ async function ask(type, msg) {
   let res = getJson(`src/sample/${type}.json`)
   console.log(res)
   return res
+}
+
+// Search a SINGLE image
+async function searchImage(query) {
+  const res = await image_search({
+    query: query,
+    moderate: true,
+    iterations: 1,
+    retries: 1
+  });
+
+  let link = res.slice(0,1)
+  return link[0].thumbnail
+}
+
+// Search MULTIPLE images by calling 'searchImage' function recursively 
+async function searchImages(queries) {
+  let data = JSON.parse(queries)
+  let links = []
+
+  for (const word of data.keywords) {
+    const link = await searchImage(word)
+    links.push(link)
+  };
+
+  return links;
 }
 
 function getJson(path) {

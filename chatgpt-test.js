@@ -35,7 +35,7 @@ console.log(text)
 // highlight
 // "Extract important words from the followint text with json array: " 
 
-let prompt = "create a heirarchy of main points for this text in json format. use suitable variable names for headings. use short phrases instead of sentences. your output should be only code json format. don't print any explanation or text: " 
+let prompt = `give me top 5 words or phrases from this text in a json file. your output should be only code json format. don't print any explanation or text. the json should contain all the results under the variable "keywords": ` 
 
 let query = prompt + text
 let res = await api.sendMessage(query)

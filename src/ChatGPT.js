@@ -6,7 +6,7 @@ class ChatGPT extends Component {
     super(props)
     window.ChatGPT = this
     this.socket = App.socket
-    const types = ['summary', 'visualize', 'hierarchy', 'highlight']
+    const types = ['summary', 'visualize', 'hierarchy', 'highlight', 'images']
     this.state = {
       types: types
     }
@@ -31,7 +31,7 @@ class ChatGPT extends Component {
           case 'visualize':
             break;
           case 'hierarchy':
-            // console.log(res.text)
+            // console.log(res)
             let data = JSON.parse(res.text)
             let str = ""
 
@@ -59,7 +59,11 @@ class ChatGPT extends Component {
             })
             console.log(textAnnotations)
             App.setState({ highlight: textAnnotations })
-            break
+            break ;
+          case 'images':
+            App.setState({images: res})
+            console.log(App.state.images)
+            break ;
         }
       })
     }

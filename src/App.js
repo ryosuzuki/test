@@ -27,7 +27,8 @@ class App extends Component {
       summary: '',
       hierarchy: '',
       highlight: [],
-
+      images: [],
+      
       dragging: false,
       initDrawing: true,
       distance: 0,
@@ -53,20 +54,20 @@ class App extends Component {
 
   }
 
-  showSummary(res) {
-    let summaryEl = document.querySelector('#summary-res')
-    summaryEl.textContent = res.text
-  }
+  // showSummary(res) {
+  //   let summaryEl = document.querySelector('#summary-res')
+  //   summaryEl.textContent = res.text
+  // }
 
-  showHierarchy(res){
-    let hierarchyEl = document.querySelector('#hierarchy-res')
-    hierarchyEl.text = res.text
-  }
+  // showHierarchy(res){
+  //   let hierarchyEl = document.querySelector('#hierarchy-res')
+  //   hierarchyEl.text = res.text
+  // }
 
-  showVisualize(res) {
-    let visualizeEl = document.querySelector('#visualize-res')
-    visualizeEl.textContent = res.text
-  }
+  // showVisualize(res) {
+  //   let visualizeEl = document.querySelector('#visualize-res')
+  //   visualizeEl.textContent = res.text
+  // }
 
   init() {
     console.log('init')

@@ -1,17 +1,17 @@
 {
   "role": "assistant",
-  "id": "cmpl-6pUt6O2nfq4PdKUMRkF2sRGCc2BG1",
-  "parentMessageId": "cd76dc82-97d4-4dc9-badc-1009b4232303",
-  "conversationId": "a9041574-affb-43c1-ba6d-b43c6702affb",
-  "text": "{\n  \"Abstract\": {\n    \"Description\": \"We present RealityExtract, an augmented reality authoring tool that allows the user to make static math textbooks interactive. Augmented textbooks are becoming a popular medium for more learnable and engaging education.\",\n    \"Features\": \"unlike the existing tools, ours enables data driven approach that lets the user define the relationship between input and output to make augmented textbook, more specifically, we provide the following six animation techniques that augments the textbook: 1) dynamic graphs, 2) exemplify equation 3) segmented color change, 4) physics simulation, 5) supporting lines, 6) dynamic value slider.\"\n  },\n  \"Introduction\": {\n    \"Background\": \"Augmented textbook is becoming more promising educational media with recent advancements in AR technologies.\",\n    \"Goal\": \"Our tools allows users to easily create these augmented math textbooks through data driven approach.\"\n  },\n  \"Evaluation\": {\n    \"Study\": \"We evaluate our system with 12 students where we compare our system with static textbooks. We also conducted expert interviews with math instructors to get insight about limitation of our system.\",\n    \"Results\": \"The study result confirms that the student significantly prefers our system, allowing them to gain more understanding of the concepts.\"\n  },\n  \"CCS Concepts\": \"Human-centered computing → Mixed / augmented reality.\",\n  \"Permission\": \"Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page.\",\n  \"ACM Reference Format\": \". 2023. Reality Extract: authoring augmented math textbook through data driven AR animation. In UIST '23: The ACM Symposium on User Interface Software and Technology, Oct 23-28, 2023, San Francisco, CA, U.S.A.. ACM, New York, NY, USA, 3 pages. https://doi.org/10.1145/123456.123456\",\n  \"Keywords\": \"augmented reality; mixed reality\"\n}",
+  "id": "cmpl-6pYOP9Vz2CNYPam8Pot9Wb0kbjPxd",
+  "parentMessageId": "422fc21e-58d2-4f16-b0a1-91166ca3df0a",
+  "conversationId": "406df172-3c99-4112-a4c4-b9f00873dab5",
+  "text": "{ \"keywords\": [\"augmented reality\", \"mixed reality\", \"data driven approach\", \"interactive math exploration\", \"visual output\", \"input variable\", \"dynamic graphs\", \"exemplify equation\", \"segmented color change\", \"physics simulation\", \"supporting lines\", \"dynamic value slider\"] }",
   "detail": {
-    "id": "cmpl-6pUt6O2nfq4PdKUMRkF2sRGCc2BG1",
+    "id": "cmpl-6pYOP9Vz2CNYPam8Pot9Wb0kbjPxd",
     "object": "text_completion",
-    "created": 1677731480,
+    "created": 1677744953,
     "model": "text-davinci-003",
     "choices": [
       {
-        "text": "{\n  \"Abstract\": {\n    \"Description\": \"We present RealityExtract, an augmented reality authoring tool that allows the user to make static math textbooks interactive. Augmented textbooks are becoming a popular medium for more learnable and engaging education.\",\n    \"Features\": \"unlike the existing tools, ours enables data driven approach that lets the user define the relationship between input and output to make augmented textbook, more specifically, we provide the following six animation techniques that augments the textbook: 1) dynamic graphs, 2) exemplify equation 3) segmented color change, 4) physics simulation, 5) supporting lines, 6) dynamic value slider.\"\n  },\n  \"Introduction\": {\n    \"Background\": \"Augmented textbook is becoming more promising educational media with recent advancements in AR technologies.\",\n    \"Goal\": \"Our tools allows users to easily create these augmented math textbooks through data driven approach.\"\n  },\n  \"Evaluation\": {\n    \"Study\": \"We evaluate our system with 12 students where we compare our system with static textbooks. We also conducted expert interviews with math instructors to get insight about limitation of our system.\",\n    \"Results\": \"The study result confirms that the student significantly prefers our system, allowing them to gain more understanding of the concepts.\"\n  },\n  \"CCS Concepts\": \"Human-centered computing → Mixed / augmented reality.\",\n  \"Permission\": \"Permission to make digital or hard copies of all or part of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page.\",\n  \"ACM Reference Format\": \". 2023. Reality Extract: authoring augmented math textbook through data driven AR animation. In UIST '23: The ACM Symposium on User Interface Software and Technology, Oct 23-28, 2023, San Francisco, CA, U.S.A.. ACM, New York, NY, USA, 3 pages. https://doi.org/10.1145/123456.123456\",\n  \"Keywords\": \"augmented reality; mixed reality\"\n}",
+        "text": "\n{ \"keywords\": [\"augmented reality\", \"mixed reality\", \"data driven approach\", \"interactive math exploration\", \"visual output\", \"input variable\", \"dynamic graphs\", \"exemplify equation\", \"segmented color change\", \"physics simulation\", \"supporting lines\", \"dynamic value slider\"] }",
         "index": 0,
         "logprobs": null,
         "finish_reason": "stop"
@@ -19,8 +19,8 @@
     ],
     "usage": {
       "prompt_tokens": 1097,
-      "completion_tokens": 455,
-      "total_tokens": 1552
+      "completion_tokens": 71,
+      "total_tokens": 1168
     }
   }
 }
