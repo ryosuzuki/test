@@ -35,7 +35,7 @@ console.log(text)
 // highlight
 // "Extract important words from the followint text with json array: " 
 
-let prompt = `give me top 5 words or phrases from this text in a json file. your output should be only code json format. don't print any explanation or text. the json should contain all the results under the variable "keywords": ` 
+let prompt = `can you create flashcards for this given text? give output in json and json only without any additional text. json format should be: title as name, non-nested values as it's respective pairs.don't use sentences; use short phrases everywhere: ` 
 
 let query = prompt + text
 let res = await api.sendMessage(query)

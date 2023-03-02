@@ -6,7 +6,15 @@ class ChatGPT extends Component {
     super(props)
     window.ChatGPT = this
     this.socket = App.socket
-    const types = ['summary', 'visualize', 'hierarchy', 'highlight', 'images', 'reference_pages']
+    const types = [
+      'summary',
+      'visualize',
+      'hierarchy',
+      'highlight',
+      'images',
+      'reference_pages',
+      'flashcards'
+    ]
     this.state = {
       types: types
     }
@@ -47,7 +55,7 @@ class ChatGPT extends Component {
                 str += ` - ${value} \n`
               }
             }
-
+            
             console.log(str)
             App.setState({ hierarchy: str })
             break;
@@ -59,13 +67,17 @@ class ChatGPT extends Component {
             })
             console.log(textAnnotations)
             App.setState({ highlight: textAnnotations })
-            break ;
+            break;
           case 'images':
-            App.setState({images: res})
-            break ;
+            App.setState({ images: res })
+            break;
           case 'reference_pages':
             console.log('set active - reference pages')
             App.setState({ showReferencePages: true })
+          case 'flashcards':
+            let flashcardsjson = JSON.parse(res.text) 
+            App.setState({flashcards: flashcardsjson})
+            break ;
         }
       })
     }

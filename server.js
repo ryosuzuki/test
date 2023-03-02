@@ -67,6 +67,7 @@ io.on('connection', (socket) => {
     'highlight',
     'images',
     'reference_pages',
+    'flashcards'
   ]
   socket.emit('types', types)
 

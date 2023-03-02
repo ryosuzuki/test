@@ -6,6 +6,7 @@ import Highlight from './Highlight.js'
 import Hierarchy from './Hierarchy.js'
 import Images from './Images.js'
 import ReferencePages from './ReferencePages.js'
+import Flashcards from './Flashcards.js'
 
 import ocr from './sample/ocr.json'
 import summary from './sample/summary.json'
@@ -76,6 +77,8 @@ class Canvas extends Component {
               <ReferencePages 
                 showReferencePages={App.state.showReferencePages}
               />
+
+              <Flashcards flashcardsData={App.state.flashcards}/>
 
               {/* Drawing Line */}
               {/* <Line

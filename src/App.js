@@ -28,6 +28,7 @@ class App extends Component {
       hierarchy: '',
       highlight: [],
       images: [],
+      flashcards: undefined,
 
       showReferencePages: false,
       dragging: false,
@@ -119,7 +120,7 @@ class App extends Component {
   }
 
   tick() {
-    console.log('tick')
+    // console.log('tick')
     this.mesh.material.map.needsUpdate = true
     return
     if (this.state.dragging) {

@@ -49,14 +49,6 @@ class Images extends Component {
             <>
                 {/* Images */}
                 <IMGs urls={this.props.images} />
-                {/* <Group
-                    x={0}
-                    y={0}
-                    width={App.size}
-                    height={50}
-                >
-                    <IMG imageUrl={this.props.images[0]} />
-                </Group> */}
             </>
         )
     }

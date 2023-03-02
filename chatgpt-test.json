@@ -1,26 +1,26 @@
 {
   "role": "assistant",
-  "id": "cmpl-6pYOP9Vz2CNYPam8Pot9Wb0kbjPxd",
-  "parentMessageId": "422fc21e-58d2-4f16-b0a1-91166ca3df0a",
-  "conversationId": "406df172-3c99-4112-a4c4-b9f00873dab5",
-  "text": "{ \"keywords\": [\"augmented reality\", \"mixed reality\", \"data driven approach\", \"interactive math exploration\", \"visual output\", \"input variable\", \"dynamic graphs\", \"exemplify equation\", \"segmented color change\", \"physics simulation\", \"supporting lines\", \"dynamic value slider\"] }",
+  "id": "cmpl-6ph8g9babYFwgCubDhTaLPEpb6MZ3",
+  "parentMessageId": "76dab6b3-90a9-47a7-8bbc-158b0917ee69",
+  "conversationId": "ce67ab23-9ae1-4b70-99b4-dcc30bb43177",
+  "text": "{\n  \"title\": \"Reality Extract\",\n  \"1\": \"Dynamic Graphs\",\n  \"2\": \"Exemplify Equation\",\n  \"3\": \"Segmented Color Change\",\n  \"4\": \"Physics Simulation\",\n  \"5\": \"Supporting Lines\",\n  \"6\": \"Dynamic Value Slider\"\n}",
   "detail": {
-    "id": "cmpl-6pYOP9Vz2CNYPam8Pot9Wb0kbjPxd",
+    "id": "cmpl-6ph8g9babYFwgCubDhTaLPEpb6MZ3",
     "object": "text_completion",
-    "created": 1677744953,
+    "created": 1677778574,
     "model": "text-davinci-003",
     "choices": [
       {
-        "text": "\n{ \"keywords\": [\"augmented reality\", \"mixed reality\", \"data driven approach\", \"interactive math exploration\", \"visual output\", \"input variable\", \"dynamic graphs\", \"exemplify equation\", \"segmented color change\", \"physics simulation\", \"supporting lines\", \"dynamic value slider\"] }",
+        "text": "\n{\n  \"title\": \"Reality Extract\",\n  \"1\": \"Dynamic Graphs\",\n  \"2\": \"Exemplify Equation\",\n  \"3\": \"Segmented Color Change\",\n  \"4\": \"Physics Simulation\",\n  \"5\": \"Supporting Lines\",\n  \"6\": \"Dynamic Value Slider\"\n}",
         "index": 0,
         "logprobs": null,
         "finish_reason": "stop"
       }
     ],
     "usage": {
-      "prompt_tokens": 1097,
-      "completion_tokens": 71,
-      "total_tokens": 1168
+      "prompt_tokens": 1103,
+      "completion_tokens": 78,
+      "total_tokens": 1181
     }
   }
 }
