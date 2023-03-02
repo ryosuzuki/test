@@ -61,6 +61,7 @@ io.on('connection', (socket) => {
   let types = [
     'summary',
     'visualize',
+    'hierarchy',
     'highlight',
   ]
   socket.emit('types', types)

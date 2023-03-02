@@ -25,6 +25,7 @@ class App extends Component {
     this.size = 1024
     this.state = {
       summary: '',
+      hierarchy: '',
       highlight: [],
 
       dragging: false,
@@ -45,7 +46,6 @@ class App extends Component {
 
     this.sceneEl = document.querySelector('a-scene')
     this.sceneEl.addEventListener('loaded', () => {
-      console.log('gjoefjeo')
       this.init()
       // AFRAME.components['drawing-plane'].Component.prototype.init = this.init.bind(this)
       AFRAME.components['drawing-plane'].Component.prototype.tick = this.tick.bind(this)
@@ -56,6 +56,11 @@ class App extends Component {
   showSummary(res) {
     let summaryEl = document.querySelector('#summary-res')
     summaryEl.textContent = res.text
+  }
+
+  showHierarchy(res){
+    let hierarchyEl = document.querySelector('#hierarchy-res')
+    hierarchyEl.text = res.text
   }
 
   showVisualize(res) {

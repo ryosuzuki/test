@@ -26,13 +26,16 @@ function saveJson(path, json) {
 const sample = getJson('src/sample/ocr.json')
 const rawtext = sample.textAnnotations[0].description
 const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
+
+console.log(text)
+
 // summary
 // "Provide the summary for the followint text: " 
 
 // highlight
 // "Extract important words from the followint text with json array: " 
 
-let prompt = "Extract important words from the followint text with json array: " 
+let prompt = "create a heirarchy of main points for this text in json format. use suitable variable names for headings. use short phrases instead of sentences. your output should be only code json format. don't print any explanation or text: " 
 
 let query = prompt + text
 let res = await api.sendMessage(query)
