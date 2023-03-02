@@ -62,7 +62,6 @@ class ChatGPT extends Component {
             break ;
           case 'images':
             App.setState({images: res})
-            console.log(App.state.images)
             break ;
         }
       })
