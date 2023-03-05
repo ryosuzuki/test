@@ -43,17 +43,17 @@ class Canvas extends Component {
                 y={0}
                 width={App.size}
                 height={App.size}
-                fill={'#eee'}
+                fill={'#00000033'}
               />
               {/* Paper Outline */}
               <Rect
                 x={App.size / 2}
                 y={App.size / 2}
-                width={App.size * 850 / 1100}
-                height={App.size}
-                offsetX={App.size * 850 / 1100 / 2}
-                offsetY={App.size / 2}
-                fill={App.fillColorAlpha}
+                width={App.size * 850 / 1100 / 2}
+                height={App.size / 1.5}
+                offsetX={App.size * 850 / 1100 / 4}
+                offsetY={App.size / 3}
+                fill={'#b2fbff01'}
               />
               {/* Summary */}
               <Summary
