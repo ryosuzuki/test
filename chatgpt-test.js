@@ -23,8 +23,9 @@ function saveJson(path, json) {
   fs.writeFileSync(join(directory, path), JSON.stringify(json, 'null', 2))
 }
 
-const sample = getJson('src/sample/ocr.json')
+const sample = getJson('src/sample/OCRs/2.json')
 const rawtext = sample.textAnnotations[0].description
+
 const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
 
 console.log(text)
@@ -44,7 +45,10 @@ console.log(text)
 // flashcard
 // `can you create flashcards for this given text? give output in json and json only without any additional text. json format should be: title of flashcard and its short description as value. don't use sentences; use short phrases everywhere: `
 
-let prompt = `can you create flashcards for this given text? give output in json and json only without any additional text. json format should be: title of flashcard and its short description as value. don't use sentences; use short phrases everywhere: ` 
+// Profiles - People/Organization
+// `in the following text, extract people/organizations and provide additional but short information about them. Information should be from the text but also from the web (outside the text) to assist me with helpful context, if any. your output should be a json with keys as extracted people or organization name and it's children value as 'info' which will be very short information. add any additional outside information to help with the context. keep children values very short. you can include multiple values for one key. for each key, also add tag value that contains array of multiple tags that associated with the type of key it is. If nothing found, leave json empty. DO NOT include any additional information or explanation or note. Your output should be json and json only:  `
+
+let prompt = `in the following text, extract people/organizations and provide additional but short information about them. Information should be from the text but also from the web (outside the text) to assist me with helpful context, if any. your output should be a json with keys as extracted people or organization name and it's children value as 'info' which will be very short information. add any additional outside information to help with the context. keep children values very short. you can include multiple values for one key. for each key, also add tag value that contains array of multiple tags that associated with the type of key it is. If nothing found, leave json empty. DO NOT include any additional information or explanation or note. Your output should be json and json only:  `
 
 let query = prompt + text
 let res = await api.sendMessage(query)

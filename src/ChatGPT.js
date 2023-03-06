@@ -15,7 +15,8 @@ class ChatGPT extends Component {
       'highlight',
       'images',
       'reference_pages',
-      'flashcards'
+      'flashcards',
+      'profiles',
     ]
     this.state = {
       types: types
@@ -101,6 +102,11 @@ class ChatGPT extends Component {
             let flashcardsjson = JSON.parse(res.text)
             console.log(flashcardsjson)
             App.setState({ flashcards: flashcardsjson })
+            break;
+          case 'profiles':
+            let profileData = JSON.parse(res.text) 
+            console.log(profileData)
+            App.setState({profile: profileData})
             break;
         }
       })

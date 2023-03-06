@@ -7,6 +7,7 @@ import Hierarchy from './Hierarchy.js'
 import Images from './Images.js'
 import ReferencePages from './ReferencePages.js'
 import Flashcards from './Flashcards.js'
+import Profile from './Profile.js'
 
 window.Konva = Konva
 let debug = false
@@ -73,6 +74,8 @@ class Canvas extends Component {
               />
 
               <Flashcards flashcardsData={App.state.flashcards} />
+
+              <Profile profileData={App.state.profile}/>
 
               {/* Drawing Line */}
               {/* <Line

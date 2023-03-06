@@ -10,7 +10,7 @@ AFRAME.registerComponent('drawing-plane', {
   tick: () => { }
 })
 
-const isCameraOn = true
+const isCameraOn = false
 
 class App extends Component {
   constructor(props) {
@@ -29,8 +29,9 @@ class App extends Component {
       highlight: [],
       images: [],
       flashcards: [],
+      profile: '',
 
-      currentTestingDoc: 1, //change for doc & vis that you want to test
+      currentTestingDoc: 2, //change for doc & vis that you want to test
       showReferencePages: false,
       dragging: false,
       initDrawing: true,

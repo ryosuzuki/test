@@ -1,26 +1,26 @@
 {
   "role": "assistant",
-  "id": "cmpl-6pjpOxHLLvG6xVBxs9fzBoQGqoDTn",
-  "parentMessageId": "3f825650-35e8-4904-9d4b-1ce30716dd66",
-  "conversationId": "95afbc72-6144-4fd9-a828-0869f1115660",
-  "text": "{\"Dynamic Graphs\": \"Allows user to create graphs that are driven by input variables\", \n\"Exemplify Equation\": \"Allows user to display equations and their values in an interactive way\", \n\"Segmented Color Change\": \"Allows user to change colors of elements based on input values\", \n\"Physics Simulation\": \"Allows user to simulate physical phenomena with input variables\", \n\"Supporting Lines\": \"Allows user to draw lines between elements based on input values\", \n\"Dynamic Value Slider\": \"Allows user to control input variables through sliders\"}",
+  "id": "cmpl-6r24RQe1TzfIocE5zkoH17joAKaGD",
+  "parentMessageId": "c3014999-ebdf-422b-8f91-69352d5289d4",
+  "conversationId": "84dda0cc-47ab-4775-8305-2e779b407c56",
+  "text": "{\n  \"Calculus\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics focused on limits, derivatives, integrals, and infinite series\"\n  },\n  \"Geometry\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics concerned with questions of shape, size, relative position of figures, and the properties of space\"\n  },\n  \"Algebra\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics dealing with symbols and the rules for manipulating those symbols\"\n  },\n  \"Paper Vis Designer\": {\n    \"tag\": [\"augmented document\", \"authoring tool\"],\n    \"info\": \"A tool that allows users to augment static visuals with dynamic content by providing an authoring environment\"\n  },\n  \"Paper Trail\": {\n    \"tag\": [\"augmented document\", \"authoring tool\"],\n    \"info\": \"A tool that explores the authoring of augmented paper based on simple user-defined animations\"\n  },\n  \"Explorable Explanations\": {\n    \"tag\": [\"interactive explanation\"],\n    \"info\": \"A concept of explaining mathematical concepts through interactive visualizations that are bound to equations\"\n  },\n  \"Math Augmentation\": {\n    \"tag\": [\"taxonomy analysis\"],\n    \"info\": \"An analysis of existing practices that provides a taxonomy of common techniques for interactive websites\"\n  },\n  \"Rapido\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  },\n  \"Pronto\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  },\n  \"ProtoAR\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  }\n}",
   "detail": {
-    "id": "cmpl-6pjpOxHLLvG6xVBxs9fzBoQGqoDTn",
+    "id": "cmpl-6r24RQe1TzfIocE5zkoH17joAKaGD",
     "object": "text_completion",
-    "created": 1677788910,
+    "created": 1678097363,
     "model": "text-davinci-003",
     "choices": [
       {
-        "text": "{\"Dynamic Graphs\": \"Allows user to create graphs that are driven by input variables\", \n\"Exemplify Equation\": \"Allows user to display equations and their values in an interactive way\", \n\"Segmented Color Change\": \"Allows user to change colors of elements based on input values\", \n\"Physics Simulation\": \"Allows user to simulate physical phenomena with input variables\", \n\"Supporting Lines\": \"Allows user to draw lines between elements based on input values\", \n\"Dynamic Value Slider\": \"Allows user to control input variables through sliders\"}",
+        "text": "{\n  \"Calculus\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics focused on limits, derivatives, integrals, and infinite series\"\n  },\n  \"Geometry\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics concerned with questions of shape, size, relative position of figures, and the properties of space\"\n  },\n  \"Algebra\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics dealing with symbols and the rules for manipulating those symbols\"\n  },\n  \"Paper Vis Designer\": {\n    \"tag\": [\"augmented document\", \"authoring tool\"],\n    \"info\": \"A tool that allows users to augment static visuals with dynamic content by providing an authoring environment\"\n  },\n  \"Paper Trail\": {\n    \"tag\": [\"augmented document\", \"authoring tool\"],\n    \"info\": \"A tool that explores the authoring of augmented paper based on simple user-defined animations\"\n  },\n  \"Explorable Explanations\": {\n    \"tag\": [\"interactive explanation\"],\n    \"info\": \"A concept of explaining mathematical concepts through interactive visualizations that are bound to equations\"\n  },\n  \"Math Augmentation\": {\n    \"tag\": [\"taxonomy analysis\"],\n    \"info\": \"An analysis of existing practices that provides a taxonomy of common techniques for interactive websites\"\n  },\n  \"Rapido\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  },\n  \"Pronto\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  },\n  \"ProtoAR\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  }\n}",
         "index": 0,
         "logprobs": null,
         "finish_reason": "stop"
       }
     ],
     "usage": {
-      "prompt_tokens": 1099,
-      "completion_tokens": 119,
-      "total_tokens": 1218
+      "prompt_tokens": 1113,
+      "completion_tokens": 454,
+      "total_tokens": 1567
     }
   }
 }
