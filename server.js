@@ -42,9 +42,16 @@ httpServer.listen(4000, () => {
   console.log('listening 4000')
 })
 
+let currentTestingDoc = 1
+
 io.on('connection', (socket) => {
   console.log('connected to: ' + socket.id)
   socket.emit('socketid', socket.id)
+
+  socket.on('currentTestingDoc', (id) => {
+    currentTestingDoc = id
+    console.log("Testing Document ID: " + currentTestingDoc)
+  })
 
   socket.on('run_ocr', (msg) => {
     loadImage(msg).then(image => {
@@ -89,7 +96,7 @@ io.on('connection', (socket) => {
 async function ask(type, msg) {
   // let res = await api.sendMessage(msg)
   // saveJson('sample/summary.json', msg)
-  let res = getJson(`src/sample/${type}.json`)
+  let res = getJson(`src/sample/${type}/${currentTestingDoc}.json`)
   console.log(res)
   return res
 }

@@ -30,7 +30,7 @@ class App extends Component {
       images: [],
       flashcards: [],
 
-      testingDoc: 2,
+      currentTestingDoc: 1, //change for doc & vis that you want to test
       showReferencePages: false,
       dragging: false,
       initDrawing: true,
@@ -54,6 +54,8 @@ class App extends Component {
       // AFRAME.components['drawing-plane'].Component.prototype.init = this.init.bind(this)
       AFRAME.components['drawing-plane'].Component.prototype.tick = this.tick.bind(this)
     })
+
+    this.socket.emit('currentTestingDoc', this.state.currentTestingDoc)
   }
 
   // showSummary(res) {
@@ -151,7 +153,7 @@ class App extends Component {
   }
     
   render() {
-    let target = `imageTargetSrc: http://localhost:4000/public/targets/${this.state.testingDoc}.mind`
+    let target = `imageTargetSrc: http://localhost:4000/public/targets/${this.state.currentTestingDoc}.mind`
     return (
       <>
         <Canvas />

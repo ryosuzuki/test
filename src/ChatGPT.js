@@ -33,7 +33,7 @@ class ChatGPT extends Component {
     //   .catch(error => console.error(error));
 
 
-    import(`./sample/OCRs/${App.state.testingDoc}.json`)
+    import(`./sample/OCRs/${App.state.currentTestingDoc}.json`)
       .then(module => {
         ocr = module.default; // Get the exported data from the module object
         console.log(ocr); // log the parsed JSON data
