@@ -8,10 +8,6 @@ import Images from './Images.js'
 import ReferencePages from './ReferencePages.js'
 import Flashcards from './Flashcards.js'
 
-import ocr from './sample/ocr.json'
-import summary from './sample/summary.json'
-import visualize from './sample/visualize.json'
-
 window.Konva = Konva
 let debug = false
 
@@ -36,7 +32,7 @@ class Canvas extends Component {
             width={App.size}
             height={App.size}
           >
-            <Layer ref={ref => (this.layer = ref)}>
+            <Layer ref={ref => (this.layer = ref)} listening={false}>
               {/* Canvas Background */}
               <Rect
                 x={0}
@@ -49,36 +45,34 @@ class Canvas extends Component {
               <Rect
                 x={App.size / 2}
                 y={App.size / 2}
-                width={App.size * 850 / 1100 / 2}
+                width={App.size * 850 / 1100 / 1.5}
                 height={App.size / 1.5}
-                offsetX={App.size * 850 / 1100 / 4}
+                offsetX={App.size * 850 / 1100 / 3}
                 offsetY={App.size / 3}
                 fill={'#b2fbff01'}
               />
-              {/* Summary */}
+
               <Summary
                 text={App.state.summary}
               />
 
-              {/* Highlight */}
-              <Highlight
-                textAnnotations={App.state.highlight}
-              />
-
-              {/* Hierarchy */}
               <Hierarchy
                 hierarchy={App.state.hierarchy}
               />
 
-              <Images 
+              <Highlight
+                textAnnotations={App.state.highlight}
+              />
+
+              <Images
                 images={App.state.images}
               />
 
-              <ReferencePages 
+              <ReferencePages
                 showReferencePages={App.state.showReferencePages}
               />
 
-              <Flashcards flashcardsData={App.state.flashcards}/>
+              <Flashcards flashcardsData={App.state.flashcards} />
 
               {/* Drawing Line */}
               {/* <Line
@@ -97,6 +91,7 @@ class Canvas extends Component {
                 draggable
               /> */}
             </Layer>
+
           </Stage>
         </div>
       </>

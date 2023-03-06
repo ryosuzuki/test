@@ -6,11 +6,11 @@ import ChatGPT from './ChatGPT.js'
 import { io } from 'socket.io-client'
 
 AFRAME.registerComponent('drawing-plane', {
-  init: () => {},
-  tick: () => {}
+  init: () => { },
+  tick: () => { }
 })
 
-const isCameraOn = true 
+const isCameraOn = true
 
 class App extends Component {
   constructor(props) {
@@ -30,6 +30,7 @@ class App extends Component {
       images: [],
       flashcards: [],
 
+      testingDoc: 2,
       showReferencePages: false,
       dragging: false,
       initDrawing: true,
@@ -41,7 +42,7 @@ class App extends Component {
     this.strokeColor = '#002f2b'
     this.fillColor = '#004842'
     this.fillColorAlpha = 'rgba(0, 28, 26, 0.4)'
-    this.strokeWidth = 8    
+    this.strokeWidth = 8
   }
 
   componentDidMount() {
@@ -53,7 +54,6 @@ class App extends Component {
       // AFRAME.components['drawing-plane'].Component.prototype.init = this.init.bind(this)
       AFRAME.components['drawing-plane'].Component.prototype.tick = this.tick.bind(this)
     })
-
   }
 
   // showSummary(res) {
@@ -137,7 +137,7 @@ class App extends Component {
         let point = intersect.point
         let mouse = {
           x: this.size * intersect.uv.x,
-          y: this.size * (1- intersect.uv.y)
+          y: this.size * (1 - intersect.uv.y)
         }
         this.setState({ distance: intersect.distance, mouse: mouse })
         if (this.state.initDrawing) {
@@ -149,20 +149,20 @@ class App extends Component {
       }
     }
   }
-
-
+    
   render() {
+    let target = `imageTargetSrc: http://localhost:4000/public/targets/${this.state.testingDoc}.mind`
     return (
       <>
         <Canvas />
-        { isCameraOn ? '' :
+        {isCameraOn ? '' :
           <a-scene>
-            <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 1.5 -1" width="1" height="1"></a-plane>        
-          </a-scene>          
+            <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 1.5 -1" width="1" height="1"></a-plane>
+          </a-scene>
         }
-        { !isCameraOn ? '' :
+        {!isCameraOn ? '' :
           <a-scene
-            mindar-image="imageTargetSrc: http://localhost:4000/public/target.mind"
+            mindar-image={target}
             embedded color-space="sRGB"
             renderer="colorManagement: true, physicallyCorrectLights"
             vr-mode-ui="enabled: false"
@@ -170,11 +170,11 @@ class App extends Component {
           >
             <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
             <a-entity mindar-image-target="targetIndex: 0">
-              <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 0 0" height="2" width="2.5"></a-plane>
+              <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 0 0" height="2" width="2"></a-plane>
             </a-entity>
             <Video />
           </a-scene>
-        } 
+        }
         <ChatGPT />
       </>
     )

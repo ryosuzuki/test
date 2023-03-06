@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import sample from './sample/ocr.json'
+// import sample from './sample/ocr.json'
 
 class Video extends Component {
   constructor(props) {
@@ -7,7 +7,7 @@ class Video extends Component {
   }
 
   componentDidMount() {
-    window.sample = sample 
+    // window.sample = sample 
     window.Video = this
     const sceneEl = document.querySelector('a-scene')
     const intervalId = setInterval(() => {
