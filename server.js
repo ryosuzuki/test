@@ -1,5 +1,5 @@
 import express from 'express'
-import { createServer } from 'http'
+import https from 'https';
 import { Server } from 'socket.io'
 import fs from 'fs'
 import { fileURLToPath } from 'url'
@@ -8,6 +8,9 @@ import cors from 'cors'
 import vision from '@google-cloud/vision'
 import { ChatGPTAPI } from 'chatgpt'
 import { image_search } from 'duckduckgo-images-api'
+
+const key = fs.readFileSync('./ip-key.pem');
+const cert = fs.readFileSync('./ip.pem');
 
 const filename = fileURLToPath(import.meta.url)
 const directory = dirname(filename)
@@ -22,24 +25,34 @@ const api = new ChatGPTAPI({
 })
 
 const app = express()
-const httpServer = createServer(app)
-app.use(cors())
 
-const io = new Server(httpServer, {
+const server = https.createServer({ key: key, cert: cert }, app);
+const port = 4000;
+
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
+
+const io = new Server(server, {
   cors: {
     origin: '*',
-    methods: ['GET', 'POST'],
-  },
+  }
 })
 
 app.use(express.static(directory))
+
+server.listen(port, () => {
+  console.log(`listening on ${port}`)
+})
 
 app.get('/', (req, res) => {
   res.sendFile(join(directory, '/public/index.html'))
 })
 
-httpServer.listen(4000, () => {
-  console.log('listening 4000')
+app.get('/public/targets/2.mind', function(req, res) {
+  console.log(res)
 })
 
 let currentTestingDoc = 1
@@ -111,7 +124,7 @@ async function searchImage(query) {
     retries: 1
   });
 
-  let link = res.slice(0,1)
+  let link = res.slice(0, 1)
   return link[0].thumbnail
 }
 

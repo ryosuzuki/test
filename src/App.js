@@ -10,7 +10,7 @@ AFRAME.registerComponent('drawing-plane', {
   tick: () => { }
 })
 
-const isCameraOn = false
+const isCameraOn = true
 
 class App extends Component {
   constructor(props) {
@@ -18,9 +18,8 @@ class App extends Component {
     window.app = this
     window.App = this
 
-    if (window.location.href.includes('localhost')) {
-      this.socket = io('http://localhost:4000')
-    }
+    // Update your https://IP:PORT here
+    this.socket = io('https://10.0.0.190:4000')
 
     this.size = 1024
     this.state = {
@@ -154,7 +153,8 @@ class App extends Component {
   }
     
   render() {
-    let target = `imageTargetSrc: http://localhost:4000/public/targets/${this.state.currentTestingDoc}.mind`
+    // Update your https://IP:PORT here
+    let target = `imageTargetSrc: https://10.0.0.190:4000/public/targets/${this.state.currentTestingDoc}.mind`
     return (
       <>
         <Canvas />
