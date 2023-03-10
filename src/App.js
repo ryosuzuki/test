@@ -3,6 +3,7 @@ import './App.css'
 import Video from './Video.js'
 import Canvas from './Canvas.js'
 import ChatGPT from './ChatGPT.js'
+import SpeechLayer from './SpeechLayer'
 import { io } from 'socket.io-client'
 
 AFRAME.registerComponent('drawing-plane', {
@@ -10,7 +11,7 @@ AFRAME.registerComponent('drawing-plane', {
   tick: () => { }
 })
 
-const isCameraOn = true
+const isCameraOn = false
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class App extends Component {
     window.App = this
 
     // Update your https://IP:PORT here
-    this.socket = io('https://10.0.0.190:4000')
+    this.socket = io('https://localhost:4000')
 
     this.size = 1024
     this.state = {
@@ -179,6 +180,7 @@ class App extends Component {
           </a-scene>
         }
         <ChatGPT />
+        <SpeechLayer socket={this.socket} currentTestingDoc={this.state.currentTestingDoc} />
       </>
     )
   }
