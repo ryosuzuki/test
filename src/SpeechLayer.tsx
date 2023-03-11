@@ -22,13 +22,17 @@ export default function SpeechLayer(props: { socket: Socket, currentTestingDoc: 
 
     useEffect(() => {
         if (latestTranscript && latestTranscript !== '') {
-            console.log(latestTranscript);
+            setTimeout(() => {
+                console.log(latestTranscript);
+            }, 500);
             const rawtext = ocr.textAnnotations[0].description
-            console.log(rawtext)
+            // console.log(rawtext)
             const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
             let query = "I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: " + text;
             if (latestTranscript.toLowerCase().includes('flash') && latestTranscript.toLowerCase().includes('cards')) {
                 props.socket.emit('flashcards', query)
+            }else if(latestTranscript.toLowerCase().includes('important')){
+                props.socket.emit('vocabulary', query)
             }
         }
     }, [latestTranscript])
