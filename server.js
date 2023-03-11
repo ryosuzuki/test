@@ -9,8 +9,8 @@ const vision = require('@google-cloud/vision');
 // const { ChatGPTAPI } = require('chatgpt');
 const { image_search } = require('duckduckgo-images-api');
 const path = require('path');
-const key = fs.readFileSync('./cert.key');
-const cert = fs.readFileSync('./cert.crt');
+const key = fs.readFileSync('./key.pem');
+const cert = fs.readFileSync('./ip.pem');
 
 const filename = path.basename(__filename);
 const directory = path.dirname(filename);

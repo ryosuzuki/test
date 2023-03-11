@@ -20,7 +20,7 @@ class App extends Component {
     window.App = this
 
     // Update your https://IP:PORT here
-    this.socket = io('https://localhost:4000')
+    this.socket = io('https://IP:PORT')
 
     this.size = 1024
     this.state = {
@@ -155,7 +155,7 @@ class App extends Component {
     
   render() {
     // Update your https://IP:PORT here
-    let target = `imageTargetSrc: https://10.0.0.190:4000/public/targets/${this.state.currentTestingDoc}.mind`
+    let target = `imageTargetSrc: https://IP:PORT/public/targets/${this.state.currentTestingDoc}.mind`
     return (
       <>
 
