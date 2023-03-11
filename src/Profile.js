@@ -17,7 +17,7 @@ for (let i = 0; i < 20; i++) {
         points.push({ x, y });
     }
 }
-console.log(points)
+// console.log(points)
 
 const MakeProfile = ({ title, tags, description, x, y }) => {
     return (
@@ -83,7 +83,7 @@ class Profile extends Component {
     render() {
         const profileData = this.props.profileData;
         const profiles = Object.keys(profileData)
-        console.log(profileData)
+        // console.log(profileData)
 
         return (
             <>

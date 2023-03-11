@@ -1,28 +1,28 @@
-import express from 'express'
-import https from 'https';
-import { Server } from 'socket.io'
-import fs from 'fs'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
-import cors from 'cors'
-import vision from '@google-cloud/vision'
-import { ChatGPTAPI } from 'chatgpt'
-import { image_search } from 'duckduckgo-images-api'
-
-const key = fs.readFileSync('./ip-key.pem');
+const express = require('express');
+const https = require('https');
+const { Server } = require('socket.io');
+const fs = require('fs');
+const { fileURLToPath } = require('url');
+const { dirname, join } = require('path');
+const cors = require('cors');
+const vision = require('@google-cloud/vision');
+// const { ChatGPTAPI } = require('chatgpt');
+const { image_search } = require('duckduckgo-images-api');
+const path = require('path');
+const key = fs.readFileSync('./key.pem');
 const cert = fs.readFileSync('./ip.pem');
 
-const filename = fileURLToPath(import.meta.url)
-const directory = dirname(filename)
+const filename = path.basename(__filename);
+const directory = path.dirname(filename);
 
 const config = getJson('config.json')
-const api = new ChatGPTAPI({
-  apiKey: config.apiKey,
-  completionParams: {
-    temperature: 0.5,
-    top_p: 0.8
-  }
-})
+// const api = new ChatGPTAPI({
+//   apiKey: config.apiKey,
+//   completionParams: {
+//     temperature: 0.5,
+//     top_p: 0.8
+//   }
+// })
 
 const app = express()
 
@@ -62,7 +62,7 @@ io.on('connection', (socket) => {
   socket.emit('socketid', socket.id)
 
   socket.on('currentTestingDoc', (id) => {
-    currentTestingDoc = id
+    // currentTestingDoc = id
     console.log("Testing Document ID: " + currentTestingDoc)
   })
 
@@ -88,7 +88,8 @@ io.on('connection', (socket) => {
     'images',
     'reference_pages',
     'flashcards',
-    'profiles'
+    'profiles',
+    'vocabulary'
   ]
   socket.emit('types', types)
 

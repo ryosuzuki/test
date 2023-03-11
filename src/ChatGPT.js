@@ -17,6 +17,7 @@ class ChatGPT extends Component {
       'reference_pages',
       'flashcards',
       'profiles',
+      'vocabulary'
     ]
     this.state = {
       types: types
@@ -47,9 +48,9 @@ class ChatGPT extends Component {
     for (let type of this.state.types) {
       let button = document.querySelector(`#${type}`)
       button.addEventListener('click', () => {
-        console.log(type)
+        // console.log(type)
         const rawtext = ocr.textAnnotations[0].description
-        console.log(rawtext)
+        // console.log(rawtext)
         const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
         let query = "I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: " + text;
         this.socket.emit(type, query)
@@ -108,6 +109,48 @@ class ChatGPT extends Component {
             console.log(profileData)
             App.setState({profile: profileData})
             break;
+          case 'vocabulary':
+            let vocabs = JSON.parse(res.text);
+            console.log(vocabs);
+            let wordsArr = [];
+            ocr.textAnnotations.forEach((item)=>{
+              wordsArr.push(item.description)
+            });
+            let matches = checkConsecutiveWords(vocabs, wordsArr);
+            // console.log(matches);
+
+            let finalMatches = [];
+            matches.matches.forEach((item)=>{
+              let tempObj = (ocr.textAnnotations[item.index]);
+              tempObj['meaning'] = item.value;
+              finalMatches.push(tempObj);
+              let wordLength = item.key.split(' ').length;
+              for(let i=1; i< wordLength; i++){
+                let obj = (ocr.textAnnotations[item.index+i]);
+                obj['meaning'] = item.value;
+                finalMatches.push(obj)
+              }
+            })
+            // console.log(finalMatches)
+
+            let thetextAnnotations = ocr.textAnnotations.filter((textAnnotation) => {
+              return textAnnotation.description in vocabs
+            });
+            thetextAnnotations.map((item)=>{
+              return item['meaning'] = vocabs[item.description]
+            });
+            finalMatches = Object.values(finalMatches.reduce((acc, obj) => {
+              acc[obj['description']] = obj;
+              return acc;
+            }, {}));
+            thetextAnnotations = Object.values(thetextAnnotations.reduce((acc, obj) => {
+              acc[obj['description']] = obj;
+              return acc;
+            }, {}));
+            thetextAnnotations = thetextAnnotations.concat(finalMatches)
+            // console.log(thetextAnnotations)
+            App.setState({ vocabulary: thetextAnnotations })
+            break;
         }
       })
     }
@@ -128,4 +171,24 @@ class ChatGPT extends Component {
   }
 }
 
-export default ChatGPT
+export default ChatGPT;
+
+function checkConsecutiveWords(json, words) {
+  const matches = [];
+  const matchesIndex = []
+  for (let i = 0; i < words.length - 1; i++) {
+    let phrase = words[i];
+    for (let j = i+1; j < i+6; j++) {
+      phrase += ' ' + words[j];
+      if (json.hasOwnProperty(phrase)) {
+        matchesIndex.push(i)
+        matches.push({
+          key: phrase,
+          value: json[phrase],
+          index:i
+        });
+      }
+    }
+  }
+  return {matches};
+}

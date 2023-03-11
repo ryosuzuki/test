@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import './App.css'
 import Video from './Video.js'
-import Canvas from './Canvas.js'
+import Canvas from './Canvas'
 import ChatGPT from './ChatGPT.js'
+import SpeechLayer from './SpeechLayer'
 import { io } from 'socket.io-client'
 
 AFRAME.registerComponent('drawing-plane', {
@@ -10,7 +11,7 @@ AFRAME.registerComponent('drawing-plane', {
   tick: () => { }
 })
 
-const isCameraOn = true
+const isCameraOn = false
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +20,7 @@ class App extends Component {
     window.App = this
 
     // Update your https://IP:PORT here
-    this.socket = io('https://10.0.0.190:4000')
+    this.socket = io('https://IP:PORT')
 
     this.size = 1024
     this.state = {
@@ -29,7 +30,7 @@ class App extends Component {
       images: [],
       flashcards: [],
       profile: '',
-
+      vocabulary:[],
       currentTestingDoc: 2, //change for doc & vis that you want to test
       showReferencePages: false,
       dragging: false,
@@ -77,7 +78,7 @@ class App extends Component {
     console.log('init')
     let el = document.querySelector('#drawing-plane')
     let mesh = el.object3D.children[0]
-    let konvaEl = document.querySelector('.konvajs-content canvas')
+    let konvaEl = document.querySelector('.konvajs-content canvas');
     // konvaEl.width = konvaEl.height = this.size
     console.log(konvaEl)
     let texture = new THREE.Texture(konvaEl)
@@ -120,7 +121,7 @@ class App extends Component {
     this.setState({ dragging: false, initDrawing: true })
     this.canvas.mouseUp()
   }
-
+    
   tick() {
     // console.log('tick')
     this.mesh.material.map.needsUpdate = true
@@ -154,10 +155,21 @@ class App extends Component {
     
   render() {
     // Update your https://IP:PORT here
-    let target = `imageTargetSrc: https://10.0.0.190:4000/public/targets/${this.state.currentTestingDoc}.mind`
+    let target = `imageTargetSrc: https://IP:PORT/public/targets/${this.state.currentTestingDoc}.mind`
     return (
       <>
-        <Canvas />
+
+
+        <Canvas 
+        size={this.size}
+        state={this.state}
+        debug={isCameraOn}
+        space={1024}
+        socket={this.socket} 
+        currentTestingDoc={this.state.currentTestingDoc}
+        />
+
+
         {isCameraOn ? '' :
           <a-scene>
             <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 1.5 -1" width="1" height="1"></a-plane>
@@ -179,6 +191,7 @@ class App extends Component {
           </a-scene>
         }
         <ChatGPT />
+        <SpeechLayer socket={this.socket} currentTestingDoc={this.state.currentTestingDoc} />
       </>
     )
   }

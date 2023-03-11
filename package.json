@@ -1,7 +1,6 @@
 {
   "name": "test",
   "version": "0.1.0",
-  "type": "module",
   "homepage": "https://ryosuzuki.github.io/test",
   "private": true,
   "main": "index.js",
@@ -23,6 +22,7 @@
     "react-scripts": "5.0.0",
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1",
+    "typescript": "^4.9.5",
     "use-image": "^1.1.0"
   },
   "scripts": {
