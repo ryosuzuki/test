@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import Konva from "konva";
+import React, { useEffect, useRef, useState } from "react";
 import { Group, Line, Rect, Text } from "react-konva";
 
 const ocrWidth = 1660;
@@ -14,28 +15,35 @@ export function Vocabulary(props: {
     return (
         props.textAnnotations.length > 0 ?
             <>
-                <Group x={props.relative} y={props.relative} width={1024} height={50}>
+                <Group x={props.relative} y={props.relative} >
                     {props.textAnnotations.map((textAnnotation, i) => {
                         //ar authoring tools
                         const vertices = textAnnotation.boundingPoly.vertices;
 
                         // highlight dimensions
-                        const highlightx = vertices[0].x * ratioWidth;
-                        const highlighty = vertices[0].y * ratioHeight;
-                        const highlightwidth = (vertices[2].x - vertices[0].x) * ratioWidth;
-                        const highlightheight = (vertices[2].y - vertices[0].y) * ratioHeight;
+                        let highlightx = vertices[0].x * ratioWidth;
+                        let highlighty = vertices[0].y * ratioHeight;
+                        let highlightwidth = (vertices[2].x - vertices[0].x) * ratioWidth;
+                        let highlightheight = (vertices[2].y - vertices[0].y) * ratioHeight;
 
                         // card dimensions
-                        const cardx = 10 - props.relative
-                        const cardy = highlighty - 100
-                        const cardwidth = 200
-                        const cardheight = 200
+                        let cardx = 10 - props.relative
+                        let cardy = highlighty - 100
+                        let cardwidth = 200
+                        let cardheight = 200
 
                         // line dimensions
-                        const linex = (10 - props.relative) + 200;
-                        const liney = highlighty;
-                        const linewidth = (highlightx + props.relative) - cardwidth;
-                        const lineheight = 5;
+                        let linex = (10 - props.relative) + 200;
+                        let liney = highlighty;
+                        let linewidth = (highlightx + props.relative) - cardwidth;
+                        let lineheight = 5;
+                        
+                        if(highlightx>1024/2){
+                            // 1024 is size
+                            cardx = (props.relative + 1024) - cardwidth -10;
+                            linex = highlightx + highlightwidth;
+                            linewidth = (linewidth - (cardwidth/2 + 10)) 
+                        }
 
                         return (
                             <>
@@ -53,6 +61,15 @@ export function Vocabulary(props: {
                                     draggable
                                 />
 
+                                {/* Line */}
+                                <Rect
+                                    x={linex}
+                                    y={liney}
+                                    width={linewidth}
+                                    height={lineheight}
+                                    fill={'rgba(0, 28, 26, 0.4)'}
+                                />
+
                                 {/* card */}
                                 <RectangleWithText
                                     height={cardheight}
@@ -61,15 +78,6 @@ export function Vocabulary(props: {
                                     width={cardwidth}
                                     x={cardx}
                                     y={cardy}
-                                />
-
-                                {/* Line */}
-                                <Rect
-                                    x={linex}
-                                    y={liney}
-                                    width={linewidth}
-                                    height={lineheight}
-                                    fill={'rgba(0, 28, 26, 0.4)'}
                                 />
                             </>)
                     })}
@@ -82,14 +90,19 @@ export function Vocabulary(props: {
 const RectangleWithText = ({ x, y, width, height, heading, description }: {
     x: number, y: number, width: number, height: number, heading: string, description: string
 }) => {
+    const [textHeight, setTextHeight] = useState(0);
+    const textref = useRef<Konva.Text>(null)
+    useEffect(()=>{
+        setTextHeight(textref.current?.getHeight())
+    },[])
     return (
-        <Group>
+        <Group zIndex={200}>
             <Rect
                 x={x}
                 y={y}
                 width={width}
-                height={height}
-                fill="#d7d3d573"
+                height={textHeight+69}
+                fill="white"
                 stroke="#555"
                 strokeWidth={1}
                 cornerRadius={10}
@@ -109,8 +122,9 @@ const RectangleWithText = ({ x, y, width, height, heading, description }: {
                 fontStyle={'bold'}
             />
             <Text
+                ref = {textref}
                 x={x + 10}
-                y={y + 75}
+                y={y + 55}
                 fontSize={14}
                 text={description}
                 width={190}

@@ -164,7 +164,7 @@ class App extends Component {
         size={this.size}
         state={this.state}
         debug={isCameraOn}
-        space={1024+300}
+        space={1024}
         socket={this.socket} 
         currentTestingDoc={this.state.currentTestingDoc}
         />
