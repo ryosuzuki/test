@@ -41,7 +41,7 @@ export default function Canvas(props: {
           <Layer visible={true}>
             {/* Canvas Background */}
             <Group>
-            <Text text="Overlays" fontSize={50} />
+            {/* <Text text="Overlays" fontSize={50} /> */}
             </Group>
             <Group>
                 {/* Gray */}

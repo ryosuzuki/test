@@ -191,7 +191,7 @@ class App extends Component {
           </a-scene>
         }
         <ChatGPT />
-        <SpeechLayer  />
+        <SpeechLayer socket={this.socket} currentTestingDoc={this.state.currentTestingDoc} />
       </>
     )
   }
