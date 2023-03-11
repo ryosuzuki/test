@@ -88,7 +88,8 @@ io.on('connection', (socket) => {
     'images',
     'reference_pages',
     'flashcards',
-    'profiles'
+    'profiles',
+    'vocabulary'
   ]
   socket.emit('types', types)
 

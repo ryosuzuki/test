@@ -17,6 +17,7 @@ class ChatGPT extends Component {
       'reference_pages',
       'flashcards',
       'profiles',
+      'vocabulary'
     ]
     this.state = {
       types: types
@@ -107,6 +108,21 @@ class ChatGPT extends Component {
             let profileData = JSON.parse(res.text) 
             console.log(profileData)
             App.setState({profile: profileData})
+            break;
+          case 'vocabulary':
+            let vocabs = JSON.parse(res.text);
+            console.log(res)
+            let thetextAnnotations = ocr.textAnnotations.filter((textAnnotation) => {
+              return textAnnotation.description in vocabs
+            });
+            thetextAnnotations.map((item)=>{
+              return item['meaning'] = vocabs[item.description]
+            });
+            thetextAnnotations = Object.values(thetextAnnotations.reduce((acc, obj) => {
+              acc[obj['description']] = obj;
+              return acc;
+            }, {}))
+            App.setState({ vocabulary: thetextAnnotations })
             break;
         }
       })
