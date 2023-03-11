@@ -111,7 +111,7 @@ class ChatGPT extends Component {
             break;
           case 'vocabulary':
             let vocabs = JSON.parse(res.text);
-            // console.log(res);
+            console.log(vocabs);
             let wordsArr = [];
             ocr.textAnnotations.forEach((item)=>{
               wordsArr.push(item.description)
