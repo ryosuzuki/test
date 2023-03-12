@@ -20,7 +20,8 @@ class App extends Component {
     window.App = this
 
     // Update your https://IP:PORT here
-    this.socket = io('https://IP:PORT')
+    // this.socket = io('https://IP:PORT')
+    this.socket = io('https://localhost:4000')
 
     this.size = 1024
     this.state = {

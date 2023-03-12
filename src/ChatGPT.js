@@ -17,7 +17,8 @@ class ChatGPT extends Component {
       'reference_pages',
       'flashcards',
       'profiles',
-      'vocabulary'
+      'vocabulary',
+      'totalWords'
     ]
     this.state = {
       types: types
@@ -60,6 +61,9 @@ class ChatGPT extends Component {
         switch (type) {
           case 'summary':
             App.setState({ summary: res.text })
+            break;
+          case 'totalWords':
+            console.log(res)
             break;
           case 'visualize':
             break;
