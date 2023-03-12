@@ -23,7 +23,7 @@ function saveJson(path, json) {
   fs.writeFileSync(join(directory, path), JSON.stringify(json, 'null', 2))
 }
 
-const sample = getJson('src/sample/OCRs/2.json')
+const sample = getJson('src/sample/OCRs/1.json')
 const rawtext = sample.textAnnotations[0].description
 
 const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
@@ -51,7 +51,7 @@ console.log(text)
 // Vocabulary 
 // Given text give me a js object of the form {"Word/phrase": "Meaning or description"} with the top 3 most important or complex words or phrases from the text with their meaning or description. Just give me the object in one line, do not give me any description. Text: 
 
-let prompt = `Given text give me a js object of the form {"Word/phrase": "Meaning or description"} with the top 3 most important or complex words or phrases from the text with their meaning or description. Just give me the object in one line, do not give me any description. Text: `
+let prompt = `in the following text, extract people/organizations and provide additional but short information about them. Information should be from the text but also from the web (outside the text) to assist me with helpful context, if any. your output should be a json with keys as extracted people or organization name and it's children value as 'info' which will be very short information. add any additional outside information to help with the context. keep children values very short. you can include multiple values for one key. for each key, also add 'tag' value that contains array of multiple tags that associated with the type of key it is. If nothing found, leave json empty. DO NOT include any additional information or explanation or note. Your output should be json and json only:  `
 
 let query = prompt + text
 let res = await api.sendMessage(query)

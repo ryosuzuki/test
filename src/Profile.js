@@ -83,7 +83,7 @@ class Profile extends Component {
     render() {
         const profileData = this.props.profileData;
         const profiles = Object.keys(profileData)
-        // console.log(profileData)
+        console.log(profileData)
 
         return (
             <>

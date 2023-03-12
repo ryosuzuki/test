@@ -31,7 +31,7 @@ class App extends Component {
       flashcards: [],
       profile: '',
       vocabulary:[],
-      currentTestingDoc: 1, //change for doc & vis that you want to test
+      currentTestingDoc: 2, //change for doc & vis that you want to test
       showReferencePages: false,
       dragging: false,
       initDrawing: true,
