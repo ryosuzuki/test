@@ -20,7 +20,7 @@ class App extends Component {
     window.App = this
 
     // Update your https://IP:PORT here
-    this.socket = io('https://IP:PORT')
+    this.socket = io('https://10.0.0.190:4000/')
 
     this.size = 1024
     this.state = {
@@ -31,7 +31,7 @@ class App extends Component {
       flashcards: [],
       profile: '',
       vocabulary:[],
-      currentTestingDoc: 2, //change for doc & vis that you want to test
+      currentTestingDoc: 1, //change for doc & vis that you want to test
       showReferencePages: false,
       dragging: false,
       initDrawing: true,
@@ -56,6 +56,7 @@ class App extends Component {
       AFRAME.components['drawing-plane'].Component.prototype.tick = this.tick.bind(this)
     })
 
+    console.log(this.state.currentTestingDoc)
     this.socket.emit('currentTestingDoc', this.state.currentTestingDoc)
   }
 
@@ -155,7 +156,7 @@ class App extends Component {
     
   render() {
     // Update your https://IP:PORT here
-    let target = `imageTargetSrc: https://IP:PORT/public/targets/${this.state.currentTestingDoc}.mind`
+    let target = `imageTargetSrc: https://10.0.0.190:4000/public/targets/${this.state.currentTestingDoc}.mind`
     return (
       <>
 

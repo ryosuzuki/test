@@ -55,14 +55,14 @@ app.get('/public/targets/2.mind', function(req, res) {
   console.log(res)
 })
 
-let currentTestingDoc = 1
+let currentTestingDoc = -1
 
 io.on('connection', (socket) => {
   console.log('connected to: ' + socket.id)
   socket.emit('socketid', socket.id)
 
   socket.on('currentTestingDoc', (id) => {
-    // currentTestingDoc = id
+    currentTestingDoc = id
     console.log("Testing Document ID: " + currentTestingDoc)
   })
 

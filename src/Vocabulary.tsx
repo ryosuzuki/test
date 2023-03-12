@@ -21,16 +21,16 @@ export function Vocabulary(props: {
                         let name = textAnnotation.description;
 
                         let namearr = [textAnnotation.description]
-                        for(let n=i-1; n>i-4&&n>0; n--){
-                            if(textAnnotation.meaning===props.textAnnotations[n].meaning){
+                        for (let n = i - 1; n > i - 4 && n > 0; n--) {
+                            if (textAnnotation.meaning === props.textAnnotations[n].meaning) {
                                 namearr.push(props.textAnnotations[n].description)
-                            }else{
+                            } else {
                                 break;
                             }
                         }
                         let newname = namearr.reverse().join(' ')
-                        if(newname!==name){
-                            name=newname
+                        if (newname !== name) {
+                            name = newname
                         }
 
                         //ar authoring tools
@@ -53,12 +53,12 @@ export function Vocabulary(props: {
                         let liney = highlighty;
                         let linewidth = (highlightx + props.relative) - cardwidth;
                         let lineheight = 5;
-                        
-                        if(highlightx>1024/2){
+
+                        if (highlightx > 1024 / 2) {
                             // 1024 is size
-                            cardx = (props.relative + 1024) - cardwidth -10;
+                            cardx = (props.relative + 1024) - cardwidth - 10;
                             linex = highlightx + highlightwidth;
-                            linewidth = (linewidth - (cardwidth/2 + 10)) 
+                            linewidth = (linewidth - (cardwidth / 2 + 10))
                         }
 
                         return (
@@ -110,17 +110,17 @@ const RectangleWithText = ({ x, y, width, height, heading, description }: {
     const [headingheight, setheadingheight] = useState(0);
     const textref = useRef<Konva.Text>(null)
     const headingref = useRef<Konva.Text>(null)
-    useEffect(()=>{
+    useEffect(() => {
         setTextHeight(textref.current?.getHeight())
         setheadingheight(headingref.current?.getHeight())
-    },[])
+    }, [])
     return (
         <Group zIndex={200}>
             <Rect
                 x={x}
                 y={y}
                 width={width}
-                height={textHeight+headingheight+50}
+                height={textHeight + headingheight + 50}
                 fill="white"
                 stroke="#555"
                 strokeWidth={1}
@@ -142,7 +142,7 @@ const RectangleWithText = ({ x, y, width, height, heading, description }: {
                 fontStyle={'bold'}
             />
             <Text
-                ref = {textref}
+                ref={textref}
                 x={x + 10}
                 y={y + headingheight + 30}
                 fontSize={14}
