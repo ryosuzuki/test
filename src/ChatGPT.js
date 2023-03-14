@@ -18,7 +18,7 @@ class ChatGPT extends Component {
       'flashcards',
       'profiles',
       'vocabulary',
-      'totalWords'
+      'DocStats'
     ]
     this.state = {
       types: types
@@ -53,17 +53,20 @@ class ChatGPT extends Component {
         const rawtext = ocr.textAnnotations[0].description
         // console.log(rawtext)
         const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
-        let query = "I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: " + text;
+        let query = `I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: ${rawtext}`;
         this.socket.emit(type, query)
       })
 
       this.socket.on(type, (res) => {
         switch (type) {
           case 'summary':
+            makeAllStatesNull()
             App.setState({ summary: res.text })
             break;
-          case 'totalWords':
-            console.log(res)
+          case 'DocStats':
+            console.log(res);
+            makeAllStatesNull()
+            App.setState({ doc_stats: res });
             break;
           case 'visualize':
             break;
@@ -85,7 +88,8 @@ class ChatGPT extends Component {
               }
             }
 
-            console.log(str)
+            console.log(str);
+            makeAllStatesNull()
             App.setState({ hierarchy: str })
             break;
           case 'highlight':
@@ -95,42 +99,47 @@ class ChatGPT extends Component {
               return words.includes(textAnnotation.description)
             })
             console.log(textAnnotations)
+            makeAllStatesNull()
             App.setState({ highlight: textAnnotations })
             break;
           case 'images':
+            makeAllStatesNull()
             App.setState({ images: res })
             break;
           case 'reference_pages':
             console.log('set active - reference pages')
+            makeAllStatesNull()
             App.setState({ showReferencePages: true })
           case 'flashcards':
             let flashcardsjson = JSON.parse(res.text)
             console.log(flashcardsjson)
+            makeAllStatesNull()
             App.setState({ flashcards: flashcardsjson })
             break;
           case 'profiles':
-            let profileData = JSON.parse(res.text) 
+            let profileData = JSON.parse(res.text)
             console.log(profileData)
-            App.setState({profile: profileData})
+            makeAllStatesNull()
+            App.setState({ profile: profileData })
             break;
           case 'vocabulary':
             let vocabs = JSON.parse(res.text);
             console.log(vocabs);
             let wordsArr = [];
-            ocr.textAnnotations.forEach((item)=>{
+            ocr.textAnnotations.forEach((item) => {
               wordsArr.push(item.description)
             });
             let matches = checkConsecutiveWords(vocabs, wordsArr);
             // console.log(matches);
 
             let finalMatches = [];
-            matches.matches.forEach((item)=>{
+            matches.matches.forEach((item) => {
               let tempObj = (ocr.textAnnotations[item.index]);
               tempObj['meaning'] = item.value;
               finalMatches.push(tempObj);
               let wordLength = item.key.split(' ').length;
-              for(let i=1; i< wordLength; i++){
-                let obj = (ocr.textAnnotations[item.index+i]);
+              for (let i = 1; i < wordLength; i++) {
+                let obj = (ocr.textAnnotations[item.index + i]);
                 obj['meaning'] = item.value;
                 finalMatches.push(obj)
               }
@@ -140,7 +149,7 @@ class ChatGPT extends Component {
             let thetextAnnotations = ocr.textAnnotations.filter((textAnnotation) => {
               return textAnnotation.description in vocabs
             });
-            thetextAnnotations.map((item)=>{
+            thetextAnnotations.map((item) => {
               return item['meaning'] = vocabs[item.description]
             });
             finalMatches = Object.values(finalMatches.reduce((acc, obj) => {
@@ -153,6 +162,7 @@ class ChatGPT extends Component {
             }, {}));
             thetextAnnotations = thetextAnnotations.concat(finalMatches)
             // console.log(thetextAnnotations)
+            makeAllStatesNull()
             App.setState({ vocabulary: thetextAnnotations })
             break;
         }
@@ -182,17 +192,51 @@ function checkConsecutiveWords(json, words) {
   const matchesIndex = []
   for (let i = 0; i < words.length - 1; i++) {
     let phrase = words[i];
-    for (let j = i+1; j < i+6; j++) {
+    for (let j = i + 1; j < i + 6; j++) {
       phrase += ' ' + words[j];
       if (json.hasOwnProperty(phrase)) {
         matchesIndex.push(i)
         matches.push({
           key: phrase,
           value: json[phrase],
-          index:i
+          index: i
         });
       }
     }
   }
-  return {matches};
+  return { matches };
+}
+
+function makeAllStatesNull() {
+  let states = [
+    { state: 'summary', type: 'string' },
+    { state: 'hierarchy', type: 'string' },
+    { state: 'highlight', type: 'array' },
+    { state: 'images', type: 'array' },
+    { state: 'flashcards', type: 'array' },
+    { state: 'profile', type: 'string' },
+    { state: 'showReferencePages', type: 'bool' },
+    { state: 'doc_stats', type: 'null' },
+    { state: 'vocabulary', type: 'array' },
+  ]
+  states.forEach((item) => {
+    if (item.type === 'string') {
+      App.setState({ [item.state]: '' }, () => {
+        console.log(App.state)
+      })
+    } else if (item.type === 'array') {
+      App.setState({ [item.state]: [] }, () => {
+        console.log(App.state)
+      })
+    } else if (item.type === 'bool') {
+      App.setState({ [item.state]: false }, () => {
+        console.log(App.state)
+      })
+    } else {
+      App.setState({ [item.state]: null }, () => {
+        console.log(App.state)
+      })
+    }
+  })
+  console.log(App.state)
 }

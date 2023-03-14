@@ -1,6 +1,7 @@
 import Konva from "konva";
 import React, { useEffect, useRef, useState } from "react";
 import { Group, Line, Rect, Text } from "react-konva";
+import RectangleWithText from './components/RectangleWithText'
 
 const ocrWidth = 1660;
 const ocrHeight = 2149;
@@ -88,7 +89,6 @@ export function Vocabulary(props: {
 
                                 {/* card */}
                                 <RectangleWithText
-                                    height={cardheight}
                                     heading={name}
                                     description={textAnnotation.meaning}
                                     width={cardwidth}
@@ -103,53 +103,4 @@ export function Vocabulary(props: {
     )
 }
 
-const RectangleWithText = ({ x, y, width, height, heading, description }: {
-    x: number, y: number, width: number, height: number, heading: string, description: string
-}) => {
-    const [textHeight, setTextHeight] = useState(0);
-    const [headingheight, setheadingheight] = useState(0);
-    const textref = useRef<Konva.Text>(null)
-    const headingref = useRef<Konva.Text>(null)
-    useEffect(()=>{
-        setTextHeight(textref.current?.getHeight())
-        setheadingheight(headingref.current?.getHeight())
-    },[])
-    return (
-        <Group zIndex={200}>
-            <Rect
-                x={x}
-                y={y}
-                width={width}
-                height={textHeight+headingheight+50}
-                fill="white"
-                stroke="#555"
-                strokeWidth={1}
-                cornerRadius={10}
-                shadowColor={'black'}
-                shadowBlur={10}
-                shadowOffsetX={10}
-                shadowOffsetY={10}
-                shadowOpacity={0.2}
-            />
-            <Text
-                ref={headingref}
-                x={x + 10}
-                y={y + 20}
-                fontSize={19}
-                text={heading.toLocaleUpperCase()}
-                width={190}
-                wrap={'word'}
-                fontStyle={'bold'}
-            />
-            <Text
-                ref = {textref}
-                x={x + 10}
-                y={y + headingheight + 30}
-                fontSize={14}
-                text={description}
-                width={190}
-                wrap={'word'}
-            />
-        </Group>
-    )
-}
+// const RectangleWithText = 

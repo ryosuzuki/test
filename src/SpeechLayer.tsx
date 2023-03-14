@@ -28,11 +28,13 @@ export default function SpeechLayer(props: { socket: Socket, currentTestingDoc: 
             const rawtext = ocr.textAnnotations[0].description
             // console.log(rawtext)
             const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
-            let query = "I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: " + text;
+            let query = `I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: ${rawtext}`;
             if (latestTranscript.toLowerCase().includes('flash') && latestTranscript.toLowerCase().includes('cards')) {
                 props.socket.emit('flashcards', query)
             }else if(latestTranscript.toLowerCase().includes('important')){
                 props.socket.emit('vocabulary', query)
+            }else if(latestTranscript.toLowerCase().includes('statistics')){
+                props.socket.emit('DocStats', query)
             }
         }
     }, [latestTranscript])

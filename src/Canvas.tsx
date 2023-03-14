@@ -1,7 +1,7 @@
 import React, { Component, useEffect, useRef, useState } from 'react'
 import { Stage, Layer, Rect, Text, Line, Group, Circle, Path } from 'react-konva'
 import Konva from 'konva'
-import Summary from './Summary.js'
+import Summary from './Summary'
 import Highlight from './Highlight'
 import Hierarchy from './Hierarchy.js'
 import Images from './Images.js'
@@ -11,6 +11,7 @@ import Profile from './Profile.js'
 import { useSpeechRecognition } from './hooks/useSpeechRecognition'
 import { Socket } from 'socket.io-client'
 import { Vocabulary } from './Vocabulary'
+import { DocumentStats } from './DocumentStats'
 
 
 let ocr: any;
@@ -75,6 +76,8 @@ export default function Canvas(props: {
               />
 
               <Vocabulary word={'taxonomy'} textAnnotations={props.state.vocabulary} relative={relativecoord} />
+
+              <DocumentStats doc_stats={props.state.doc_stats} />
 
               <Summary
                 text={props.state.summary}

@@ -9,6 +9,10 @@ const vision = require('@google-cloud/vision');
 // const { ChatGPTAPI } = require('chatgpt');
 const { image_search } = require('duckduckgo-images-api');
 const path = require('path');
+
+const utils = require('./UtilFunctions');
+
+
 // const key = fs.readFileSync('./key.pem');
 // const cert = fs.readFileSync('./ip.pem');
 const key = fs.readFileSync('./cert.key');
@@ -92,15 +96,23 @@ io.on('connection', (socket) => {
     'flashcards',
     'profiles',
     'vocabulary',
-    'totalWords'
+    'DocStats'
   ]
   socket.emit('types', types)
 
   for (let type of types) {
     socket.on(type, async (msg) => {
-      if(type==='totalWords'){
+      if(type==='DocStats'){
         const countWords = msg.trim().split(/\s+/).length;
-        socket.emit(type, countWords)
+        socket.emit(type, 
+          {
+            Words:countWords, 
+            Tone: utils.calculateSentiment(msg),
+            "Reading Level": utils.calculateGradeLevel(msg),
+            Sentances: utils.countSentences(msg),
+            Time:utils.calculateReadingTime(msg),
+            Lines:utils.countLines(msg)
+          })
         return
       }
       if (type == 'images') {
@@ -109,7 +121,7 @@ io.on('connection', (socket) => {
         return
       }
       let res = await ask(type, msg)
-      console.log(res)
+      // console.log(res)
       socket.emit(type, res)
     })
   }

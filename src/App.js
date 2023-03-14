@@ -40,6 +40,16 @@ class App extends Component {
       mouse2D: { x: 0, y: 0 },
       mouse: { x: 0, y: 0 },
       raycaster: new THREE.Raycaster(),
+      doc_stats: null,
+      // {
+      //   Words: 0,
+      //   Sentiment: "",
+      //   ReadingLevel: "",
+      //   ReadabilityScore: 0,
+      //   Sentances: 0,
+      //   ReadingTime: "",
+      //   Lines: 0
+      // }
     }
     this.strokeColor = '#002f2b'
     this.fillColor = '#004842'
@@ -173,7 +183,7 @@ class App extends Component {
 
         {isCameraOn ? '' :
           <a-scene>
-            <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 1.5 -1" width="1" height="1"></a-plane>
+            <a-plane drawing-plane id="drawing-plane" class="cantap" position="0 1.5 -1" width="1.6" height="1.6"></a-plane>
           </a-scene>
         }
         {!isCameraOn ? '' :
