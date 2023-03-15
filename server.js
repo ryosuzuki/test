@@ -12,6 +12,8 @@ const path = require('path');
 
 const utils = require('./UtilFunctions');
 
+const {PythonShell} = require('python-shell')
+const ExtractAction = new PythonShell('NLP.py')
 
 // const key = fs.readFileSync('./key.pem');
 // const cert = fs.readFileSync('./ip.pem');
@@ -65,7 +67,16 @@ let currentTestingDoc = 1
 
 io.on('connection', (socket) => {
   console.log('connected to: ' + socket.id)
-  socket.emit('socketid', socket.id)
+  socket.emit('socketid', socket.id);
+
+  ExtractAction.on('message', (action) => {
+    console.log(action);
+    io.emit("detectActionResponse", action);
+  })
+  socket.on('detectActionQuery', (sentence) => {
+    console.log(sentence)
+    ExtractAction.send(sentence);
+  })
 
   socket.on('currentTestingDoc', (id) => {
     // currentTestingDoc = id
