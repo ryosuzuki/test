@@ -18,6 +18,7 @@ class ChatGPT extends Component {
       // 'flashcards',
       // 'profiles',
       'vocabulary',
+      'phrase_reference',
       // 'DocStats'
     ]
     this.state = {
@@ -122,6 +123,8 @@ class ChatGPT extends Component {
             makeAllStatesNull()
             App.setState({ profile: profileData })
             break;
+
+          case "phrase_reference":
           case 'vocabulary':
             console.log(ocr.textAnnotations[0].description)
             let vocabs = JSON.parse(res.text);

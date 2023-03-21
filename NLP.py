@@ -53,7 +53,7 @@ actions = ['Table of Contents', 'Summary of Document', 'Key Phrases or terms or 
 
 while True:
     sentence = input()
-    print("python:"+sentence)
+    # print("python:"+sentence)
     response = extractAction(sentence, actions)
     if response is not None:
         print(json.dumps(response))     

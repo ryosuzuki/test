@@ -20,7 +20,7 @@ export function Vocabulary(props: {
                     {props.textAnnotations.map((textAnnotation, i) => {
 
                         let name = textAnnotation.description;
-
+                        console.log(name)
                         let namearr = [textAnnotation.description]
                         for (let n = i - 1; n > i - 4 && n > 0; n--) {
                             if (textAnnotation.meaning === props.textAnnotations[n].meaning) {
@@ -32,6 +32,9 @@ export function Vocabulary(props: {
                         let newname = namearr.reverse().join(' ')
                         if (newname !== name) {
                             name = newname
+                        }
+                        if(name==='Victor'){
+                            name= 'Bret Victor'
                         }
 
                         //ar authoring tools

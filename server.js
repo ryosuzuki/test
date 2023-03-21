@@ -107,7 +107,8 @@ io.on('connection', (socket) => {
     'flashcards',
     'profiles',
     'vocabulary',
-    'DocStats'
+    'DocStats',
+    'phrase_reference'
   ]
   socket.emit('types', types)
 

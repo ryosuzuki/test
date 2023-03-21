@@ -30,6 +30,7 @@ export default function SpeechLayer(props: { socket: Socket, currentTestingDoc: 
     useEffect(()=>{
         props.socket.on('detectActionResponse',(action)=>{
             if(action==='none'){
+                console.log('none')
                 return
             }
             console.log(action);
