@@ -70,11 +70,11 @@ io.on('connection', (socket) => {
   socket.emit('socketid', socket.id);
 
   ExtractAction.on('message', (action) => {
-    console.log(action);
+    // console.log(action);
     io.emit("detectActionResponse", action);
   })
   socket.on('detectActionQuery', (sentence) => {
-    // console.log(sentence)
+    console.log(sentence)
     ExtractAction.send(sentence);
   })
 
