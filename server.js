@@ -74,7 +74,7 @@ io.on('connection', (socket) => {
     io.emit("detectActionResponse", action);
   })
   socket.on('detectActionQuery', (sentence) => {
-    console.log(sentence)
+    // console.log(sentence)
     ExtractAction.send(sentence);
   })
 

@@ -36,11 +36,11 @@ export default function SpeechLayer(props: { socket: Socket, currentTestingDoc: 
             action = JSON.parse(action)
             const rawtext = ocr.textAnnotations[0].description;
             let query = `I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: ${rawtext}`;
-            if(action['action']==='Phrase Vocabulary'){
+            if(action['action']==='Phrase Vocabulary in Document'){
                 props.socket.emit('vocabulary', query)
             }else if(action['action']==='Statistics'){
                 props.socket.emit('DocStats', query)
-            }else if(action['action']==='Summary'){
+            }else if(action['action']==='Summary of Document'){
                 props.socket.emit('summary', query)
             }else if(action['action']==='Table of Contents'){
                 props.socket.emit('hierarchy', query)

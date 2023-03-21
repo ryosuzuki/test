@@ -10,15 +10,15 @@ class ChatGPT extends Component {
     this.socket = App.socket
     const types = [
       'summary',
-      'visualize',
+      // 'visualize',
       'hierarchy',
-      'highlight',
-      'images',
-      'reference_pages',
-      'flashcards',
+      // 'highlight',
+      // 'images',
+      // 'reference_pages',
+      // 'flashcards',
       'profiles',
       'vocabulary',
-      'DocStats'
+      // 'DocStats'
     ]
     this.state = {
       types: types
@@ -88,7 +88,7 @@ class ChatGPT extends Component {
               }
             }
 
-            console.log(str);
+            // console.log(str);
             makeAllStatesNull()
             App.setState({ hierarchy: str })
             break;
