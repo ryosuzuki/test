@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Group, Text } from 'react-konva'
+import RectanglWithText from './components/RectangleWithText'
 
 class Hierarchy extends Component {
   constructor(props) {
@@ -14,7 +15,15 @@ class Hierarchy extends Component {
     return (
       <>
         {/* Hierarchy */}
-        <Group
+        {this.props.hierarchy!==''&&<RectanglWithText
+          x={10}
+          y={10}
+          width={250}
+          textWidth={220}
+          heading={'Index'}
+          description={this.props.hierarchy}
+        />}
+        {/* <Group
           x={0}
           y={0}
           width={App.size}
@@ -28,7 +37,7 @@ class Hierarchy extends Component {
             align={'left'}
             verticalAlign={'middle'}
           />
-        </Group>
+        </Group> */}
       </>
     )
   }
