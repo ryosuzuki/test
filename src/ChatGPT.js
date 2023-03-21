@@ -123,6 +123,7 @@ class ChatGPT extends Component {
             App.setState({ profile: profileData })
             break;
           case 'vocabulary':
+            console.log(ocr.textAnnotations[0].description)
             let vocabs = JSON.parse(res.text);
             console.log(vocabs);
             let wordsArr = [];
