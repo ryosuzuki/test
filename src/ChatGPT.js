@@ -16,7 +16,7 @@ class ChatGPT extends Component {
       // 'images',
       // 'reference_pages',
       // 'flashcards',
-      'profiles',
+      // 'profiles',
       'vocabulary',
       // 'DocStats'
     ]

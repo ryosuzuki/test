@@ -47,7 +47,7 @@ def extractAction(sentence, actions):
     return {'action': action, 'similarity': maxSimilarity}
 
 # actions = ['Table of Contents', 'Summary of Document', 'Statistics', 'People Profiles', 'Phrase Vocabulary in Document', 'Information about Person/Place/Thing']
-actions = ['Table of Contents', 'Summary of Document', 'Phrase Vocabulary in Document', 'information about person']
+actions = ['Table of Contents', 'Summary of Document', 'Phrase Vocabulary in Document']
 # response = extractAction('give me a brief description about this page', actions)
 # print(response) 
 

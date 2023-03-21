@@ -3,7 +3,7 @@
     "id": "cmpl-6t3IEgf1vlNKcBY02JbpkbB9kkOBc",
     "parentMessageId": "ff56a402-104c-44b8-9ef1-a03065bbc8e0",
     "conversationId": "283db126-769a-4925-9938-023b787c351a",
-    "text": "{\"Calculus\": \"A branch of mathematics that deals with the study of continuous change, in the same way that geometry is the study of shape and algebra is the study of operations and their application to solving equations\", \n\"Geometry\": \"The branch of mathematics concerned with questions of shape, size, relative position of figures, and the properties of space\", \n\"Algebra\": \"The branch of mathematics that substitutes letters for numbers in equations and formulas to solve problems\"}",
+    "text": "{\"Rapido\": \"A branch of mathematics that deals with the study of continuous change, in the same way that geometry is the study of shape and algebra is the study of operations and their application to solving equations\", \n\"programming\": \"The branch of mathematics that substitutes letters for numbers in equations and formulas to solve problems\", \n\"usability\": \"The branch of mathematics that substitutes letters for numbers in equations and formulas to solve problems\"}",
     "detail": {
       "id": "cmpl-6t3IEgf1vlNKcBY02JbpkbB9kkOBc",
       "object": "text_completion",
@@ -11,7 +11,7 @@
       "model": "text-davinci-003",
       "choices": [
         {
-          "text": "{\"Calculus\": \"A branch of mathematics that deals with the study of continuous change, in the same way that geometry is the study of shape and algebra is the study of operations and their application to solving equations\", \n\"Geometry\": \"The branch of mathematics concerned with questions of shape, size, relative position of figures, and the properties of space\", \n\"Algebra\": \"The branch of mathematics that substitutes letters for numbers in equations and formulas to solve problems\"}",
+          "text": "{\"calculus\": \"A branch of mathematics that deals with the study of continuous change, in the same way that geometry is the study of shape and algebra is the study of operations and their application to solving equations\", \n\"geometry\": \"The branch of mathematics concerned with questions of shape, size, relative position of figures, and the properties of space\", \n\"Algebra\": \"The branch of mathematics that substitutes letters for numbers in equations and formulas to solve problems\"}",
           "index": 0,
           "logprobs": null,
           "finish_reason": "stop"
