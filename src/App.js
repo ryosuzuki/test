@@ -67,6 +67,7 @@ class App extends Component {
       AFRAME.components['drawing-plane'].Component.prototype.tick = this.tick.bind(this)
     })
 
+    console.log(this.state.currentTestingDoc)
     this.socket.emit('currentTestingDoc', this.state.currentTestingDoc)
   }
 
@@ -166,7 +167,7 @@ class App extends Component {
     
   render() {
     // Update your https://IP:PORT here
-    let target = `imageTargetSrc: https://IP:PORT/public/targets/${this.state.currentTestingDoc}.mind`
+    let target = `imageTargetSrc: https://10.0.0.190:4000/public/targets/${this.state.currentTestingDoc}.mind`
     return (
       <>
 

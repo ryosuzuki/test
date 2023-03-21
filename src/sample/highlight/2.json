@@ -1,0 +1,26 @@
+{
+    "role": "assistant",
+    "id": "cmpl-6t3jrZa6CYdZq4NS6MV43CughgoCZ",
+    "parentMessageId": "19038c33-493e-4ad7-beaf-1e3c249f9f61",
+    "conversationId": "e338f346-dee6-476b-8dc8-c9693610fb4a",
+    "text": "[\"calculus\", \"geometry\", \"algebra\", \"static paper\", \"web interface\", \"ours\", \"qualitative feedback\", \"engaging\", \"fun experience\", \"expert interview\", \"math instructors\", \"benefits\", \"challenges\", \"on-demanding authoring\", \"usability\", \"math teachers\", \"RealityExtract AR authoring tool\", \"data driven authoring approach\", \"augmentation techniques\", \"taxonomy analysis\", \"existing practices\", \"user studies\", \"participants\", \"paper vis designer\", \"paper trail\", \"pre programming\", \"authoring tool\", \"augmented paper\", \"simple user defined animation\", \"data driven\", \"contribution\", \"augmented documents\", \"holo doc\", \"digital desk\", \"augmented textbook\", \"interactive websites\", \"exact content\", \"on-demanding authoring\", \"authoring interface\", \"math teachers\", \"interactive explanations\", \"static textbook\", \"explorable explanation\", \"Bret Victor\", \"interactive visualization\", \"equation\", \"Math augmentation\", \"taxonomy\", \"limitations\", \"programming\", \"scalability\", \"non-technical users\", \"math teachers\", \"variety\", \"diversity\", \"AR math education\", \"AR authoring tools\", \"Rapido\", \"Pronto\", \"ProtoAR\", \"general-purpose AR prototyping\", \"animation\", \"demonstration\", \"data-driven approach\", \"input\", \"output variables\", \"interactive graphics\", \"design space\", \"augmentation techniques\", \"step by step\", \"example\", \"highlight\", \"dynamic value\"]",
+    "detail": {
+      "id": "cmpl-6t3jrZa6CYdZq4NS6MV43CughgoCZ",
+      "object": "text_completion",
+      "created": 1678580431,
+      "model": "text-davinci-003",
+      "choices": [
+        {
+          "text": "\n[\"calculus\", \"geometry\", \"algebra\", \"static paper\", \"web interface\", \"ours\", \"qualitative feedback\", \"engaging\", \"fun experience\", \"expert interview\", \"math instructors\", \"benefits\", \"challenges\", \"on-demanding authoring\", \"usability\", \"math teachers\", \"RealityExtract AR authoring tool\", \"data driven authoring approach\", \"augmentation techniques\", \"taxonomy analysis\", \"existing practices\", \"user studies\", \"participants\", \"paper vis designer\", \"paper trail\", \"pre programming\", \"authoring tool\", \"augmented paper\", \"simple user defined animation\", \"data driven\", \"contribution\", \"augmented documents\", \"holo doc\", \"digital desk\", \"augmented textbook\", \"interactive websites\", \"exact content\", \"on-demanding authoring\", \"authoring interface\", \"math teachers\", \"interactive explanations\", \"static textbook\", \"explorable explanation\", \"Bret Victor\", \"interactive visualization\", \"equation\", \"Math augmentation\", \"taxonomy\", \"limitations\", \"programming\", \"scalability\", \"non-technical users\", \"math teachers\", \"variety\", \"diversity\", \"AR math education\", \"AR authoring tools\", \"Rapido\", \"Pronto\", \"ProtoAR\", \"general-purpose AR prototyping\", \"animation\", \"demonstration\", \"data-driven approach\", \"input\", \"output variables\", \"interactive graphics\", \"design space\", \"augmentation techniques\", \"step by step\", \"example\", \"highlight\", \"dynamic value\"]",
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": null
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 977,
+        "completion_tokens": 350,
+        "total_tokens": 1327
+      }
+    }
+  }

@@ -1,0 +1,26 @@
+{
+    "role": "assistant",
+    "id": "cmpl-6t3cG3JVjgLlGOQmvv3gclKiWi5q3",
+    "parentMessageId": "e3916c94-8332-47e8-b36b-ed070e8e49a7",
+    "conversationId": "97737503-8667-4ff2-a5c7-eef4f6773fa7",
+    "text": "We present a data-driven approach to augmented math textbooks that enables non-technical users to create interactive materials. We introduce 6 augmentation techniques for AR math textbooks and evaluate them through two user studies with 12 participants and expert interviews with 4 math instructors. Our results suggest that our approach makes more engaging and fun experience compared to web interfaces and is appreciated by math teachers due to its on-demand authoring capabilities.",
+    "detail": {
+      "id": "cmpl-6t3cG3JVjgLlGOQmvv3gclKiWi5q3",
+      "object": "text_completion",
+      "created": 1678579960,
+      "model": "text-davinci-003",
+      "choices": [
+        {
+          "text": "We present a data-driven approach to augmented math textbooks that enables non-technical users to create interactive materials. We introduce 6 augmentation techniques for AR math textbooks and evaluate them through two user studies with 12 participants and expert interviews with 4 math instructors. Our results suggest that our approach makes more engaging and fun experience compared to web interfaces and is appreciated by math teachers due to its on-demand authoring capabilities.",
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 974,
+        "completion_tokens": 82,
+        "total_tokens": 1056
+      }
+    }
+  }

@@ -22,16 +22,16 @@ export function Vocabulary(props: {
                         let name = textAnnotation.description;
 
                         let namearr = [textAnnotation.description]
-                        for(let n=i-1; n>i-4&&n>0; n--){
-                            if(textAnnotation.meaning===props.textAnnotations[n].meaning){
+                        for (let n = i - 1; n > i - 4 && n > 0; n--) {
+                            if (textAnnotation.meaning === props.textAnnotations[n].meaning) {
                                 namearr.push(props.textAnnotations[n].description)
-                            }else{
+                            } else {
                                 break;
                             }
                         }
                         let newname = namearr.reverse().join(' ')
-                        if(newname!==name){
-                            name=newname
+                        if (newname !== name) {
+                            name = newname
                         }
 
                         //ar authoring tools
@@ -54,12 +54,12 @@ export function Vocabulary(props: {
                         let liney = highlighty;
                         let linewidth = (highlightx + props.relative) - cardwidth;
                         let lineheight = 5;
-                        
-                        if(highlightx>1024/2){
+
+                        if (highlightx > 1024 / 2) {
                             // 1024 is size
-                            cardx = (props.relative + 1024) - cardwidth -10;
+                            cardx = (props.relative + 1024) - cardwidth - 10;
                             linex = highlightx + highlightwidth;
-                            linewidth = (linewidth - (cardwidth/2 + 10)) 
+                            linewidth = (linewidth - (cardwidth / 2 + 10))
                         }
 
                         return (

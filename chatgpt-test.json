@@ -1,26 +1,26 @@
 {
   "role": "assistant",
-  "id": "cmpl-6r24RQe1TzfIocE5zkoH17joAKaGD",
-  "parentMessageId": "c3014999-ebdf-422b-8f91-69352d5289d4",
-  "conversationId": "84dda0cc-47ab-4775-8305-2e779b407c56",
-  "text": "{\n  \"Calculus\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics focused on limits, derivatives, integrals, and infinite series\"\n  },\n  \"Geometry\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics concerned with questions of shape, size, relative position of figures, and the properties of space\"\n  },\n  \"Algebra\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics dealing with symbols and the rules for manipulating those symbols\"\n  },\n  \"Paper Vis Designer\": {\n    \"tag\": [\"augmented document\", \"authoring tool\"],\n    \"info\": \"A tool that allows users to augment static visuals with dynamic content by providing an authoring environment\"\n  },\n  \"Paper Trail\": {\n    \"tag\": [\"augmented document\", \"authoring tool\"],\n    \"info\": \"A tool that explores the authoring of augmented paper based on simple user-defined animations\"\n  },\n  \"Explorable Explanations\": {\n    \"tag\": [\"interactive explanation\"],\n    \"info\": \"A concept of explaining mathematical concepts through interactive visualizations that are bound to equations\"\n  },\n  \"Math Augmentation\": {\n    \"tag\": [\"taxonomy analysis\"],\n    \"info\": \"An analysis of existing practices that provides a taxonomy of common techniques for interactive websites\"\n  },\n  \"Rapido\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  },\n  \"Pronto\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  },\n  \"ProtoAR\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  }\n}",
+  "id": "cmpl-6t3vNl5RS8bTQolSpnHsTKsQbgALH",
+  "parentMessageId": "ed4a7992-334d-4e7e-9b12-1dadb2d9a13a",
+  "conversationId": "fb420192-9cd7-4c05-a130-69902e2c19fc",
+  "text": "{\n  \"Reality Extract\": {\n    \"info\": [\"An augmented reality authoring tool that allows the user to make static math textbooks interactive\", \"Design this features from the taxonomy analysis of the current practice for interactive math exploration and visualization\", \"Allows users to easily create these augmented math textbooks through data driven approach\", \"Enables data driven approach that lets the user define the relationship between input and output to make augmented textbook\"],\n    \"tag\": [\"Tool\", \"AR\", \"Math\"]\n  },\n  \"ACM\": {\n    \"info\": [\"Association for Computing Machinery\", \"Publishes journals, conference proceedings, technical magazines, newsletters and books\"],\n    \"tag\": [\"Organization\", \"Research\"]\n  },\n  \"UIST '23\": {\n    \"info\": [\"The ACM Symposium on User Interface Software and Technology\", \"Held in San Francisco, CA, U.S.A.\"],\n    \"tag\": [\"Event\", \"Conference\"]\n  }\n}",
   "detail": {
-    "id": "cmpl-6r24RQe1TzfIocE5zkoH17joAKaGD",
+    "id": "cmpl-6t3vNl5RS8bTQolSpnHsTKsQbgALH",
     "object": "text_completion",
-    "created": 1678097363,
+    "created": 1678581145,
     "model": "text-davinci-003",
     "choices": [
       {
-        "text": "{\n  \"Calculus\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics focused on limits, derivatives, integrals, and infinite series\"\n  },\n  \"Geometry\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics concerned with questions of shape, size, relative position of figures, and the properties of space\"\n  },\n  \"Algebra\": {\n    \"tag\": [\"math\"],\n    \"info\": \"A branch of mathematics dealing with symbols and the rules for manipulating those symbols\"\n  },\n  \"Paper Vis Designer\": {\n    \"tag\": [\"augmented document\", \"authoring tool\"],\n    \"info\": \"A tool that allows users to augment static visuals with dynamic content by providing an authoring environment\"\n  },\n  \"Paper Trail\": {\n    \"tag\": [\"augmented document\", \"authoring tool\"],\n    \"info\": \"A tool that explores the authoring of augmented paper based on simple user-defined animations\"\n  },\n  \"Explorable Explanations\": {\n    \"tag\": [\"interactive explanation\"],\n    \"info\": \"A concept of explaining mathematical concepts through interactive visualizations that are bound to equations\"\n  },\n  \"Math Augmentation\": {\n    \"tag\": [\"taxonomy analysis\"],\n    \"info\": \"An analysis of existing practices that provides a taxonomy of common techniques for interactive websites\"\n  },\n  \"Rapido\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  },\n  \"Pronto\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  },\n  \"ProtoAR\": {\n    \"tag\": [\"AR authoring tool\"],\n    \"info\": \"An AR authoring tool that uses user-defined animations and demonstrations to create prototypes\"\n  }\n}",
+        "text": "{\n  \"Reality Extract\": {\n    \"info\": [\"An augmented reality authoring tool that allows the user to make static math textbooks interactive\", \"Design this features from the taxonomy analysis of the current practice for interactive math exploration and visualization\", \"Allows users to easily create these augmented math textbooks through data driven approach\", \"Enables data driven approach that lets the user define the relationship between input and output to make augmented textbook\"],\n    \"tag\": [\"Tool\", \"AR\", \"Math\"]\n  },\n  \"ACM\": {\n    \"info\": [\"Association for Computing Machinery\", \"Publishes journals, conference proceedings, technical magazines, newsletters and books\"],\n    \"tag\": [\"Organization\", \"Research\"]\n  },\n  \"UIST '23\": {\n    \"info\": [\"The ACM Symposium on User Interface Software and Technology\", \"Held in San Francisco, CA, U.S.A.\"],\n    \"tag\": [\"Event\", \"Conference\"]\n  }\n}",
         "index": 0,
         "logprobs": null,
         "finish_reason": "stop"
       }
     ],
     "usage": {
-      "prompt_tokens": 1113,
-      "completion_tokens": 454,
-      "total_tokens": 1567
+      "prompt_tokens": 1207,
+      "completion_tokens": 216,
+      "total_tokens": 1423
     }
   }
 }

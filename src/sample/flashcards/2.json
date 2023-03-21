@@ -1,0 +1,26 @@
+{
+    "role": "assistant",
+    "id": "cmpl-6t3m5wPJif4OSl5AFfkXOjEYEYte7",
+    "parentMessageId": "92cbb824-bb7d-4485-b543-0a6130c8ff40",
+    "conversationId": "76afa712-1dec-4d48-8950-87f1a30efe10",
+    "text": "{\n\"Step by Step\": \"Augmentation technique that provides step-by-step instructions for solving a problem\", \n\"Example\": \"Augmentation technique that shows an example of how to solve a problem\", \n\"Highlight\": \"Augmentation technique that highlights important parts of the text\", \n\"Dynamic Value\": \"Augmentation technique that allows users to input values and see the results\"\n}",
+    "detail": {
+      "id": "cmpl-6t3m5wPJif4OSl5AFfkXOjEYEYte7",
+      "object": "text_completion",
+      "created": 1678580569,
+      "model": "text-davinci-003",
+      "choices": [
+        {
+          "text": "{\n\"Step by Step\": \"Augmentation technique that provides step-by-step instructions for solving a problem\", \n\"Example\": \"Augmentation technique that shows an example of how to solve a problem\", \n\"Highlight\": \"Augmentation technique that highlights important parts of the text\", \n\"Dynamic Value\": \"Augmentation technique that allows users to input values and see the results\"\n}",
+          "index": 0,
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1013,
+        "completion_tokens": 85,
+        "total_tokens": 1098
+      }
+    }
+  }
