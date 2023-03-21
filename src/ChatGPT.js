@@ -176,8 +176,12 @@ class ChatGPT extends Component {
       <>
         <div id="buttons">
           {this.state.types.map((type) => {
+            let name = type;
+            if(name==='vocabulary'){
+              name = 'Important Key Terms'
+            }
             return (
-              <button id={type}>{type}</button>
+              <button id={type}>{name}</button>
             )
           })}
         </div>
