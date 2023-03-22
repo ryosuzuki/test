@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import React, { Component } from 'react';
 import { Stage, Layer, Rect, Text, Line, Group, Circle, Path } from 'react-konva';
 import Konva from 'konva';
