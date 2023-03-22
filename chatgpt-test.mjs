@@ -36,8 +36,8 @@ console.log(text)
 // highlight
 // "Extract important words from the following text with json array: " 
 
-// hierarchy
-// ` create a heirarchy of main points for this text in json format. use suitable variable names for headings. use short phrases instead of sentences. your output should be only code json format. don't print any explanation or text: `
+// table of contents
+// ` create a table of contents of main points for this text in json format. use suitable variable names for headings. use short phrases instead of sentences. your output should be only code json format. don't print any explanation or text: `
 
 // images
 // `give me top 5 words or phrases from this text in a json file. your output should be only code json format. don't print any explanation or text. the json should contain all the results under the variable "keywords": `
@@ -51,7 +51,7 @@ console.log(text)
 // Vocabulary 
 // Given text give me a js object of the form {"Word/phrase": "Meaning or description"} with the top 3 most important or complex words or phrases from the text with their meaning or description. Just give me the object in one line, do not give me any description. Text: 
 
-let prompt = `in the following text, extract people/organizations and provide additional but short information about them. Information should be from the text but also from the web (outside the text) to assist me with helpful context, if any. your output should be a json with keys as extracted people or organization name and it's children value as 'info' which will be very short information. add any additional outside information to help with the context. keep children values very short. you can include multiple values for one key. for each key, also add 'tag' value that contains array of multiple tags that associated with the type of key it is. If nothing found, leave json empty. DO NOT include any additional information or explanation or note. Your output should be json and json only:  `
+let prompt = ` create a table of contents for this text in json format. use suitable variable names for headings. use short phrases instead of sentences. your output should be only code json format. don't print any explanation or text: `
 
 let query = prompt + text
 let res = await api.sendMessage(query)

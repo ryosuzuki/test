@@ -1,28 +1,26 @@
 {
   "role": "assistant",
-  "id": "cmpl-6p0azMarOkywSdX1Wye2bF4RwaMzK",
-  "parentMessageId": "87882780-b577-418c-9f55-a61212d4c97f",
-  "conversationId": "affe478a-da19-4688-8bf3-c84c2303c7cb",
-  "text": "Reality Extract is an augmented reality authoring tool that allows users to create interactive math textbooks through a data-driven approach. It provides six animation techniques such as dynamic graphs, exemplify equations, segmented color change, physics simulation, supporting lines and dynamic value slider to augment the textbook. The system has been evaluated with 12 students, who found it to be more engaging and understandable than static textbooks.",
+  "id": "cmpl-6wxqQyybbaqrAkRwxTV1YJuvzmQx9",
+  "parentMessageId": "59a72bc4-6e39-4123-8a20-b9fa8728fe59",
+  "conversationId": "8003f750-0cf5-4a4c-a919-c32cb0e205f7",
+  "text": "Jim Bowers founded SWARM, a civil SAR pilot sector that is growing rapidly. Despite apprehension from SAR officials, the organization has seen an increased demand for its involvement from families of missing persons. SWARM has created standard operating procedures to follow FAA law and to enforce best practices in order to maintain the organization's reputation and promote the technology. Jim Bowers also creates videos and documentaries using drones and holds the Guinness World Record for building the largest working timepiece on Earth. He also planted 55,000 daffodils as a memorial to Garcia.",
   "detail": {
-    "id": "cmpl-6p0azMarOkywSdX1Wye2bF4RwaMzK",
+    "id": "cmpl-6wxqQyybbaqrAkRwxTV1YJuvzmQx9",
     "object": "text_completion",
-    "created": 1677615037,
+    "created": 1679511086,
     "model": "text-davinci-003",
     "choices": [
-      [
-        {
-          "text": " It provides six animation techniques such as dynamic graphs, exemplify equations, segmented color change, physics simulation, supporting lines and dynamic value slider to augment the textbook. The system has been evaluated with 12 students, who found it to be more engaging and understandable than static textbooks.\n\n",
-          "index": 0,
-          "logprobs": null,
-          "finish_reason": "length"
-        }
-      ]
+      {
+        "text": "Jim Bowers founded SWARM, a civil SAR pilot sector that is growing rapidly. Despite apprehension from SAR officials, the organization has seen an increased demand for its involvement from families of missing persons. SWARM has created standard operating procedures to follow FAA law and to enforce best practices in order to maintain the organization's reputation and promote the technology. Jim Bowers also creates videos and documentaries using drones and holds the Guinness World Record for building the largest working timepiece on Earth. He also planted 55,000 daffodils as a memorial to Garcia.",
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
     ],
     "usage": {
-      "prompt_tokens": 1078,
-      "completion_tokens": 80,
-      "total_tokens": 1158
+      "prompt_tokens": 1028,
+      "completion_tokens": 110,
+      "total_tokens": 1138
     }
   }
 }

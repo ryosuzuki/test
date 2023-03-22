@@ -88,17 +88,9 @@ class Canvas extends Component {
                   offsetY={this.props.size / 3}
                   fill={'#00000078'}
                 />
-
-                <Vocabulary word={'taxonomy'} textAnnotations={this.props.state.vocabulary} relative={this.state.relativecoord} />
-
-                <DocumentStats doc_stats={this.props.state.doc_stats} />
-
+                
                 <Summary
                   text={this.props.state.summary}
-                />
-
-                <Hierarchy
-                  hierarchy={this.props.state.hierarchy}
                 />
 
                 <Highlight
@@ -109,14 +101,6 @@ class Canvas extends Component {
                 <Images
                   images={this.props.state.images}
                 />
-
-                <ReferencePages
-                  showReferencePages={this.props.state.showReferencePages}
-                />
-
-                <Flashcards flashcardsData={this.props.state.flashcards} />
-
-                <Profile profileData={this.props.state.profile} />
               </Group>
             </Layer>
           </Stage>

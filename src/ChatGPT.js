@@ -81,7 +81,7 @@ class ChatGPT extends Component {
               str += `\n● ${heading} : `;
               if (typeof value === 'object') {
                 for (const [k, v] of Object.entries(value)) {
-                  str += `\n\t\t\t\t\t⚬ ${k}: - ${v}\n`
+                  str += `\n\t\t\t\t\t⚬ ${k} - ${v}\n`
                 }
               }
               else {

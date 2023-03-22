@@ -98,17 +98,7 @@ io.on('connection', (socket) => {
   })
 
   let types = [
-    'summary',
-    'visualize',
-    'hierarchy',
-    'highlight',
-    'images',
-    'reference_pages',
-    'flashcards',
-    'profiles',
-    'vocabulary',
-    'DocStats',
-    'phrase_reference'
+    'summary'
   ]
   socket.emit('types', types)
 

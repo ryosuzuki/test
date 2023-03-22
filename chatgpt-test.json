@@ -1,26 +1,26 @@
 {
   "role": "assistant",
-  "id": "cmpl-6t3vNl5RS8bTQolSpnHsTKsQbgALH",
-  "parentMessageId": "ed4a7992-334d-4e7e-9b12-1dadb2d9a13a",
-  "conversationId": "fb420192-9cd7-4c05-a130-69902e2c19fc",
-  "text": "{\n  \"Reality Extract\": {\n    \"info\": [\"An augmented reality authoring tool that allows the user to make static math textbooks interactive\", \"Design this features from the taxonomy analysis of the current practice for interactive math exploration and visualization\", \"Allows users to easily create these augmented math textbooks through data driven approach\", \"Enables data driven approach that lets the user define the relationship between input and output to make augmented textbook\"],\n    \"tag\": [\"Tool\", \"AR\", \"Math\"]\n  },\n  \"ACM\": {\n    \"info\": [\"Association for Computing Machinery\", \"Publishes journals, conference proceedings, technical magazines, newsletters and books\"],\n    \"tag\": [\"Organization\", \"Research\"]\n  },\n  \"UIST '23\": {\n    \"info\": [\"The ACM Symposium on User Interface Software and Technology\", \"Held in San Francisco, CA, U.S.A.\"],\n    \"tag\": [\"Event\", \"Conference\"]\n  }\n}",
+  "id": "cmpl-6wy7arYkbFvstvxIwfItVKul0N1yP",
+  "parentMessageId": "4c62711f-4e53-4294-a611-218c4c1aaf69",
+  "conversationId": "3e2a28c1-a3bb-4dd3-8998-755071b2f8e5",
+  "text": "{\n  \"Table of Contents\": {\n    \"1\": \"CRASAR\",\n    \"2\": \"Jim Bowers\",\n    \"3\": \"Increased Demand\",\n    \"4\": \"SWARM\"\n  }\n}",
   "detail": {
-    "id": "cmpl-6t3vNl5RS8bTQolSpnHsTKsQbgALH",
+    "id": "cmpl-6wy7arYkbFvstvxIwfItVKul0N1yP",
     "object": "text_completion",
-    "created": 1678581145,
+    "created": 1679512150,
     "model": "text-davinci-003",
     "choices": [
       {
-        "text": "{\n  \"Reality Extract\": {\n    \"info\": [\"An augmented reality authoring tool that allows the user to make static math textbooks interactive\", \"Design this features from the taxonomy analysis of the current practice for interactive math exploration and visualization\", \"Allows users to easily create these augmented math textbooks through data driven approach\", \"Enables data driven approach that lets the user define the relationship between input and output to make augmented textbook\"],\n    \"tag\": [\"Tool\", \"AR\", \"Math\"]\n  },\n  \"ACM\": {\n    \"info\": [\"Association for Computing Machinery\", \"Publishes journals, conference proceedings, technical magazines, newsletters and books\"],\n    \"tag\": [\"Organization\", \"Research\"]\n  },\n  \"UIST '23\": {\n    \"info\": [\"The ACM Symposium on User Interface Software and Technology\", \"Held in San Francisco, CA, U.S.A.\"],\n    \"tag\": [\"Event\", \"Conference\"]\n  }\n}",
+        "text": "{\n  \"Table of Contents\": {\n    \"1\": \"CRASAR\",\n    \"2\": \"Jim Bowers\",\n    \"3\": \"Increased Demand\",\n    \"4\": \"SWARM\"\n  }\n}",
         "index": 0,
         "logprobs": null,
         "finish_reason": "stop"
       }
     ],
     "usage": {
-      "prompt_tokens": 1207,
-      "completion_tokens": 216,
-      "total_tokens": 1423
+      "prompt_tokens": 1062,
+      "completion_tokens": 53,
+      "total_tokens": 1115
     }
   }
 }

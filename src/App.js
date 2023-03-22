@@ -8,7 +8,7 @@ import { io } from 'socket.io-client'
 
 AFRAME.registerComponent('drawing-plane', {
   init: () => { },
-  tick: () => { }
+  // tick: () => { }
 })
 
 const isCameraOn = true
@@ -98,41 +98,41 @@ class App extends Component {
     mesh.material = material
     // mesh.material.transparent = true
     this.mesh = mesh
-    el.sceneEl.addEventListener('mousedown', this.mouseDown.bind(this))
-    el.sceneEl.addEventListener('mousemove', this.mouseMove.bind(this))
-    el.sceneEl.addEventListener('mouseup', this.mouseUp.bind(this))
-    el.sceneEl.addEventListener('touchstart', this.touchStart.bind(this))
-    el.sceneEl.addEventListener('touchmove', this.touchMove.bind(this))
-    el.sceneEl.addEventListener('touchend', this.touchEnd.bind(this))
+    // el.sceneEl.addEventListener('mousedown', this.mouseDown.bind(this))
+    // el.sceneEl.addEventListener('mousemove', this.mouseMove.bind(this))
+    // el.sceneEl.addEventListener('mouseup', this.mouseUp.bind(this))
+    // el.sceneEl.addEventListener('touchstart', this.touchStart.bind(this))
+    // el.sceneEl.addEventListener('touchmove', this.touchMove.bind(this))
+    // el.sceneEl.addEventListener('touchend', this.touchEnd.bind(this))
   }
 
-  mouseDown(event) {
-    this.setState({ dragging: true })
-  }
+  // mouseDown(event) {
+  //   this.setState({ dragging: true })
+  // }
 
-  mouseMove(event) {
-    let mouse2D = { x: event.clientX, y: event.clientY }
-    this.setState({ mouse2D: mouse2D })
-  }
+  // mouseMove(event) {
+  //   let mouse2D = { x: event.clientX, y: event.clientY }
+  //   this.setState({ mouse2D: mouse2D })
+  // }
 
-  mouseUp(event) {
-    this.setState({ dragging: false, initDrawing: true })
-    this.canvas.mouseUp(this.state.mouse)
-  }
+  // mouseUp(event) {
+  //   this.setState({ dragging: false, initDrawing: true })
+  //   this.canvas.mouseUp(this.state.mouse)
+  // }
 
-  touchStart(event) {
-    this.setState({ dragging: true, mouse2D: { x: 0, y: 0 } })
-  }
+  // touchStart(event) {
+  //   this.setState({ dragging: true, mouse2D: { x: 0, y: 0 } })
+  // }
 
-  touchMove(event) {
-    let mouse2D = { x: event.touches[0].clientX, y: event.touches[0].clientY }
-    this.setState({ mouse2D: mouse2D })
-  }
+  // touchMove(event) {
+  //   let mouse2D = { x: event.touches[0].clientX, y: event.touches[0].clientY }
+  //   this.setState({ mouse2D: mouse2D })
+  // }
 
-  touchEnd(event) {
-    this.setState({ dragging: false, initDrawing: true })
-    this.canvas.mouseUp()
-  }
+  // touchEnd(event) {
+  //   this.setState({ dragging: false, initDrawing: true })
+  //   this.canvas.mouseUp()
+  // }
     
   tick() {
     // console.log('tick')
