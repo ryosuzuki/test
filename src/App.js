@@ -21,7 +21,7 @@ class App extends Component {
 
     // Update your https://IP:PORT here
     // this.socket = io('https://IP:PORT')
-    this.socket = io('https://10.0.0.190:4000')
+    this.socket = io('https://10.0.1.98:4000')
 
     this.size = 1024
     this.state = {
@@ -32,7 +32,7 @@ class App extends Component {
       flashcards: [],
       profile: '',
       vocabulary:[],
-      currentTestingDoc: 2, //change for doc & vis that you want to test
+      currentTestingDoc: 1, //change for doc & vis that you want to test
       showReferencePages: false,
       dragging: false,
       initDrawing: true,
@@ -167,7 +167,7 @@ class App extends Component {
     
   render() {
     // Update your https://IP:PORT here
-    let target = `imageTargetSrc: https://10.0.0.190:4000/public/targets/${this.state.currentTestingDoc}.mind`
+    let target = `imageTargetSrc: https://10.0.1.98:4000/public/targets/${this.state.currentTestingDoc}.mind`
     return (
       <>
 
@@ -190,9 +190,9 @@ class App extends Component {
         {!isCameraOn ? '' :
           <a-scene
             mindar-image={target}
-            embedded color-space="sRGB"
-            renderer="colorManagement: true, physicallyCorrectLights"
-            vr-mode-ui="enabled: false"
+            // embedded color-space="sRGB"
+            // renderer="colorManagement: true, physicallyCorrectLights"
+            vr-mode-ui="enabled: true"
             device-orientation-permission-ui="enabled: false"
           >
             <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
