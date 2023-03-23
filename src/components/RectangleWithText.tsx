@@ -72,6 +72,9 @@ const IMG = ({ url, x, y }:any) => {
             setImageWidth(w)
             setimageHeight(h)
 
+            // imageRef.current.scaleX(1/(imageHeight/150))
+            // imageRef.current.scaleY(1/(imageHeight/150))
+
             var widthRatio = (200) / w
             var heightRatio = (150) / h;
             var bestRatio = Math.min(widthRatio, heightRatio);
@@ -79,22 +82,21 @@ const IMG = ({ url, x, y }:any) => {
             var newHeight = h * bestRatio;
 
         }
-    },[])
-    console.log(image)
+    },[url])
     return <Image 
         ref={imageRef}
         image={image}
-        x={((imageWidth/2)*1/(imageHeight/150))} //x
+        x={x} //((imageWidth/2)*1/(imageHeight/150))
         y={y}
-        // width={200}
-        // height={150}
-        // crop={{
-        //     x:imageWidth/2,
-        //     y:10,
-        //     width:200,
-        //     height:150
-        // }}
-        scaleX={1/(imageHeight/150)}
-        scaleY={1/(imageHeight/150)}
-    />;
+        width={200}
+        height={150}
+        crop={{
+            x:imageWidth/2,
+            y:10,
+            width:200,
+            height:150
+        }}
+        // scaleX={1/(imageHeight/150)}
+        // scaleY={1/(imageHeight/150)}
+    />
 };

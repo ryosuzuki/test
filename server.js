@@ -134,8 +134,9 @@ io.on('connection', (socket) => {
           iterations: 1,
           retries: 1
         });
+        let duck = await getDuckDuckGoInfo(msg)
         res = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Bret_Victor.png/330px-Bret_Victor.png'//res.slice(13,14)[0].image //6, 7 works
-        msg = {text:msg, image:res}
+        msg = {text:msg, image:res, resp:duck}
         socket.emit(type, msg)
         return 
       }

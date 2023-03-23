@@ -64,7 +64,7 @@ class Canvas extends Component {
                   y={0}
                   width={this.props.space}
                   height={this.props.space}
-                  fill={'#00000033'}
+                  fill={'#ff000000'}
                 />
 
                 {/* Paper Around Red */}
@@ -73,7 +73,7 @@ class Canvas extends Component {
                   y={this.state.relativecoord}
                   width={this.props.size}
                   height={this.props.size}
-                  fill={'#ff000045'}
+                  fill={'#ff000000'}
                 />
 
 
@@ -85,7 +85,7 @@ class Canvas extends Component {
                   height={this.props.size / 1.5}
                   offsetX={this.props.size * 850 / 1100 / 3}
                   offsetY={this.props.size / 3}
-                  fill={'#00000078'}
+                  fill={'#00000012'}
                 />
 
                 <Vocabulary word={'taxonomy'} textAnnotations={this.props.state.vocabulary} relative={this.state.relativecoord} />

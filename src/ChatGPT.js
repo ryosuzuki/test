@@ -178,65 +178,65 @@ class ChatGPT extends Component {
             break;
 
             case 'info_card':
-              getInfoFromDuckDUckGO(res.text).then((resp)=>{
-                let obj = {image:res.image, desc:resp.Abstract, title:res.text}
+              // getInfoFromDuckDUckGO(res.text).then((resp)=>{
+                let obj = {image:res.image, desc:res.resp.Abstract, title:res.text}
                 console.log(obj);
-                let jsn = `{\"${res.text}\": \"${resp.Abstract}\"}`;
+                let jsn = `{\"${res.text}\": \"${res.resp.Abstract}\"}`;
 
+            dummyPomise().then(() => {
+              let vocabs = JSON.parse(jsn);
+              console.log(vocabs);
+              let wordsArr = [];
+              ocr.textAnnotations.forEach((item) => {
+                wordsArr.push(item.description)
+              });
+              let matches = checkConsecutiveWords(vocabs, wordsArr);
+              console.log(matches);
 
-                let vocabs = JSON.parse(jsn);
-                console.log(vocabs);
-                let wordsArr = [];
-                ocr.textAnnotations.forEach((item) => {
-                  wordsArr.push(item.description)
-                });
-                let matches = checkConsecutiveWords(vocabs, wordsArr);
-                console.log(matches);
-
-                let finalMatches = [];
-                matches.matches.forEach((item) => {
-                  let tempObj = (ocr.textAnnotations[item.index]);
-                  tempObj['meaning'] = item.value;
-                  tempObj['imageURL'] = res.image;
-                  tempObj['title'] = res.text;
-                  finalMatches.push(tempObj);
-                  let wordLength = item.key.split(' ').length;
-                  for (let i = 1; i < wordLength; i++) {
-                    let obj = (ocr.textAnnotations[item.index + i]);
-                    obj['meaning'] = item.value;
-                    obj['imageURL'] = res.image
-                    obj['title'] = res.text
-                    finalMatches.push(obj)
-                  }
-                })
-                // console.log(finalMatches)
-
-                let thetextAnnotations = ocr.textAnnotations.filter((textAnnotation) => {
-                  return textAnnotation.description in vocabs
-                });
-                thetextAnnotations.map((item) => {
-                  return item['meaning'] = vocabs[item.description]
-                });
-                console.log(res.image)
-                  thetextAnnotations.map((item) => {
-                    return item['imageURL'] = res.image
-                  });
-                  thetextAnnotations.map((item) => {
-                    return item['title'] = res.text
-                  });
-                finalMatches = Object.values(finalMatches.reduce((acc, obj) => {
-                  acc[obj['description']] = obj;
-                  return acc;
-                }, {}));
-                thetextAnnotations = Object.values(thetextAnnotations.reduce((acc, obj) => {
-                  acc[obj['description']] = obj;
-                  return acc;
-                }, {}));
-                thetextAnnotations = thetextAnnotations.concat(finalMatches)
-                console.log(thetextAnnotations)
-                makeAllStatesNull()
-                App.setState({ vocabulary: thetextAnnotations })
+              let finalMatches = [];
+              matches.matches.forEach((item) => {
+                let tempObj = (ocr.textAnnotations[item.index]);
+                tempObj['meaning'] = item.value;
+                tempObj['imageURL'] = res.image;
+                tempObj['title'] = res.text;
+                finalMatches.push(tempObj);
+                let wordLength = item.key.split(' ').length;
+                for (let i = 1; i < wordLength; i++) {
+                  let obj = (ocr.textAnnotations[item.index + i]);
+                  obj['meaning'] = item.value;
+                  obj['imageURL'] = res.image
+                  obj['title'] = res.text
+                  finalMatches.push(obj)
+                }
               })
+              // console.log(finalMatches)
+
+              let thetextAnnotations = ocr.textAnnotations.filter((textAnnotation) => {
+                return textAnnotation.description in vocabs
+              });
+              thetextAnnotations.map((item) => {
+                return item['meaning'] = vocabs[item.description]
+              });
+              console.log(res.image)
+              thetextAnnotations.map((item) => {
+                return item['imageURL'] = res.image
+              });
+              thetextAnnotations.map((item) => {
+                return item['title'] = res.text
+              });
+              finalMatches = Object.values(finalMatches.reduce((acc, obj) => {
+                acc[obj['description']] = obj;
+                return acc;
+              }, {}));
+              thetextAnnotations = Object.values(thetextAnnotations.reduce((acc, obj) => {
+                acc[obj['description']] = obj;
+                return acc;
+              }, {}));
+              thetextAnnotations = thetextAnnotations.concat(finalMatches)
+              console.log(thetextAnnotations)
+              makeAllStatesNull()
+              App.setState({ vocabulary: thetextAnnotations })
+            })
         }
       })
     }
@@ -340,4 +340,11 @@ function getInfoFromDuckDUckGO(query) {
     .catch(error => {
       console.error(`Error fetching JSON: ${error}`);
     });
+}
+
+
+function dummyPomise() {
+  return new Promise((resolve,reject)=>{
+    resolve('')
+  })
 }
