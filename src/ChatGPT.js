@@ -19,7 +19,7 @@ class ChatGPT extends Component {
       // 'profiles',
       'info_card',
       'phrase_reference',
-      // 'DocStats'
+      // 'map'
     ]
     this.state = {
       types: types
@@ -27,16 +27,6 @@ class ChatGPT extends Component {
   }
 
   componentDidMount() {
-
-    // console.log(relativePath);
-    // fetch(relativePath)
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log(data);
-    //   })
-    //   .catch(error => console.error(error));
-
-
     import(`./sample/OCRs/${App.state.currentTestingDoc}.json`)
       .then(module => {
         ocr = module.default; // Get the exported data from the module object
@@ -56,7 +46,7 @@ class ChatGPT extends Component {
         const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
         let query = `I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: ${rawtext}`;
         if(type==='info_card'){
-          query = 'Bret Victor'
+          query = 'bret victor'
         }
         this.socket.emit(type, query)
       })
@@ -181,7 +171,7 @@ class ChatGPT extends Component {
               // getInfoFromDuckDUckGO(res.text).then((resp)=>{
                 let obj = {image:res.image, desc:res.resp.Abstract, title:res.text}
                 console.log(obj);
-                let jsn = `{\"${res.text}\": \"${res.resp.Abstract}\"}`;
+                let jsn = `{\"${res.text}\": \"${obj.desc}\"}`;
 
             dummyPomise().then(() => {
               let vocabs = JSON.parse(jsn);
@@ -274,7 +264,7 @@ function checkConsecutiveWords(json, words) {
         matchesIndex.push(i)
         matches.push({
           key: phrase,
-          value: json[phrase],
+          value: json[phrase.toLowerCase()],
           index: i
         });
       }
@@ -287,13 +277,8 @@ function makeAllStatesNull() {
   let states = [
     { state: 'summary', type: 'string' },
     { state: 'hierarchy', type: 'string' },
-    { state: 'highlight', type: 'array' },
-    { state: 'images', type: 'array' },
-    { state: 'flashcards', type: 'array' },
-    { state: 'profile', type: 'string' },
-    { state: 'showReferencePages', type: 'bool' },
-    { state: 'doc_stats', type: 'null' },
-    { state: 'vocabulary', type: 'array' },
+    { state: 'phrase_reference', type: 'array' },
+    { state: 'info_card', type: 'array' },
   ]
   states.forEach((item) => {
     if (item.type === 'string') {
@@ -347,4 +332,24 @@ function dummyPomise() {
   return new Promise((resolve,reject)=>{
     resolve('')
   })
+}
+
+function getCoordinates(place, accessToken='pk.eyJ1IjoiYWRpZ3VudHVydSIsImEiOiJja3pocmk5aG8xeW9hMzRvNnZobG43aXowIn0.kJ9gIRBoOAqS8jvtZKWHnA') {
+  const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(place)}.json?access_token=${accessToken}`;
+  return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const [longitude, latitude] = data.features[0].center;
+      return { latitude, longitude };
+    });
+}
+
+function getMapImage(latitude, longitude, accessToken='pk.eyJ1IjoiYWRpZ3VudHVydSIsImEiOiJja3pocmk5aG8xeW9hMzRvNnZobG43aXowIn0.kJ9gIRBoOAqS8jvtZKWHnA') {
+  const width = 200;
+  const height = 150;
+  const zoom = 12;
+  const url = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${longitude},${latitude},${zoom}/${width}x${height}?access_token=${accessToken}`;
+  const img = new Image();
+  img.src = url;
+  return img;
 }

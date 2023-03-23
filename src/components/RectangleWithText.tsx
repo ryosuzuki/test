@@ -61,7 +61,7 @@ export default function RectanglWithText({ x, y, width, heading, description, te
 
 const IMG = ({ url, x, y }:any) => {
     const imageRef = useRef<Konva.Image>(null);
-    const [image] = useImage(url, "anonymous", 'origin');
+    const [image] = useImage("https://api.codetabs.com/v1/proxy?quest="+url, "anonymous", 'origin');
     const [imageWidth, setImageWidth] = React.useState(0);
     const [imageHeight, setimageHeight] = React.useState(0);
     useEffect(()=>{
@@ -90,13 +90,13 @@ const IMG = ({ url, x, y }:any) => {
         y={y}
         width={200}
         height={150}
-        crop={{
-            x:imageWidth/2,
-            y:10,
-            width:200,
-            height:150
-        }}
-        // scaleX={1/(imageHeight/150)}
-        // scaleY={1/(imageHeight/150)}
+        // crop={{
+        //     x:imageWidth/2,
+        //     y:10,
+        //     width:200,
+        //     height:150
+        // }}
+        scaleX={1/(imageHeight/150)}
+        scaleY={1/(imageHeight/150)}
     />
 };
