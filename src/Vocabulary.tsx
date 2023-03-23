@@ -1,6 +1,7 @@
 import Konva from "konva";
 import React, { useEffect, useRef, useState } from "react";
-import { Group, Line, Rect, Text } from "react-konva";
+import { Group, Line, Rect, Text, Image } from "react-konva";
+import useImage from "use-image";
 import RectangleWithText from './components/RectangleWithText'
 
 const ocrWidth = 1660;
@@ -9,7 +10,7 @@ const ratioWidth = 1024 / ocrWidth;
 const ratioHeight = 1024 / ocrHeight;
 
 export function Vocabulary(props: {
-    textAnnotations: { boundingPoly: { vertices: { x: number, y: number }[] }, description: string, meaning: string }[],
+    textAnnotations: { boundingPoly: { vertices: { x: number, y: number }[] }, description: string, meaning: string, imageURL:string, title:string }[],
     relative: number, word: string | null
 }) {
 
@@ -18,24 +19,6 @@ export function Vocabulary(props: {
             <>
                 <Group x={props.relative} y={props.relative} >
                     {props.textAnnotations.map((textAnnotation, i) => {
-
-                        let name = textAnnotation.description;
-                        // console.log(name)
-                        let namearr = [textAnnotation.description]
-                        for (let n = i - 1; n > i - 4 && n > 0; n--) {
-                            if (textAnnotation.meaning === props.textAnnotations[n].meaning) {
-                                namearr.push(props.textAnnotations[n].description)
-                            } else {
-                                break;
-                            }
-                        }
-                        let newname = namearr.reverse().join(' ')
-                        if (newname !== name) {
-                            name = newname
-                        }
-                        if(name==='Victor'){
-                            name= 'Bret Victor'
-                        }
 
                         //ar authoring tools
                         const vertices = textAnnotation.boundingPoly.vertices;
@@ -92,11 +75,12 @@ export function Vocabulary(props: {
 
                                 {/* card */}
                                 <RectangleWithText
-                                    heading={name}
+                                    heading={textAnnotation.title}
                                     description={textAnnotation.meaning}
                                     width={cardwidth}
                                     x={cardx}
                                     y={cardy}
+                                    url={textAnnotation.imageURL}
                                 />
                             </>)
                     })}
@@ -106,4 +90,3 @@ export function Vocabulary(props: {
     )
 }
 
-// const RectangleWithText = 

@@ -17,7 +17,7 @@ class ChatGPT extends Component {
       // 'reference_pages',
       // 'flashcards',
       // 'profiles',
-      'vocabulary',
+      'info_card',
       'phrase_reference',
       // 'DocStats'
     ]
@@ -55,6 +55,9 @@ class ChatGPT extends Component {
         // console.log(rawtext)
         const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
         let query = `I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: ${rawtext}`;
+        if(type==='info_card'){
+          query = 'Bret Victor'
+        }
         this.socket.emit(type, query)
       })
 
@@ -125,7 +128,6 @@ class ChatGPT extends Component {
             break;
 
           case "phrase_reference":
-          case 'vocabulary':
             console.log(ocr.textAnnotations[0].description)
             let vocabs = JSON.parse(res.text);
             console.log(vocabs);
@@ -134,17 +136,19 @@ class ChatGPT extends Component {
               wordsArr.push(item.description)
             });
             let matches = checkConsecutiveWords(vocabs, wordsArr);
-            // console.log(matches);
+            console.log(matches);
 
             let finalMatches = [];
             matches.matches.forEach((item) => {
               let tempObj = (ocr.textAnnotations[item.index]);
               tempObj['meaning'] = item.value;
+              tempObj['title'] = item.key;
               finalMatches.push(tempObj);
               let wordLength = item.key.split(' ').length;
               for (let i = 1; i < wordLength; i++) {
                 let obj = (ocr.textAnnotations[item.index + i]);
                 obj['meaning'] = item.value;
+                obj['title'] = item.key;
                 finalMatches.push(obj)
               }
             })
@@ -155,6 +159,9 @@ class ChatGPT extends Component {
             });
             thetextAnnotations.map((item) => {
               return item['meaning'] = vocabs[item.description]
+            });
+            thetextAnnotations.map((item) => {
+              return item['title'] = item.description
             });
             finalMatches = Object.values(finalMatches.reduce((acc, obj) => {
               acc[obj['description']] = obj;
@@ -169,6 +176,67 @@ class ChatGPT extends Component {
             makeAllStatesNull()
             App.setState({ vocabulary: thetextAnnotations })
             break;
+
+            case 'info_card':
+              getInfoFromDuckDUckGO(res.text).then((resp)=>{
+                let obj = {image:res.image, desc:resp.Abstract, title:res.text}
+                console.log(obj);
+                let jsn = `{\"${res.text}\": \"${resp.Abstract}\"}`;
+
+
+                let vocabs = JSON.parse(jsn);
+                console.log(vocabs);
+                let wordsArr = [];
+                ocr.textAnnotations.forEach((item) => {
+                  wordsArr.push(item.description)
+                });
+                let matches = checkConsecutiveWords(vocabs, wordsArr);
+                console.log(matches);
+
+                let finalMatches = [];
+                matches.matches.forEach((item) => {
+                  let tempObj = (ocr.textAnnotations[item.index]);
+                  tempObj['meaning'] = item.value;
+                  tempObj['imageURL'] = res.image;
+                  tempObj['title'] = res.text;
+                  finalMatches.push(tempObj);
+                  let wordLength = item.key.split(' ').length;
+                  for (let i = 1; i < wordLength; i++) {
+                    let obj = (ocr.textAnnotations[item.index + i]);
+                    obj['meaning'] = item.value;
+                    obj['imageURL'] = res.image
+                    obj['title'] = res.text
+                    finalMatches.push(obj)
+                  }
+                })
+                // console.log(finalMatches)
+
+                let thetextAnnotations = ocr.textAnnotations.filter((textAnnotation) => {
+                  return textAnnotation.description in vocabs
+                });
+                thetextAnnotations.map((item) => {
+                  return item['meaning'] = vocabs[item.description]
+                });
+                console.log(res.image)
+                  thetextAnnotations.map((item) => {
+                    return item['imageURL'] = res.image
+                  });
+                  thetextAnnotations.map((item) => {
+                    return item['title'] = res.text
+                  });
+                finalMatches = Object.values(finalMatches.reduce((acc, obj) => {
+                  acc[obj['description']] = obj;
+                  return acc;
+                }, {}));
+                thetextAnnotations = Object.values(thetextAnnotations.reduce((acc, obj) => {
+                  acc[obj['description']] = obj;
+                  return acc;
+                }, {}));
+                thetextAnnotations = thetextAnnotations.concat(finalMatches)
+                console.log(thetextAnnotations)
+                makeAllStatesNull()
+                App.setState({ vocabulary: thetextAnnotations })
+              })
         }
       })
     }
@@ -202,7 +270,7 @@ function checkConsecutiveWords(json, words) {
     let phrase = words[i];
     for (let j = i + 1; j < i + 6; j++) {
       phrase += ' ' + words[j];
-      if (json.hasOwnProperty(phrase)) {
+      if (searchJsonForPhrase(json,phrase)) {
         matchesIndex.push(i)
         matches.push({
           key: phrase,
@@ -230,7 +298,7 @@ function makeAllStatesNull() {
   states.forEach((item) => {
     if (item.type === 'string') {
       App.setState({ [item.state]: '' }, () => {
-        console.log(App.state)
+        // console.log(App.state)
       })
     } else if (item.type === 'array') {
       App.setState({ [item.state]: [] }, () => {
@@ -247,4 +315,29 @@ function makeAllStatesNull() {
     }
   })
   console.log(App.state)
+}
+
+function searchJsonForPhrase(json, phrase) {
+  const data = json
+  for (const key in data) {
+    const value = data[key];
+    if (key.toLowerCase().includes(phrase.toLowerCase())) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function getInfoFromDuckDUckGO(query) {
+  const url = `https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=json`;
+  return fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .catch(error => {
+      console.error(`Error fetching JSON: ${error}`);
+    });
 }

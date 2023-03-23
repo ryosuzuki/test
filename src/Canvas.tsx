@@ -5,10 +5,10 @@ import Konva from 'konva';
 import Summary from './Summary';
 import Highlight from './Highlight';
 import Hierarchy from './Hierarchy.js';
-import Images from './Images.js';
-import ReferencePages from './ReferencePages.js';
-import Flashcards from './Flashcards.js';
-import Profile from './Profile.js';
+// import Images from './Images.js';
+// import ReferencePages from './ReferencePages.js';
+// import Flashcards from './Flashcards.js';
+// import Profile from './Profile.js';
 import { useSpeechRecognition } from './hooks/useSpeechRecognition';
 import { Socket } from 'socket.io-client';
 import { Vocabulary } from './Vocabulary';
@@ -90,7 +90,7 @@ class Canvas extends Component {
 
                 <Vocabulary word={'taxonomy'} textAnnotations={this.props.state.vocabulary} relative={this.state.relativecoord} />
 
-                <DocumentStats doc_stats={this.props.state.doc_stats} />
+                {/* <DocumentStats doc_stats={this.props.state.doc_stats} /> */}
 
                 <Summary
                   text={this.props.state.summary}
@@ -100,22 +100,22 @@ class Canvas extends Component {
                   hierarchy={this.props.state.hierarchy}
                 />
 
-                <Highlight
+                {/* <Highlight
                   textAnnotations={this.props.state.highlight}
                   relative={this.state.relativecoord}
-                />
+                /> */}
 
-                <Images
+                {/* <Images
                   images={this.props.state.images}
-                />
+                /> */}
 
-                <ReferencePages
+                {/* <ReferencePages
                   showReferencePages={this.props.state.showReferencePages}
                 />
 
                 <Flashcards flashcardsData={this.props.state.flashcards} />
 
-                <Profile profileData={this.props.state.profile} />
+                <Profile profileData={this.props.state.profile} /> */}
               </Group>
             </Layer>
           </Stage>

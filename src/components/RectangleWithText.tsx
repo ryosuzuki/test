@@ -1,18 +1,22 @@
 import Konva from "konva";
 import React, { useEffect, useRef, useState } from "react";
-import { Group, Rect, Text } from "react-konva";
+import { Group, Rect, Text, Image } from "react-konva";
+import useImage from "use-image";
 
-
-export default function RectanglWithText({ x, y, width, heading, description, textWidth = 190 }: {
-    x: number, y: number, width: number, heading: string, description: string, textWidth?:number
+export default function RectanglWithText({ x, y, width, heading, description, textWidth = 190, url }: {
+    x: number, y: number, width: number, heading: string, description: string, textWidth?:number, url?:string
 }) {
     const [textHeight, setTextHeight] = useState(0);
     const [headingheight, setheadingheight] = useState(0);
+    const [imageHeight, setImageheight] = useState(0);
     const textref = useRef<Konva.Text>(null)
     const headingref = useRef<Konva.Text>(null)
     useEffect(() => {
         setTextHeight(textref.current?.getHeight())
-        setheadingheight(headingref.current?.getHeight())
+        setheadingheight(headingref.current?.getHeight());
+        if(url&&url!==undefined){
+            setImageheight(150)
+        }
     }, [])
     return (
         <Group zIndex={200}>
@@ -20,7 +24,7 @@ export default function RectanglWithText({ x, y, width, heading, description, te
                 x={x}
                 y={y}
                 width={width}
-                height={textHeight + headingheight + 50}
+                height={textHeight + headingheight + 50 + imageHeight}
                 fill="white"
                 stroke="#555"
                 strokeWidth={1}
@@ -31,10 +35,11 @@ export default function RectanglWithText({ x, y, width, heading, description, te
                 shadowOffsetY={10}
                 shadowOpacity={0.2}
             />
+            <IMG url={url} x={x} y={y} />
             <Text
                 ref={headingref}
                 x={x + 10}
-                y={y + 20}
+                y={y + 20 + imageHeight}
                 fontSize={19}
                 text={heading.toLocaleUpperCase()}
                 width={textWidth}
@@ -44,7 +49,7 @@ export default function RectanglWithText({ x, y, width, heading, description, te
             <Text
                 ref={textref}
                 x={x + 10}
-                y={y + headingheight + 30}
+                y={y + headingheight + 30 + imageHeight}
                 fontSize={14}
                 text={description}
                 width={textWidth}
@@ -53,3 +58,43 @@ export default function RectanglWithText({ x, y, width, heading, description, te
         </Group>
     )
 }
+
+const IMG = ({ url, x, y }:any) => {
+    const imageRef = useRef<Konva.Image>(null);
+    const [image] = useImage(url, "anonymous", 'origin');
+    const [imageWidth, setImageWidth] = React.useState(0);
+    const [imageHeight, setimageHeight] = React.useState(0);
+    useEffect(()=>{
+        if (imageRef.current) {
+            const imageNode = imageRef.current;
+            const w = imageNode.width();
+            const h = imageNode.height();
+            setImageWidth(w)
+            setimageHeight(h)
+
+            var widthRatio = (200) / w
+            var heightRatio = (150) / h;
+            var bestRatio = Math.min(widthRatio, heightRatio);
+            var newWidth = w * bestRatio;
+            var newHeight = h * bestRatio;
+
+        }
+    },[])
+    console.log(image)
+    return <Image 
+        ref={imageRef}
+        image={image}
+        x={((imageWidth/2)*1/(imageHeight/150))} //x
+        y={y}
+        // width={200}
+        // height={150}
+        // crop={{
+        //     x:imageWidth/2,
+        //     y:10,
+        //     width:200,
+        //     height:150
+        // }}
+        scaleX={1/(imageHeight/150)}
+        scaleY={1/(imageHeight/150)}
+    />;
+};

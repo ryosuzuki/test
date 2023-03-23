@@ -101,7 +101,8 @@ io.on('connection', (socket) => {
     'summary',
     'hierarchy',
     'vocabulary',
-    'phrase_reference'
+    'phrase_reference',
+    'info_card'
   ]
   socket.emit('types', types)
 
@@ -125,6 +126,19 @@ io.on('connection', (socket) => {
         socket.emit(type, links)
         return
       }
+      if(type==='info_card'){
+        console.log(type,msg);
+        let res = await image_search({
+          query: msg,
+          moderate: true,
+          iterations: 1,
+          retries: 1
+        });
+        res = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Bret_Victor.png/330px-Bret_Victor.png'//res.slice(13,14)[0].image //6, 7 works
+        msg = {text:msg, image:res}
+        socket.emit(type, msg)
+        return 
+      }
       let res = await ask(type, msg)
       // console.log(res)
       socket.emit(type, res)
@@ -136,7 +150,7 @@ async function ask(type, msg) {
   // let res = await api.sendMessage(msg)
   // saveJson('sample/summary.json', msg)
   let res = getJson(`src/sample/${type}/${currentTestingDoc}.json`)
-  console.log(res)
+  // console.log(res)
   return res
 }
 
@@ -195,4 +209,26 @@ async function detectText(image_buffer) {
   console.log('Text:', text);
   let q = "I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: " + text;
   // pyshell.send(q);
+}
+
+function getDuckDuckGoInfo(query) {
+  return new Promise((resolve, reject) => {
+    const fullUrl = `https://api.duckduckgo.com/?q=${query}&format=json`;
+    https.get(fullUrl, (response) => {
+      let data = '';
+      response.on('data', (chunk) => {
+        data += chunk;
+      });
+      response.on('end', () => {
+        try {
+          const jsonData = JSON.parse(data);
+          resolve(jsonData);
+        } catch (error) {
+          reject(error);
+        }
+      });
+    }).on('error', (error) => {
+      reject(error);
+    });
+  });
 }

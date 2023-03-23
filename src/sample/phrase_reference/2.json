@@ -3,7 +3,7 @@
     "id": "cmpl-6t3IEgf1vlNKcBY02JbpkbB9kkOBc",
     "parentMessageId": "ff56a402-104c-44b8-9ef1-a03065bbc8e0",
     "conversationId": "283db126-769a-4925-9938-023b787c351a",
-    "text": "{\"Bret Victor\": \"Bret Victor is an interface designer, computer scientist, and electrical engineer known for his talks on the future of technology. As of 2021, he worked as a researcher at Dynamicland.\"}",
+    "text": "{\"Rapido\": \"Rapido is a novel early-stage prototyping tool to create fully interactive mobile AR prototypes from non-interactive video prototypes using Programming by Demonstration. In Rapido, designers use a mobile AR device to record a video prototype to capture context, sketch assets, and demonstrate interactions. They can demonstrate touch inputs, animation paths, and rules to, e.g., have a sketch follow the focus area of the device or the user’s world-space touches.\"}",
     "detail": {
       "id": "cmpl-6t3IEgf1vlNKcBY02JbpkbB9kkOBc",
       "object": "text_completion",
