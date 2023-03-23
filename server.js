@@ -99,34 +99,19 @@ io.on('connection', (socket) => {
 
   let types = [
     'summary',
-    'hierarchy',
-    'vocabulary',
-    'phrase_reference',
-    'info_card'
+    'people',
+    'image',
   ]
   socket.emit('types', types)
 
   for (let type of types) {
     socket.on(type, async (msg) => {
-      if(type==='DocStats'){
-        const countWords = msg.trim().split(/\s+/).length;
-        socket.emit(type, 
-          {
-            Words:countWords, 
-            Tone: utils.calculateSentiment(msg),
-            "Reading Level": utils.calculateGradeLevel(msg),
-            Sentances: utils.countSentences(msg),
-            Time:utils.calculateReadingTime(msg),
-            Lines:utils.countLines(msg)
-          })
-        return
-      }
       if (type == 'images') {
         let links = await searchImages(res.text);
         socket.emit(type, links)
         return
       }
-      if(type==='info_card'){
+      if(type==='people'){
         console.log(type,msg);
         let res = await image_search({
           query: msg,
@@ -138,6 +123,19 @@ io.on('connection', (socket) => {
         // res = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Bret_Victor.png/330px-Bret_Victor.png'//res.slice(13,14)[0].image //6, 7 works
         res = res.slice(1,2)[0].image //6, 7 works
         msg = {text:msg, image:res, resp:duck}
+        socket.emit(type, msg)
+        return 
+      }
+      if(type==='image'){
+        console.log(type,msg);
+        let res = await image_search({
+          query: msg,
+          moderate: true,
+          iterations: 1,
+          retries: 1
+        });
+        res = res.slice(0,1)[0].image //6, 7 works
+        msg = {text:msg, image:res}
         socket.emit(type, msg)
         return 
       }

@@ -3,16 +3,10 @@ import React, { Component } from 'react';
 import { Stage, Layer, Rect, Text, Line, Group, Circle, Path } from 'react-konva';
 import Konva from 'konva';
 import Summary from './Summary';
-import Highlight from './Highlight';
-import Hierarchy from './Hierarchy.js';
-// import Images from './Images.js';
-// import ReferencePages from './ReferencePages.js';
-// import Flashcards from './Flashcards.js';
-// import Profile from './Profile.js';
+import {People} from './People'
+import {ImageBox} from './image'
 import { useSpeechRecognition } from './hooks/useSpeechRecognition';
 import { Socket } from 'socket.io-client';
-import { Vocabulary } from './Vocabulary';
-import { DocumentStats } from './DocumentStats';
 
 let ocr: any;
 window.Konva = Konva
@@ -88,34 +82,12 @@ class Canvas extends Component {
                   fill={'#00000012'}
                 />
 
-                <Vocabulary word={'taxonomy'} textAnnotations={this.props.state.vocabulary} relative={this.state.relativecoord} />
-
-                {/* <DocumentStats doc_stats={this.props.state.doc_stats} /> */}
+                <People word={'taxonomy'} textAnnotations={this.props.state.people} relative={this.state.relativecoord} />
+                <ImageBox word={'taxonomy'} textAnnotations={this.props.state.image} relative={this.state.relativecoord} />
 
                 <Summary
                   text={this.props.state.summary}
                 />
-
-                <Hierarchy
-                  hierarchy={this.props.state.hierarchy}
-                />
-
-                {/* <Highlight
-                  textAnnotations={this.props.state.highlight}
-                  relative={this.state.relativecoord}
-                /> */}
-
-                {/* <Images
-                  images={this.props.state.images}
-                /> */}
-
-                {/* <ReferencePages
-                  showReferencePages={this.props.state.showReferencePages}
-                />
-
-                <Flashcards flashcardsData={this.props.state.flashcards} />
-
-                <Profile profileData={this.props.state.profile} /> */}
               </Group>
             </Layer>
           </Stage>

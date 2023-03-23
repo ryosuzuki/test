@@ -26,21 +26,15 @@ class App extends Component {
     this.size = 1024
     this.state = {
       summary: '',
-      hierarchy: '',
-      highlight: [],
-      images: [],
-      flashcards: [],
-      profile: '',
-      vocabulary:[],
       currentTestingDoc: 2, //change for doc & vis that you want to test
-      showReferencePages: false,
       dragging: false,
       initDrawing: true,
       distance: 0,
       mouse2D: { x: 0, y: 0 },
       mouse: { x: 0, y: 0 },
       raycaster: new THREE.Raycaster(),
-      doc_stats: null,
+      people: [],
+      image: [],
     }
     this.strokeColor = '#002f2b'
     this.fillColor = '#004842'

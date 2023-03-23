@@ -10,16 +10,8 @@ class ChatGPT extends Component {
     this.socket = App.socket
     const types = [
       'summary',
-      // 'visualize',
-      'hierarchy',
-      // 'highlight',
-      // 'images',
-      // 'reference_pages',
-      // 'flashcards',
-      // 'profiles',
-      'info_card',
-      'phrase_reference',
-      // 'map'
+      'people',
+      'image',
     ]
     this.state = {
       types: types
@@ -45,8 +37,11 @@ class ChatGPT extends Component {
         // console.log(rawtext)
         const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
         let query = `I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: ${rawtext}`;
-        if(type==='info_card'){
+        if(type==='people'){
           query = 'bret victor'
+        }
+        if(type==='image'){
+          query = 'algebra'
         }
         this.socket.emit(type, query)
       })
@@ -57,69 +52,70 @@ class ChatGPT extends Component {
             makeAllStatesNull()
             App.setState({ summary: res.text })
             break;
-          case 'DocStats':
-            console.log(res);
-            makeAllStatesNull()
-            App.setState({ doc_stats: res });
-            break;
-          case 'visualize':
-            break;
-          case 'hierarchy':
-            // console.log(res)
-            let data = JSON.parse(res.text)
-            let str = ""
 
-            for (const [key, value] of Object.entries(data)) {
-              let heading = key.toString().toUpperCase();
-              str += `\n● ${heading} : `;
-              if (typeof value === 'object') {
-                for (const [k, v] of Object.entries(value)) {
-                  str += `\n\t\t\t\t\t⚬ ${k}: - ${v}\n`
-                }
-              }
-              else {
-                str += ` - ${value} \n`
-              }
-            }
+          case 'image':
+            // getInfoFromDuckDUckGO(res.text).then((resp)=>{
+              let imgobj = {image:res.image, title:res.text}
+              let imgjsn = `{\"${res.text}\": \"'image\"}`;
 
-            // console.log(str);
-            makeAllStatesNull()
-            App.setState({ hierarchy: str })
-            break;
-          case 'highlight':
-            let words = JSON.parse(res.text)
-            console.log(words)
-            let textAnnotations = ocr.textAnnotations.filter((textAnnotation) => {
-              return words.includes(textAnnotation.description)
+          dummyPomise().then(() => {
+            let vocabs = JSON.parse(imgjsn);
+            console.log(vocabs);
+            let wordsArr = [];
+            ocr.textAnnotations.forEach((item) => {
+              wordsArr.push(item.description)
+            });
+            let matches = checkConsecutiveWords(vocabs, wordsArr);
+            console.log(matches);
+
+            let finalMatches = [];
+            matches.matches.forEach((item) => {
+              let tempObj = (ocr.textAnnotations[item.index]);
+              tempObj['imageURL'] = res.image;
+              tempObj['title'] = res.text;
+              finalMatches.push(tempObj);
+              let wordLength = item.key.split(' ').length;
+              for (let i = 1; i < wordLength; i++) {
+                let obj = (ocr.textAnnotations[item.index + i]);
+                obj['imageURL'] = res.image
+                obj['title'] = res.text
+                finalMatches.push(obj)
+              }
             })
-            console.log(textAnnotations)
-            makeAllStatesNull()
-            App.setState({ highlight: textAnnotations })
-            break;
-          case 'images':
-            makeAllStatesNull()
-            App.setState({ images: res })
-            break;
-          case 'reference_pages':
-            console.log('set active - reference pages')
-            makeAllStatesNull()
-            App.setState({ showReferencePages: true })
-          case 'flashcards':
-            let flashcardsjson = JSON.parse(res.text)
-            console.log(flashcardsjson)
-            makeAllStatesNull()
-            App.setState({ flashcards: flashcardsjson })
-            break;
-          case 'profiles':
-            let profileData = JSON.parse(res.text)
-            console.log(profileData)
-            makeAllStatesNull()
-            App.setState({ profile: profileData })
-            break;
 
-          case "phrase_reference":
-            console.log(ocr.textAnnotations[0].description)
-            let vocabs = JSON.parse(res.text);
+            let thetextAnnotations = ocr.textAnnotations.filter((textAnnotation) => {
+              return textAnnotation.description in vocabs
+            });
+            console.log(res.image)
+            thetextAnnotations.map((item) => {
+              return item['imageURL'] = res.image
+            });
+            thetextAnnotations.map((item) => {
+              return item['title'] = res.text
+            });
+            finalMatches = Object.values(finalMatches.reduce((acc, obj) => {
+              acc[obj['description']] = obj;
+              return acc;
+            }, {}));
+            thetextAnnotations = Object.values(thetextAnnotations.reduce((acc, obj) => {
+              acc[obj['description']] = obj;
+              return acc;
+            }, {}));
+            thetextAnnotations = thetextAnnotations.concat(finalMatches)
+            console.log(thetextAnnotations)
+            makeAllStatesNull()
+            App.setState({ image: thetextAnnotations })
+          })
+          break;
+
+          case 'people':
+            // getInfoFromDuckDUckGO(res.text).then((resp)=>{
+              let obj = {image:res.image, desc:res.resp.Abstract, title:res.text}
+              console.log(obj);
+              let jsn = `{\"${res.text}\": \"${obj.desc}\"}`;
+
+          dummyPomise().then(() => {
+            let vocabs = JSON.parse(jsn);
             console.log(vocabs);
             let wordsArr = [];
             ocr.textAnnotations.forEach((item) => {
@@ -132,13 +128,15 @@ class ChatGPT extends Component {
             matches.matches.forEach((item) => {
               let tempObj = (ocr.textAnnotations[item.index]);
               tempObj['meaning'] = item.value;
-              tempObj['title'] = item.key;
+              tempObj['imageURL'] = res.image;
+              tempObj['title'] = res.text;
               finalMatches.push(tempObj);
               let wordLength = item.key.split(' ').length;
               for (let i = 1; i < wordLength; i++) {
                 let obj = (ocr.textAnnotations[item.index + i]);
                 obj['meaning'] = item.value;
-                obj['title'] = item.key;
+                obj['imageURL'] = res.image
+                obj['title'] = res.text
                 finalMatches.push(obj)
               }
             })
@@ -150,8 +148,12 @@ class ChatGPT extends Component {
             thetextAnnotations.map((item) => {
               return item['meaning'] = vocabs[item.description]
             });
+            console.log(res.image)
             thetextAnnotations.map((item) => {
-              return item['title'] = item.description
+              return item['imageURL'] = res.image
+            });
+            thetextAnnotations.map((item) => {
+              return item['title'] = res.text
             });
             finalMatches = Object.values(finalMatches.reduce((acc, obj) => {
               acc[obj['description']] = obj;
@@ -162,71 +164,11 @@ class ChatGPT extends Component {
               return acc;
             }, {}));
             thetextAnnotations = thetextAnnotations.concat(finalMatches)
-            // console.log(thetextAnnotations)
+            console.log(thetextAnnotations)
             makeAllStatesNull()
-            App.setState({ vocabulary: thetextAnnotations })
-            break;
-
-            case 'info_card':
-              // getInfoFromDuckDUckGO(res.text).then((resp)=>{
-                let obj = {image:res.image, desc:res.resp.Abstract, title:res.text}
-                console.log(obj);
-                let jsn = `{\"${res.text}\": \"${obj.desc}\"}`;
-
-            dummyPomise().then(() => {
-              let vocabs = JSON.parse(jsn);
-              console.log(vocabs);
-              let wordsArr = [];
-              ocr.textAnnotations.forEach((item) => {
-                wordsArr.push(item.description)
-              });
-              let matches = checkConsecutiveWords(vocabs, wordsArr);
-              console.log(matches);
-
-              let finalMatches = [];
-              matches.matches.forEach((item) => {
-                let tempObj = (ocr.textAnnotations[item.index]);
-                tempObj['meaning'] = item.value;
-                tempObj['imageURL'] = res.image;
-                tempObj['title'] = res.text;
-                finalMatches.push(tempObj);
-                let wordLength = item.key.split(' ').length;
-                for (let i = 1; i < wordLength; i++) {
-                  let obj = (ocr.textAnnotations[item.index + i]);
-                  obj['meaning'] = item.value;
-                  obj['imageURL'] = res.image
-                  obj['title'] = res.text
-                  finalMatches.push(obj)
-                }
-              })
-              // console.log(finalMatches)
-
-              let thetextAnnotations = ocr.textAnnotations.filter((textAnnotation) => {
-                return textAnnotation.description in vocabs
-              });
-              thetextAnnotations.map((item) => {
-                return item['meaning'] = vocabs[item.description]
-              });
-              console.log(res.image)
-              thetextAnnotations.map((item) => {
-                return item['imageURL'] = res.image
-              });
-              thetextAnnotations.map((item) => {
-                return item['title'] = res.text
-              });
-              finalMatches = Object.values(finalMatches.reduce((acc, obj) => {
-                acc[obj['description']] = obj;
-                return acc;
-              }, {}));
-              thetextAnnotations = Object.values(thetextAnnotations.reduce((acc, obj) => {
-                acc[obj['description']] = obj;
-                return acc;
-              }, {}));
-              thetextAnnotations = thetextAnnotations.concat(finalMatches)
-              console.log(thetextAnnotations)
-              makeAllStatesNull()
-              App.setState({ vocabulary: thetextAnnotations })
-            })
+            App.setState({ people: thetextAnnotations })
+          })
+          break;
         }
       })
     }
@@ -238,9 +180,6 @@ class ChatGPT extends Component {
         <div id="buttons">
           {this.state.types.map((type) => {
             let name = type;
-            if(name==='vocabulary'){
-              name = 'Important Key Terms'
-            }
             return (
               <button id={type}>{name}</button>
             )
@@ -276,9 +215,7 @@ function checkConsecutiveWords(json, words) {
 function makeAllStatesNull() {
   let states = [
     { state: 'summary', type: 'string' },
-    { state: 'hierarchy', type: 'string' },
-    { state: 'phrase_reference', type: 'array' },
-    { state: 'info_card', type: 'array' },
+    { state: 'people', type: 'array' },
   ]
   states.forEach((item) => {
     if (item.type === 'string') {

@@ -9,7 +9,7 @@ const ocrHeight = 2149;
 const ratioWidth = 1024 / ocrWidth;
 const ratioHeight = 1024 / ocrHeight;
 
-export function Vocabulary(props: {
+export function People(props: {
     textAnnotations: { boundingPoly: { vertices: { x: number, y: number }[] }, description: string, meaning: string, imageURL:string, title:string }[],
     relative: number, word: string | null
 }) {
