@@ -101,6 +101,7 @@ io.on('connection', (socket) => {
     'summary',
     'people',
     'image',
+    'map',
   ]
   socket.emit('types', types)
 
@@ -136,6 +137,10 @@ io.on('connection', (socket) => {
         });
         res = res.slice(0,1)[0].image //6, 7 works
         msg = {text:msg, image:res}
+        socket.emit(type, msg)
+        return 
+      }
+      if(type==='map'){
         socket.emit(type, msg)
         return 
       }

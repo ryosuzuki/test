@@ -12,6 +12,7 @@ class ChatGPT extends Component {
       'summary',
       'people',
       'image',
+      'map',
     ]
     this.state = {
       types: types
@@ -43,6 +44,9 @@ class ChatGPT extends Component {
         if(type==='image'){
           query = 'algebra'
         }
+        if(type==='map'){
+          query = 'calgary'
+        }
         this.socket.emit(type, query)
       })
 
@@ -55,7 +59,6 @@ class ChatGPT extends Component {
 
           case 'image':
             // getInfoFromDuckDUckGO(res.text).then((resp)=>{
-              let imgobj = {image:res.image, title:res.text}
               let imgjsn = `{\"${res.text}\": \"'image\"}`;
 
           dummyPomise().then(() => {
@@ -106,6 +109,68 @@ class ChatGPT extends Component {
             makeAllStatesNull()
             App.setState({ image: thetextAnnotations })
           })
+          break;
+
+          case 'map':
+            console.log(res)
+            // getInfoFromDuckDUckGO(res.text).then((resp)=>{
+              let mapobj = {image:res.image, title:res.text}
+              let mapjsn = `{\"${res}\": \"'map\"}`;
+
+            getMapImage(res).then((url) => {
+              console.log(url)
+              let name = res
+              res = {
+                image:url,
+                text: name
+              }
+              let vocabs = JSON.parse(mapjsn);
+              console.log(vocabs);
+              let wordsArr = [];
+              ocr.textAnnotations.forEach((item) => {
+                wordsArr.push(item.description)
+              });
+              let matches = checkConsecutiveWords(vocabs, wordsArr);
+              console.log(matches);
+
+              let finalMatches = [];
+              matches.matches.forEach((item) => {
+                let tempObj = (ocr.textAnnotations[item.index]);
+                tempObj['imageURL'] = res.image;
+                tempObj['title'] = res.text;
+                finalMatches.push(tempObj);
+                let wordLength = item.key.split(' ').length;
+                for (let i = 1; i < wordLength; i++) {
+                  let obj = (ocr.textAnnotations[item.index + i]);
+                  obj['imageURL'] = res.image
+                  obj['title'] = res.text
+                  finalMatches.push(obj)
+                }
+              })
+
+              let thetextAnnotations = ocr.textAnnotations.filter((textAnnotation) => {
+                return textAnnotation.description in vocabs
+              });
+              console.log(res.image, res)
+              thetextAnnotations.map((item) => {
+                return item['imageURL'] = res.image
+              });
+              thetextAnnotations.map((item) => {
+                return item['title'] = res.text
+              });
+              finalMatches = Object.values(finalMatches.reduce((acc, obj) => {
+                acc[obj['description']] = obj;
+                return acc;
+              }, {}));
+              thetextAnnotations = Object.values(thetextAnnotations.reduce((acc, obj) => {
+                acc[obj['description']] = obj;
+                return acc;
+              }, {}));
+              thetextAnnotations = thetextAnnotations.concat(finalMatches)
+              console.log(thetextAnnotations)
+              makeAllStatesNull()
+              App.setState({ image: thetextAnnotations })
+            })
           break;
 
           case 'people':
@@ -216,6 +281,7 @@ function makeAllStatesNull() {
   let states = [
     { state: 'summary', type: 'string' },
     { state: 'people', type: 'array' },
+    { state: 'imaage', type: 'array' },
   ]
   states.forEach((item) => {
     if (item.type === 'string') {
@@ -224,7 +290,7 @@ function makeAllStatesNull() {
       })
     } else if (item.type === 'array') {
       App.setState({ [item.state]: [] }, () => {
-        console.log(App.state)
+        // console.log(App.state)
       })
     } else if (item.type === 'bool') {
       App.setState({ [item.state]: false }, () => {
@@ -281,12 +347,15 @@ function getCoordinates(place, accessToken='pk.eyJ1IjoiYWRpZ3VudHVydSIsImEiOiJja
     });
 }
 
-function getMapImage(latitude, longitude, accessToken='pk.eyJ1IjoiYWRpZ3VudHVydSIsImEiOiJja3pocmk5aG8xeW9hMzRvNnZobG43aXowIn0.kJ9gIRBoOAqS8jvtZKWHnA') {
-  const width = 200;
-  const height = 150;
-  const zoom = 12;
-  const url = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${longitude},${latitude},${zoom}/${width}x${height}?access_token=${accessToken}`;
-  const img = new Image();
-  img.src = url;
-  return img;
+function getMapImage(place, accessToken='pk.eyJ1IjoiYWRpZ3VudHVydSIsImEiOiJja3pocmk5aG8xeW9hMzRvNnZobG43aXowIn0.kJ9gIRBoOAqS8jvtZKWHnA') {
+  return new Promise((resolve, reject)=>{
+    console.log(place)
+    getCoordinates(place).then((res)=>{
+      const width = 200;
+      const height = 150;
+      const zoom = 8;
+      const url = `https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${res.longitude},${res.latitude},${zoom}/${width}x${height}?access_token=${accessToken}`;
+      resolve(url)
+    })
+  })
 }
