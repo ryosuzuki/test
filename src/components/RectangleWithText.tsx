@@ -16,8 +16,10 @@ export default function RectanglWithText({ x, y, width, heading, description, te
         setheadingheight(headingref.current?.getHeight());
         if(url&&url!==undefined){
             setImageheight(150)
+        }else{
+            setImageheight(0)
         }
-    }, [])
+    }, [url])
     return (
         <Group zIndex={200}>
             <Rect
