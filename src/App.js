@@ -11,7 +11,7 @@ AFRAME.registerComponent('drawing-plane', {
   tick: () => { }
 })
 
-const isCameraOn = false
+const isCameraOn = true
 
 class App extends Component {
   constructor(props) {
@@ -78,7 +78,9 @@ class App extends Component {
     
   render() {
     // Update your https://IP:PORT here
-    let target = `imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.0.0/examples/image-tracking/assets/card-example/card.mind`
+
+    // mind file for magazine. I just created a https://www.jsdelivr.com/ for the mind hosted on github
+    let target = `imageTargetSrc: https://cdn.jsdelivr.net/gh/ryosuzuki/test@shivesh/public/targets/1.mind`
     return (
       <>
 
