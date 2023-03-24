@@ -15,22 +15,46 @@ const { PythonShell } = require('python-shell');
 
 const ExtractAction = new PythonShell('NLP.py')
 
-// const key = fs.readFileSync('./key.pem');
-// const cert = fs.readFileSync('./ip.pem');
-const key = fs.readFileSync('./cert.key');
-const cert = fs.readFileSync('./cert.crt');
+const key = fs.readFileSync('./key.pem');
+const cert = fs.readFileSync('./ip.pem');
+// const key = fs.readFileSync('./cert.key');
+// const cert = fs.readFileSync('./cert.crt');
 
 const filename = path.basename(__filename);
 const directory = path.dirname(filename);
 
-// const config = getJson('config.json')
-// const api = new ChatGPTAPI({
-//   apiKey: config.apiKey,
-//   completionParams: {
-//     temperature: 0.5,
-//     top_p: 0.8
-//   }
-// })
+const config = getJson('config.json')
+const sample = getJson('src/sample/OCRs/1.json')
+const rawtext = sample.textAnnotations[0].description
+const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
+
+const { Configuration, OpenAIApi } = require('openai')
+// import { Configuration, OpenAIApi } from "openai";
+const configuration = new Configuration({
+  apiKey: config.apiKey,
+});
+
+function getJson(path) {
+  return JSON.parse(fs.readFileSync(join(directory, path), 'utf8'))
+}
+
+// live api call
+async function ChatGPTLive(prompt) {
+  let query = prompt + text
+  const openai = new OpenAIApi(configuration);
+  const response = await openai.createCompletion({
+    model: "text-davinci-003",
+    prompt: query,
+    temperature: 0.7,
+    max_tokens: 60,
+    top_p: 1.0,
+    frequency_penalty: 0.0,
+    presence_penalty: 1,
+  });
+
+  console.log(response.data.choices[0].text)
+  return response.data.choices[0].text
+}
 
 const app = express()
 
@@ -148,8 +172,8 @@ io.on('connection', (socket) => {
         return
       }
       if (type === 'timeline') {
-
-        socket.emit(type, "1. \n2. \n3.")
+        let res = await ChatGPTLive("create a timeline for this text. your result should be text with line breaks. don't print any explanation or text: ")
+        socket.emit(type, res)
         return
       }
 
