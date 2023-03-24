@@ -21,8 +21,8 @@ class App extends Component {
 
     // Update your https://IP:PORT here
     // this.socket = io('https://IP:PORT')
-    this.socket = io('https://10.0.0.190:4000')
-    // this.socket = io('https://localhost:4000')
+    // this.socket = io('https://10.0.0.190:4000')
+    this.socket = io('https://localhost:4000')
 
     this.size = 1024
     this.state = {
@@ -37,6 +37,7 @@ class App extends Component {
       raycaster: new THREE.Raycaster(),
       people: [],
       image: [],
+      matrix:null
     }
     this.strokeColor = '#002f2b'
     this.fillColor = '#004842'

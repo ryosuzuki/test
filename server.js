@@ -199,10 +199,20 @@ io.on('connection', (socket) => {
           // res = await ChatGPTLive("explain about potential benefits and challenges of using drones in SAR from the given text. give me json of comparison matrix without any explanation. keep it short. your output should be json without any other explanation or text. do not give any explanation or anything. json format should be {Object A: [differences], Object B: [differences]}. given Text: ")
           console.log(res)
         } else {
-          res = `{
-            "Benefits": ["Faster search and rescue operations", "Can access hard-to-reach areas", "Can cover large areas quickly", "Can operate in hazardous conditions"],
-            "Challenges": ["Limited flight time and range", "Dependent on weather conditions", "Require skilled operators", "Privacy concerns"]
-            }`;
+          res = {
+            Benefits: [
+              "Faster search and rescue operations",
+              "Can access hard-to-reach areas",
+              "Can cover large areas quickly",
+              "Can operate in hazardous conditions",
+            ],
+            Challenges: [
+              "Limited flight time and range",
+              "Dependent on weather conditions",
+              "Require skilled operators",
+              "Privacy concerns",
+            ]
+          };
         }
         socket.emit(type, res)
         return
