@@ -40,7 +40,7 @@ class ChatGPT extends Component {
         const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
         let query = `I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: ${rawtext}`;
         if (type === 'people') {
-          query = 'Jim Bowers'
+          query = 'DJI Phantom'
         }
         if (type === 'image') {
           query = 'algebra'
@@ -192,14 +192,14 @@ class ChatGPT extends Component {
               let finalMatches = [];
               matches.matches.forEach((item) => {
                 let tempObj = (ocr.textAnnotations[item.index]);
-                tempObj['meaning'] = item.value!==undefined?item.value:'No Information Available';
+                tempObj['meaning'] = item.value;
                 tempObj['imageURL'] = res.image;
                 tempObj['title'] = res.text;
                 finalMatches.push(tempObj);
                 let wordLength = item.key.split(' ').length;
                 for (let i = 1; i < wordLength; i++) {
                   let obj = (ocr.textAnnotations[item.index + i]);
-                  obj['meaning'] = item.value!==undefined?item.value:'No Information Available';;
+                  obj['meaning'] = item.value;
                   obj['imageURL'] = res.image
                   obj['title'] = res.text
                   finalMatches.push(obj)
@@ -211,9 +211,9 @@ class ChatGPT extends Component {
                 return textAnnotation.description in vocabs
               });
               thetextAnnotations.map((item) => {
-                return item['meaning'] = vocabs[item.description]!==undefined?vocabs[item.description]:'No Information Available';
+                console.log(item)
+                return item['meaning'] = vocabs[item.description];
               });
-              console.log(res.image)
               thetextAnnotations.map((item) => {
                 return item['imageURL'] = res.image
               });
@@ -273,7 +273,7 @@ function checkConsecutiveWords(json, words) {
         matchesIndex.push(i)
         matches.push({
           key: phrase,
-          value: json[phrase.toLowerCase()],
+          value: json[phrase],
           index: i
         });
       }
