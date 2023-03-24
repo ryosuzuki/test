@@ -36,7 +36,7 @@ class ChatGPT extends Component {
       button.addEventListener('click', () => {
         // console.log(type)
         const rawtext = ocr.textAnnotations[0].description
-        // console.log(rawtext)
+        console.log(rawtext)
         const text = rawtext.replace(/(\r\n|\n|\r)/gm, " ")
         let query = `I got this unstructured text from OCR. give me 1-3 sentence summary of what this is about. Raw text: ${rawtext}`;
         if (type === 'people') {
@@ -46,7 +46,7 @@ class ChatGPT extends Component {
           query = 'algebra'
         }
         if (type === 'map') {
-          query = 'calgary'
+          query = 'Yosemite'
         }
         this.socket.emit(type, query)
       })
@@ -175,7 +175,6 @@ class ChatGPT extends Component {
             break;
 
           case 'people':
-            // getInfoFromDuckDUckGO(res.text).then((resp)=>{
             let obj = { image: res.image, desc: res.resp.Abstract, title: res.text }
             console.log(obj);
             let jsn = `{\"${res.text}\": \"${obj.desc}\"}`;

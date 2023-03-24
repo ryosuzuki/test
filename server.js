@@ -15,10 +15,10 @@ const { PythonShell } = require('python-shell');
 
 const ExtractAction = new PythonShell('NLP.py')
 
-const key = fs.readFileSync('./key.pem');
-const cert = fs.readFileSync('./ip.pem');
-// const key = fs.readFileSync('./cert.key');
-// const cert = fs.readFileSync('./cert.crt');
+// const key = fs.readFileSync('./key.pem');
+// const cert = fs.readFileSync('./ip.pem');
+const key = fs.readFileSync('./cert.key');
+const cert = fs.readFileSync('./cert.crt');
 
 const filename = path.basename(__filename);
 const directory = path.dirname(filename);
@@ -63,7 +63,7 @@ app.get('/public/targets/2.mind', function (req, res) {
   console.log(res)
 })
 
-let currentTestingDoc = 2
+let currentTestingDoc = 1
 
 io.on('connection', (socket) => {
   console.log('connected to: ' + socket.id)
