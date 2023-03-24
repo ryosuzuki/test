@@ -15,10 +15,12 @@ const { PythonShell } = require('python-shell');
 
 const ExtractAction = new PythonShell('NLP.py')
 
-const key = fs.readFileSync('./key.pem');
-const cert = fs.readFileSync('./ip.pem');
-// const key = fs.readFileSync('./cert.key');
-// const cert = fs.readFileSync('./cert.crt');
+// const key = fs.readFileSync('./key.pem');
+// const cert = fs.readFileSync('./ip.pem');
+const key = fs.readFileSync('./cert.key');
+const cert = fs.readFileSync('./cert.crt');
+
+let askchatgpt = false;
 
 const filename = path.basename(__filename);
 const directory = path.dirname(filename);
@@ -172,7 +174,19 @@ io.on('connection', (socket) => {
         return
       }
       if (type === 'timeline') {
-        let res = await ChatGPTLive("create a timeline for this text. your result should be text with line breaks. don't print any explanation or text: ")
+        let res;
+        if (askchatgpt) {
+          console.log('asking chatgpt')
+          res = await ChatGPTLive("create a timeline for this text. your result should be text with line breaks. don't print any explanation or text: ")
+        } else {
+          res = `
+
+[1] 300,000 years ago: CRASAR is founded 
+[2] Jim Bowers needs a plan in place 
+[3] Quistorf SAR missions take place in mountains 
+[4] Drone involvement is logistically difficult 
+[5] Civil`
+        }
         socket.emit(type, res)
         return
       }
