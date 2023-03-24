@@ -178,7 +178,7 @@ io.on('connection', (socket) => {
         let res;
         if (askchatgpt) {
           console.log('asking chatgpt')
-          res = await ChatGPTLive("create a timeline for this text. your result should be text with line breaks. don't print any explanation or text: ")
+          // res = await ChatGPTLive("create a timeline for this text. your result should be text with line breaks. don't print any explanation or text: ")
         } else {
           res = `
 
@@ -196,7 +196,7 @@ io.on('connection', (socket) => {
         let res;
         if (askchatgpt) {
           console.log('asking chatgpt')
-          res = await ChatGPTLive("explain about potential benefits and challenges of using drones in SAR from the given text. give me json of comparison matrix without any explanation. keep it short. your output should be json without any other explanation or text. do not give any explanation or anything. json format should be {Object A: [differences], Object B: [differences]}. given Text: ")
+          // res = await ChatGPTLive("explain about potential benefits and challenges of using drones in SAR from the given text. give me json of comparison matrix without any explanation. keep it short. your output should be json without any other explanation or text. do not give any explanation or anything. json format should be {Object A: [differences], Object B: [differences]}. given Text: ")
           console.log(res)
         } else {
           res = `{
