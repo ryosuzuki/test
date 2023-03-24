@@ -47,7 +47,7 @@ const Matrix = (props: {
                 shadowOffsetY={10}
                 shadowOpacity={0.2}
             />
-            <Line points={[160, 0, 160, totalHeight]} stroke="black" strokeWidth={2} />
+            <Line points={[160, 0, 160, totalHeight]} stroke="black" strokeWidth={1} />
             <Text text="Benefits" fontSize={20} fontFamily="Arial" x={10} y={10} />
             <Text text="Challenges" fontSize={20} fontFamily="Arial" x={180} y={10} />
 
