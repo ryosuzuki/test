@@ -42,7 +42,7 @@ export default function RectanglWithText({ x, y, width, heading, description, te
                 ref={headingref}
                 x={x + 10}
                 y={y + 20 + imageHeight}
-                fontSize={19}
+                fontSize={14}
                 text={heading.toLocaleUpperCase()}
                 width={textWidth}
                 wrap={'word'}
@@ -52,7 +52,7 @@ export default function RectanglWithText({ x, y, width, heading, description, te
                 ref={textref}
                 x={x + 10}
                 y={y + headingheight + 30 + imageHeight}
-                fontSize={14}
+                fontSize={10}
                 text={description}
                 width={textWidth}
                 wrap={'word'}

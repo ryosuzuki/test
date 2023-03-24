@@ -6,24 +6,24 @@ const { fileURLToPath } = require('url');
 const { dirname, join } = require('path');
 const cors = require('cors');
 const vision = require('@google-cloud/vision');
-// const { ChatGPTAPI } = require('chatgpt');
+// const ChatGPTAPI  = require('chatgpt');
 const { image_search } = require('duckduckgo-images-api');
 const path = require('path');
-
 const utils = require('./UtilFunctions');
 
-const {PythonShell} = require('python-shell')
+const { PythonShell } = require('python-shell');
+
 const ExtractAction = new PythonShell('NLP.py')
 
-// const key = fs.readFileSync('./key.pem');
-// const cert = fs.readFileSync('./ip.pem');
-const key = fs.readFileSync('./cert.key');
-const cert = fs.readFileSync('./cert.crt');
+const key = fs.readFileSync('./key.pem');
+const cert = fs.readFileSync('./ip.pem');
+// const key = fs.readFileSync('./cert.key');
+// const cert = fs.readFileSync('./cert.crt');
 
 const filename = path.basename(__filename);
 const directory = path.dirname(filename);
 
-const config = getJson('config.json')
+// const config = getJson('config.json')
 // const api = new ChatGPTAPI({
 //   apiKey: config.apiKey,
 //   completionParams: {
@@ -37,7 +37,7 @@ const app = express()
 const server = https.createServer({ key: key, cert: cert }, app);
 const port = 4000;
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   next()
@@ -59,7 +59,7 @@ app.get('/', (req, res) => {
   res.sendFile(join(directory, '/public/index.html'))
 })
 
-app.get('/public/targets/2.mind', function(req, res) {
+app.get('/public/targets/2.mind', function (req, res) {
   console.log(res)
 })
 
@@ -102,18 +102,21 @@ io.on('connection', (socket) => {
     'people',
     'image',
     'map',
+    'timeline',
   ]
   socket.emit('types', types)
 
   for (let type of types) {
     socket.on(type, async (msg) => {
+      console.log(`>> feature : ${type} <<`)
+
       if (type == 'images') {
         let links = await searchImages(res.text);
         socket.emit(type, links)
         return
       }
-      if(type==='people'){
-        console.log(type,msg);
+      if (type === 'people') {
+        console.log(type, msg);
         let res = await image_search({
           query: msg,
           moderate: true,
@@ -122,28 +125,34 @@ io.on('connection', (socket) => {
         });
         let duck = await getDuckDuckGoInfo(msg)
         // res = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Bret_Victor.png/330px-Bret_Victor.png'//res.slice(13,14)[0].image //6, 7 works
-        res = res.slice(1,2)[0].image //6, 7 works
-        msg = {text:msg, image:res, resp:duck}
+        res = res.slice(1, 2)[0].image //6, 7 works
+        msg = { text: msg, image: res, resp: duck }
         socket.emit(type, msg)
-        return 
+        return
       }
-      if(type==='image'){
-        console.log(type,msg);
+      if (type === 'image') {
+        console.log(type, msg);
         let res = await image_search({
           query: msg,
           moderate: true,
           iterations: 1,
           retries: 1
         });
-        res = res.slice(0,1)[0].image //6, 7 works
-        msg = {text:msg, image:res}
+        res = res.slice(0, 1)[0].image //6, 7 works
+        msg = { text: msg, image: res }
         socket.emit(type, msg)
-        return 
+        return
       }
-      if(type==='map'){
+      if (type === 'map') {
         socket.emit(type, msg)
-        return 
+        return
       }
+      if (type === 'timeline') {
+
+        socket.emit(type, "1. \n2. \n3.")
+        return
+      }
+
       let res = await ask(type, msg)
       // console.log(res)
       socket.emit(type, res)

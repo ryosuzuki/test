@@ -5,6 +5,7 @@ import Konva from 'konva';
 import Summary from './Summary';
 import {People} from './People'
 import {ImageBox} from './image'
+import Timeline from './Timeline';
 import { useSpeechRecognition } from './hooks/useSpeechRecognition';
 import { Socket } from 'socket.io-client';
 
@@ -83,11 +84,14 @@ class Canvas extends Component {
                 />
 
                 <People word={'taxonomy'} textAnnotations={this.props.state.people} relative={this.state.relativecoord} />
+
                 <ImageBox word={'taxonomy'} textAnnotations={this.props.state.image} relative={this.state.relativecoord} />
 
                 <Summary
                   text={this.props.state.summary}
                 />
+
+                <Timeline text={this.props.state.timeline}/>
               </Group>
             </Layer>
           </Stage>
