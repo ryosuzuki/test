@@ -129,6 +129,7 @@ io.on('connection', (socket) => {
     'image',
     'map',
     'timeline',
+    'matrix',
   ]
   socket.emit('types', types)
 
@@ -186,6 +187,22 @@ io.on('connection', (socket) => {
 [3] Quistorf SAR missions take place in mountains 
 [4] Drone involvement is logistically difficult 
 [5] Civil`
+        }
+        socket.emit(type, res)
+        return
+      }
+
+      if(type==='matrix'){
+        let res;
+        if (askchatgpt) {
+          console.log('asking chatgpt')
+          res = await ChatGPTLive("explain about potential benefits and challenges of using drones in SAR from the given text. give me json of comparison matrix without any explanation. keep it short. your output should be json without any other explanation or text. do not give any explanation or anything. json format should be {Object A: [differences], Object B: [differences]}. given Text: ")
+          console.log(res)
+        } else {
+          res = `{
+            "Benefits": ["Faster search and rescue operations", "Can access hard-to-reach areas", "Can cover large areas quickly", "Can operate in hazardous conditions"],
+            "Challenges": ["Limited flight time and range", "Dependent on weather conditions", "Require skilled operators", "Privacy concerns"]
+            }`;
         }
         socket.emit(type, res)
         return

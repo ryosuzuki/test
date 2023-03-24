@@ -14,6 +14,7 @@ class ChatGPT extends Component {
       'image',
       'map',
       'timeline',
+      'matrix',
     ]
     this.state = {
       types: types
@@ -237,7 +238,12 @@ class ChatGPT extends Component {
 
           case 'timeline':
             makeAllStatesNull()
+            console.log(res)
             App.setState({ timeline: res})
+            break;
+          case 'matrix':
+            makeAllStatesNull()
+            console.log(res)
             break;
         }
       })
