@@ -19,7 +19,9 @@ export function People(props: {
             <>
                 <Group x={props.relative} y={props.relative} >
                     {props.textAnnotations.map((textAnnotation, i) => {
-
+                        if(i!==props.textAnnotations.length-1){
+                            return <></>
+                        }
                         //ar authoring tools
                         const vertices = textAnnotation.boundingPoly.vertices;
 
