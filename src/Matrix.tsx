@@ -1,3 +1,4 @@
+//@ts-nocheck
 import Konva from "konva";
 import React, { useEffect, useRef, useState } from "react";
 import { Group, Text, Line, Rect } from "react-konva";
@@ -31,11 +32,11 @@ const Matrix = (props: {
     }, [props.data]);
 
     return (
-        props.data ? <Group>
+        props.data ? <Group x={0} y={400}>
             <Rect
                 x={0}
                 y={0}
-                width={320}
+                width={240}
                 height={totalHeight}
                 fill="white"
                 stroke="#555"
@@ -47,18 +48,18 @@ const Matrix = (props: {
                 shadowOffsetY={10}
                 shadowOpacity={0.2}
             />
-            <Line points={[160, 0, 160, totalHeight]} stroke="black" strokeWidth={1} />
-            <Text text="Benefits" fontSize={20} fontFamily="Arial" x={10} y={10} />
-            <Text text="Challenges" fontSize={20} fontFamily="Arial" x={180} y={10} />
+            <Line points={[120, 0, 120, totalHeight]} stroke="black" strokeWidth={1} />
+            <Text text="Benefits" fontSize={12} fontFamily="Arial" x={10} y={15} fontStyle={'bold'}/>
+            <Text text="Challenges" fontSize={12} fontFamily="Arial" x={130} y={15} fontStyle={'bold'}/>
 
             <Group ref={benefitsRef}>
                 {Object.values(props.data)[0].map((value, i) => (
-                    <Text key={i} text={value} fontSize={16} fontFamily="Arial" x={10} y={50 + i * 40} width={150} />
+                    <Text key={i} text={value} fontSize={10} fontFamily="Arial" x={10} y={40 + i * 30} width={100} />
                 ))}
             </Group>
             <Group ref={challengesRef}>
                 {Object.values(props.data)[1].map((value, i) => (
-                    <Text key={i} text={value} fontSize={16} fontFamily="Arial" x={180} y={50 + i * 40} width={150} />
+                    <Text key={i} text={value} fontSize={10} fontFamily="Arial" x={130} y={40 + i * 30} width={100} />
                 ))}
             </Group>
 
