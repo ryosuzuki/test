@@ -57,7 +57,7 @@ class ChatGPT extends Component {
         switch (type) {
           case 'summary':
             makeAllStatesNull()
-            App.setState({ summary: res.text })
+            App.setState({ summary: res })
             break;
 
           case 'image':
@@ -243,13 +243,14 @@ class ChatGPT extends Component {
             App.setState({ timeline: res})
             break;
           case 'matrix':
-            // makeAllStatesNull()s
+            makeAllStatesNull()
             console.log(res)
             let matrixjson = res
             App.setState({ matrix: matrixjson})
             console.log(matrixjson)
             break;
           case 'keywords':
+            makeAllStatesNull()
             App.setState({ keywords: res})
         }
       })
@@ -301,6 +302,7 @@ function makeAllStatesNull() {
     { state: 'image', type: 'array' },
     { state: 'timeline', type: 'string' },
     { state: 'matrix', type: 'obj' },
+    { state: 'keywords', type: 'string'}
   ]
   states.forEach((item) => {
     if (item.type === 'string') {

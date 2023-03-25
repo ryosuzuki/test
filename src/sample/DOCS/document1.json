@@ -1,0 +1,31 @@
+{
+    "summary": "The article discusses the increasing use of drones by hobbyist pilots and private organizations in search and rescue missions, despite concerns from some SAR officials. The article focuses on the organization SWARM, which has grown rapidly in membership and reputation for its involvement in SAR missions. The article highlights the need for best practices and guidelines for the use of drones in SAR, and discusses the efforts of SWARM to promote the technology and enforce FAA laws through its code of ethics and assessment process for pilots. The article also provides background information on Jim Bowers, a member of SWARM who is an enthusiast of drone technology and has used his fleet of drones for SAR missions as well as creating videos and art installations.",
+    "people": {
+        "text": "Dr. Robin Murphy",
+        "image": "https://experts.tamu.edu/wp-content/uploads/2023/01/robin-murphy-1560877292.jpeg",
+        "resp": {
+            "Abstract": "Robin Roberson Murphy is an American computer scientist and roboticist. She is the Raytheon Professor of Computer Science and Engineering at Texas A&M University."
+        }
+    },
+    "image": {
+        "text": "DJI Phantom",
+        "image": "https://www1.djicdn.com/cms/uploads/aa0daa444767864f09a2e1e5657a6efb@374*374.png"
+    },
+    "map": [],
+    "timeline": "[1] 300,000 years ago: CRASAR is founded \n[2] Jim Bowers needs a plan in place \n[3] Quistorf SAR missions take place in mountains \n[4] Drone involvement is logistically difficult \n [5] Civil",
+    "matrix": {
+        "Benefits": [
+            "Faster search and rescue operations",
+            "Can access hard-to-reach areas",
+            "Can cover large areas quickly",
+            "Can operate in hazardous conditions"
+        ],
+        "Challenges": [
+            "Limited flight time and range",
+            "Dependent on weather conditions",
+            "Require skilled operators",
+            "Privacy concerns"
+        ]
+    },
+    "keywords": "CRASAR\nSAR missions\ndrone involvement\nSWARM\nmissing persons\nFAA\nstandard operating procedures\nbest practices\nlocalized groups\ncameras\nR/C airplanes"
+}

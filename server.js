@@ -63,9 +63,12 @@ const app = express()
 const server = https.createServer({ key: key, cert: cert }, app);
 const port = 4000;
 
+let docContent = {}
+
 app.use(function (req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  res.setHeader('Acces-Control-Allow-Origin','*');
+  res.setHeader('Acces-Control-Allow-Methods','GET,POST,PUT,PATCH,DELETE');
+  res.setHeader('Acces-Contorl-Allow-Methods','Content-Type','Authorization');
   next()
 })
 
@@ -107,6 +110,8 @@ io.on('connection', (socket) => {
   socket.on('currentTestingDoc', (id) => {
     currentTestingDoc = id
     console.log("Testing Document ID: " + currentTestingDoc)
+    docContent = getJson(`src/sample/DOCS/document${currentTestingDoc}.json`)
+    console.log(docContent)
   })
 
   socket.on('run_ocr', (msg) => {
@@ -144,30 +149,32 @@ io.on('connection', (socket) => {
         return
       }
       if (type === 'people') {
-        console.log(type, msg);
-        let res = await image_search({
-          query: msg,
-          moderate: true,
-          iterations: 1,
-          retries: 1
-        });
-        let duck = await getDuckDuckGoInfo(msg)
-        // res = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Bret_Victor.png/330px-Bret_Victor.png'//res.slice(13,14)[0].image //6, 7 works
-        res = res.slice(1, 2)[0].image //6, 7 works
-        msg = { text: msg, image: res, resp: duck }
+        // let res = await image_search({
+        //   query: msg,
+        //   moderate: true,
+        //   iterations: 1,
+        //   retries: 1
+        // });
+        // let duck = await getDuckDuckGoInfo(msg)
+        // // res = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Bret_Victor.png/330px-Bret_Victor.png'//res.slice(13,14)[0].image //6, 7 works
+        // res = res.slice(1, 2)[0].image //6, 7 works
+        // msg = { text: msg, image: res, resp: duck }
+        msg = docContent.people
+        console.log(msg.resp.Abstract);
         socket.emit(type, msg)
         return
       }
       if (type === 'image') {
+        // let res = await image_search({
+          //   query: msg,
+          //   moderate: true,
+          //   iterations: 1,
+          //   retries: 1
+          // });
+          // res = res.slice(0, 1)[0].image //6, 7 works
+          // msg = { text: msg, image: res }
+        msg = docContent.image
         console.log(type, msg);
-        let res = await image_search({
-          query: msg,
-          moderate: true,
-          iterations: 1,
-          retries: 1
-        });
-        res = res.slice(0, 1)[0].image //6, 7 works
-        msg = { text: msg, image: res }
         socket.emit(type, msg)
         return
       }
@@ -181,71 +188,41 @@ io.on('connection', (socket) => {
           console.log('asking chatgpt')
           // res = await ChatGPTLive("create a timeline for this text. your result should be text with line breaks. don't print any explanation or text: ")
         } else {
-          res = `
-
-[1] 300,000 years ago: CRASAR is founded 
-[2] Jim Bowers needs a plan in place 
-[3] Quistorf SAR missions take place in mountains 
-[4] Drone involvement is logistically difficult 
-[5] Civil`
+          res = docContent.timeline
         }
+        
         socket.emit(type, res)
         return
       }
 
-      if(type==='matrix'){
+      if (type === 'matrix') {
         let res;
         if (askchatgpt) {
           console.log('asking chatgpt')
           // res = await ChatGPTLive("explain about potential benefits and challenges of using drones in SAR from the given text. give me json of comparison matrix without any explanation. keep it short. your output should be json without any other explanation or text. do not give any explanation or anything. json format should be {Object A: [differences], Object B: [differences]}. given Text: ")
           console.log(res)
         } else {
-          res = {
-            Benefits: [
-              "Faster search and rescue operations",
-              "Can access hard-to-reach areas",
-              "Can cover large areas quickly",
-              "Can operate in hazardous conditions",
-            ],
-            Challenges: [
-              "Limited flight time and range",
-              "Dependent on weather conditions",
-              "Require skilled operators",
-              "Privacy concerns",
-            ]
-          };
+          res = docContent.matrix;
         }
         socket.emit(type, res)
         return
       }
 
-      if(type==='keywords'){
+      if (type === 'keywords') {
         let res;
-        if(askchatgpt){
+        if (askchatgpt) {
 
-        }else{
-          res = `CRASAR
-SAR missions
-drone involvement
-SWARM
-missing persons
-FAA
-standard operating procedures
-best practices
-localized groups
-cameras
-R/C airplanes
-Burning Man
-daffodils
-sardrones.org`
+        } else {
+          res = docContent.keywords
           socket.emit(type, res)
           return
         }
       }
 
-      let res = await ask(type, msg)
-      // console.log(res)
-      socket.emit(type, res)
+      if(type == 'summary') {
+        let res = docContent.summary
+        socket.emit(type, res)
+      }
     })
   }
 })
@@ -254,7 +231,6 @@ async function ask(type, msg) {
   // let res = await api.sendMessage(msg)
   // saveJson('sample/summary.json', msg)
   let res = getJson(`src/sample/${type}/${currentTestingDoc}.json`)
-  // console.log(res)
   return res
 }
 
