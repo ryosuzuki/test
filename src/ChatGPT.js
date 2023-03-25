@@ -15,6 +15,7 @@ class ChatGPT extends Component {
       'map',
       'timeline',
       'matrix',
+      'keywords'
     ]
     this.state = {
       types: types
@@ -248,6 +249,8 @@ class ChatGPT extends Component {
             App.setState({ matrix: matrixjson})
             console.log(matrixjson)
             break;
+          case 'keywords':
+            App.setState({ keywords: res})
         }
       })
     }

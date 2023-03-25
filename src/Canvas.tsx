@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Stage, Layer, Rect, Text, Line, Group, Circle, Path } from 'react-konva';
 import Konva from 'konva';
 import Summary from './Summary';
+import KeyWords from './KeyWords';
 import Matrix from './Matrix';
 import {People} from './People'
 import {ImageBox} from './image'
@@ -94,6 +95,7 @@ class Canvas extends Component {
                 <Matrix data={this.props.state.matrix} />
 
                 <Timeline text={this.props.state.timeline}/>
+                <KeyWords text = {this.props.state.keywords}/>
               </Group>
             </Layer>
           </Stage>

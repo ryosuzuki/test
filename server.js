@@ -130,6 +130,7 @@ io.on('connection', (socket) => {
     'map',
     'timeline',
     'matrix',
+    'keywords',
   ]
   socket.emit('types', types)
 
@@ -216,6 +217,30 @@ io.on('connection', (socket) => {
         }
         socket.emit(type, res)
         return
+      }
+
+      if(type==='keywords'){
+        let res;
+        if(askchatgpt){
+
+        }else{
+          res = `CRASAR
+SAR missions
+drone involvement
+SWARM
+missing persons
+FAA
+standard operating procedures
+best practices
+localized groups
+cameras
+R/C airplanes
+Burning Man
+daffodils
+sardrones.org`
+          socket.emit(type, res)
+          return
+        }
       }
 
       let res = await ask(type, msg)

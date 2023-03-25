@@ -37,7 +37,8 @@ class App extends Component {
       raycaster: new THREE.Raycaster(),
       people: [],
       image: [],
-      matrix:null
+      matrix:null,
+      keywords:''
     }
     this.strokeColor = '#002f2b'
     this.fillColor = '#004842'
