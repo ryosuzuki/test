@@ -11,7 +11,7 @@ AFRAME.registerComponent('drawing-plane', {
   tick: () => { }
 })
 
-const isCameraOn = false
+const isCameraOn = true
 
 class App extends Component {
   constructor(props) {
@@ -80,7 +80,7 @@ class App extends Component {
     return
   }
 
-  
+
     
   render() {
     // Update your https://IP:PORT here
@@ -109,9 +109,9 @@ class App extends Component {
         {!isCameraOn ? '' :
           <a-scene
             mindar-image={target}
-            embedded color-space="sRGB"
-            renderer="colorManagement: true, physicallyCorrectLights"
-            vr-mode-ui="enabled: false"
+            // embedded color-space="sRGB"
+            // renderer="colorManagement: true, physicallyCorrectLights"
+            vr-mode-ui="enabled: true"
             device-orientation-permission-ui="enabled: false"
           >
             <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
