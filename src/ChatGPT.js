@@ -17,6 +17,7 @@ class ChatGPT extends Component {
       'matrix',
       'keywords',
     'phrase_summary',
+    'keyword_summary',
     ]
     this.state = {
       types: types
@@ -176,6 +177,7 @@ class ChatGPT extends Component {
               App.setState({ image: thetextAnnotations })
             })
             break;
+          case 'keyword_summary':
           case 'phrase_summary':
           case 'people':
             console.log(res)
@@ -190,7 +192,7 @@ class ChatGPT extends Component {
               ocr.textAnnotations.forEach((item) => {
                 wordsArr.push(item.description)
               });
-              let matches = checkConsecutiveWords(vocabs, wordsArr);
+              let matches = checkConsecutiveWords(vocabs, wordsArr, type);
               console.log(matches);
 
               let finalMatches = [];
@@ -277,14 +279,14 @@ class ChatGPT extends Component {
 
 export default ChatGPT;
 
-function checkConsecutiveWords(json, words) {
+function checkConsecutiveWords(json, words, type) {
   const matches = [];
   const matchesIndex = []
   for (let i = 0; i < words.length - 1; i++) {
     let phrase = words[i];
     for (let j = i + 1; j < i + 6; j++) {
       phrase += ' ' + words[j];
-      let match = searchJsonForPhrase(json, phrase)
+      let match = searchJsonForPhrase(json, phrase, type)
       if (match) {
         matchesIndex.push(i)
         matches.push({
@@ -329,11 +331,17 @@ function makeAllStatesNull() {
   console.log(App.state)
 }
 
-function searchJsonForPhrase(json, phrase) {
+function searchJsonForPhrase(json, phrase, type) {
   const data = json
   for (const key in data) {
-    if (phrase.toLocaleLowerCase().includes(key.toLocaleLowerCase())) {
-      return key;
+    if(type==='phrase_summary'){
+      if (phrase.toLocaleLowerCase().includes(key.toLocaleLowerCase())) {
+        return key;
+      }
+    }else{
+      if (phrase.toLocaleLowerCase()===key.toLocaleLowerCase()) {
+        return key;
+      }
     }
   }
   return null;

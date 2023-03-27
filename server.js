@@ -137,6 +137,7 @@ io.on('connection', (socket) => {
     'matrix',
     'keywords',
     'phrase_summary',
+    "keyword_summary"
   ]
   socket.emit('types', types)
 
@@ -167,6 +168,11 @@ io.on('connection', (socket) => {
       if (type === 'phrase_summary') {
         msg = docContent.phrase_summary
         socket.emit(type, msg)
+        return
+      }
+      if(type==="keyword_summary"){
+        msg = docContent.keyword_summary
+        socket.emit(type,msg)
         return
       }
       if (type === 'image') {
