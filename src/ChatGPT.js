@@ -15,7 +15,8 @@ class ChatGPT extends Component {
       'map',
       'timeline',
       'matrix',
-      'keywords'
+      'keywords',
+    'phrase_summary',
     ]
     this.state = {
       types: types
@@ -175,8 +176,9 @@ class ChatGPT extends Component {
               App.setState({ image: thetextAnnotations })
             })
             break;
-
+          case 'phrase_summary':
           case 'people':
+            console.log(res)
             let obj = { image: res.image, desc: res.resp.Abstract, title: res.text }
             console.log(obj);
             let jsn = `{\"${res.text}\": \"${obj.desc}\"}`;
@@ -330,8 +332,7 @@ function makeAllStatesNull() {
 function searchJsonForPhrase(json, phrase) {
   const data = json
   for (const key in data) {
-    const value = data[key];
-    if (key.toLocaleLowerCase()===phrase.toLocaleLowerCase()) {
+    if (phrase.toLocaleLowerCase().includes(key.toLocaleLowerCase())) {
       return key;
     }
   }

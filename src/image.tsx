@@ -48,7 +48,7 @@ export function ImageBox(props: {
                             // 1024 is size
                             cardx = (props.relative + 1024) - cardwidth - 10;
                             linex = highlightx + highlightwidth;
-                            linewidth = (linewidth - (cardwidth / 2 + 10))
+                            linewidth = (1024-highlightx ) - cardwidth
                         }
 
                         return (

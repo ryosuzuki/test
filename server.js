@@ -136,6 +136,7 @@ io.on('connection', (socket) => {
     'timeline',
     'matrix',
     'keywords',
+    'phrase_summary',
   ]
   socket.emit('types', types)
 
@@ -160,7 +161,11 @@ io.on('connection', (socket) => {
         // res = res.slice(1, 2)[0].image //6, 7 works
         // msg = { text: msg, image: res, resp: duck }
         msg = docContent.people
-        console.log(msg.resp.Abstract);
+        socket.emit(type, msg)
+        return
+      }
+      if (type === 'phrase_summary') {
+        msg = docContent.phrase_summary
         socket.emit(type, msg)
         return
       }
