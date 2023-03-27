@@ -47,7 +47,7 @@ export function People(props: {
                             // 1024 is size
                             cardx = (props.relative + 1024) - cardwidth - 10;
                             linex = highlightx + highlightwidth;
-                            linewidth = (linewidth - (cardwidth / 2 + 10))
+                            linewidth = (1024-highlightx ) - cardwidth
                         }
 
                         return (
@@ -56,23 +56,22 @@ export function People(props: {
                                 {/* highlight */}
                                 <Rect
                                     x={highlightx}
-                                    y={highlighty}
+                                    y={highlighty-5}
                                     width={highlightwidth}
-                                    height={highlightheight}
-                                    strokeWidth={8}
-                                    stroke={'#002f2b'}
-                                    fill={'rgba(0, 28, 26, 0.4)'}
+                                    height={highlightheight+5}
+                                    fill={'rgb(0 26 255 / 20%)'}
                                     rotation={0}
                                     draggable
                                 />
 
                                 {/* Line */}
                                 <Rect
-                                    x={linex}
-                                    y={liney}
+                                    x={linex-10}
+                                    y={liney-5}
                                     width={linewidth}
+                                    cornerRadius={4}
                                     height={lineheight}
-                                    fill={'rgba(0, 28, 26, 0.4)'}
+                                    fill={'rgba(0, 0, 0, 0.2)'}
                                 />
 
                                 {/* card */}

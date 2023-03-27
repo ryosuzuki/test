@@ -9,8 +9,8 @@ function KeyWords(props:{text:string}) {
       {props.text!==''&&<RectanglWithText 
       x={10}
       y={400}
-      width={250}
-      textWidth={220}
+      width={180}
+      textWidth={150}
       heading={'Key Words'}
       description={props.text}
       />}

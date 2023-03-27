@@ -32,7 +32,7 @@ const Matrix = (props: {
     }, [props.data]);
 
     return (
-        props.data ? <Group x={0} y={400}>
+        props.data ? <Group x={700} y={100}>
             <Rect
                 x={0}
                 y={0}

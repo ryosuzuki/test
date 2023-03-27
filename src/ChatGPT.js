@@ -282,11 +282,12 @@ function checkConsecutiveWords(json, words) {
     let phrase = words[i];
     for (let j = i + 1; j < i + 6; j++) {
       phrase += ' ' + words[j];
-      if (searchJsonForPhrase(json, phrase)) {
+      let match = searchJsonForPhrase(json, phrase)
+      if (match) {
         matchesIndex.push(i)
         matches.push({
           key: phrase,
-          value: json[phrase],
+          value: json[match],
           index: i
         });
       }
@@ -330,11 +331,11 @@ function searchJsonForPhrase(json, phrase) {
   const data = json
   for (const key in data) {
     const value = data[key];
-    if (key.toLowerCase().includes(phrase.toLowerCase())) {
-      return true;
+    if (key.toLocaleLowerCase()===phrase.toLocaleLowerCase()) {
+      return key;
     }
   }
-  return false;
+  return null;
 }
 
 function getInfoFromDuckDUckGO(query) {
